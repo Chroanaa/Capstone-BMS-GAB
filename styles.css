@@ -64,14 +64,6 @@ body::before {
   background-color: #1c6ea4;
   border-radius: 10px;
 }
-@media (max-width: 991.98px) {
-  .navbar .navbar-nav li a {
-    font-size: 22px; /* Adjust the font size for smaller screens */
-    padding: 10px 15px; /* Adjust the padding for smaller screens */
-    text-shadow: 1px 1px 1px #1c6ea4;
-    width: 30%;
-  }
-}
 
 .content {
   text-align: center;
@@ -162,4 +154,15 @@ body::before {
 }
 .service-item:nth-child(9) {
   animation-delay: 1.8s;
+}
+@media (max-width: 991.98px) {
+  .navbar .navbar-nav li a {
+    font-size: 22px; /* Adjust the font size for smaller screens */
+    padding: 10px 15px; /* Adjust the padding for smaller screens */
+    text-shadow: 1px 1px 1px #1c6ea4;
+    width: 30%;
+  }
+  .header .title{
+    font: 5em roboto;
+  }
 }
