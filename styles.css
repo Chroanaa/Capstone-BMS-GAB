@@ -166,3 +166,16 @@ body::before {
     font: 5em roboto;
   }
 }
+
+ .signature-box {
+            border-top: 2px solid black;
+            margin-bottom: 10px;
+            height: 40px;
+        }
+        .label-over {
+            position: relative;
+            top: -30px;
+            left: 10px;
+            background: white;
+            padding: 0 5px;
+        }
