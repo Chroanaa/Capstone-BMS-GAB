@@ -66,15 +66,15 @@
                     <a class="nav-link active" data-bs-toggle="tab" href="#home">Resident Details</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-bs-toggle="tab" href="#menu1">Certifactes/Permits/Id</a>
+                    <a class="nav-link" data-bs-toggle="tab" href="#menu1">Certificates/Permits/ID</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" data-bs-toggle="tab" href="#menu2">Signature</a>
                   </li>
                 </ul>
-                <div class="tab-content">
-                  <div id="home" class="container tab-pane active"><br>
-                    <form class="form-signin" method="POST">
+                <form action="../controller/addUserRequest.php" method="post">
+                  <div class="tab-content">
+                    <div id="home" class="container tab-pane active"><br>
                       <div class="form-label-group">
                         <label for="inputName">Full name of APPLICANT:</label>
                         <input
@@ -112,8 +112,8 @@
                         </div>
                         <div class="col">
                           <div class="form-label-group">
-                            <label for="street">To:</label>
-                            <input type="text" id="street" name="street" class="form-control">
+                            <label for="to">To:</label>
+                            <input type="text" id="to" name="to" class="form-control">
                           </div>
                         </div>
                       </div>
@@ -127,7 +127,7 @@
                         <div class="col">
                           <div class="form-label-group">
                             <label for="Age">Age:</label>
-                            <input type="text" id="Age" name="Age" class="form-control" disabled>
+                            <input type="text" id="Age" name="Age" class="form-control">
                           </div>
                         </div>
                       </div>
@@ -137,25 +137,25 @@
                       </div>
                       <div class="form-label-group">
                         <label for="Contact number">Contact number:</label>
-                        <input type="text" id="Contact number" name="Contact number" class="form-control">
+                        <input type="text" id="Contactnumber" name="Contactnumber" class="form-control">
                       </div>
                       <div class="form-label-group">
                         <span><b>Sex:</b></span>
                         <input type="radio" id="Male" name="sex" value="Male">
-                        <label for="html">Male</label>
+                        <label for="Male">Male</label>
                         <input type="radio" id="Female" name="sex" value="Female">
-                        <label for="html">Female</label>
+                        <label for="Female">Female</label>
                       </div>
                       <div class="form-label-group">
                         <span><b>Civil Status:</b></span>
-                        <input type="radio" id="Single" name="Civil status" value="single">
-                        <label for="html">Single</label>
-                        <input type="radio" id="Separated" name="Civil status" value="seperated">
-                        <label for="html">Seprated</label>
-                        <input type="radio" id="Married" name="Civil status" value="Married">
-                        <label for="html">Married</label>
-                        <input type="radio" id="Widow" name="Civil status" value="Widow">
-                        <label for="html">Widow</label>
+                        <input type="radio" id="Single" name="Civilstatus" value="single">
+                        <label for="Single">Single</label>
+                        <input type="radio" id="Separated" name="Civilstatus" value="separated">
+                        <label for="Separated">Separated</label>
+                        <input type="radio" id="Married" name="Civilstatus" value="Married">
+                        <label for="Married">Married</label>
+                        <input type="radio" id="Widow" name="Civilstatus" value="Widow">
+                        <label for="Widow">Widow</label>
                       </div>
                       <div class="form-label-group">
                         <label for="Purpose">Purpose:</label>
@@ -172,66 +172,60 @@
                           <option value="Medical Assistance">Medical Assistance</option>
                         </select>
                       </div>
-                    </form>
-                  </div>
-                  <div id="menu1" class="container tab-pane fade"><br>
-                    <div class="form-label-group">
-                      <input type="checkbox" name="Certifiacte_of_Residency" id="Certifiacte_of_Residency" value="Certifiacte_of_Residency">
-                      <label for="Certifiacte_of_Residency">Certifiacte of Residency</label>
                     </div>
-                    <div class="form-label-group">
-                      <input type="checkbox" name="Barangay_clearance" id="Barangay_clearance" value="Barangay_clearance">
-                      <label for="Barangay_clearance">Barangay clearance</label>
+                    <div id="menu1" class="container tab-pane fade"><br>
+                      <div class="form-label-group">
+                        <input type="checkbox" name="documents[]" id="Barangay_clearance" value="Barangay_clearance">
+                        <label for="Barangay_clearance">Barangay clearance</label>
+                      </div>
+                      <div class="form-label-group">
+                        <input type="checkbox" name="documents[]" id="Certificate_of_indigency" value="Certificate_of_indigency">
+                        <label for="Certificate_of_indigency">Certificate of indigency</label>
+                      </div>
+                      <div class="form-label-group">
+                        <input type="checkbox" name="documents[]" id="Barangay_id" value="Barangay_id">
+                        <label for="Barangay_id">Barangay Id</label>
+                      </div>
+                      <div class="form-label-group">
+                        <input type="checkbox" name="documents[]" id="Certifiacte_of_ownership" value="Certifiacte_of_ownership">
+                        <label for="Certifiacte_of_ownership">Certificate of ownership</label>
+                      </div>
+                      <div class="form-label-group">
+                        <input type="checkbox" name="documents[]" id="Certifiacte_of_livebirth" value="Certifiacte_of_livebirth">
+                        <label for="Certifiacte_of_livebirth">Certificate of Live birth</label>
+                      </div>
+                      <div class="form-label-group">
+                        <input type="checkbox" name="documents[]" id="Certifiacte_of_Guardianship" value="Certifiacte_of_Guardianship">
+                        <label for="Certifiacte_of_Guardianship">Certificate of Guardianship</label>
+                      </div>
+                      <div class="form-label-group">
+                        <input type="checkbox" name="documents[]" id="Health_certificate" value="Health_certificate">
+                        <label for="Health_certificate">Health Certificate</label>
+                      </div>
+                      <div class="form-label-group">
+                        <input type="checkbox" name="documents[]" id="FirstTime_Job_Seeker" value="FirstTime_Job_Seeker">
+                        <label for="FirstTime_Job_Seeker">First-Time Job Seeker</label>
+                      </div>
                     </div>
-                    <div class="form-label-group">
-                      <input type="checkbox" name="Certificate_of_indigency" id="Certificate_of_indigency" value="Certificate_of_indigency">
-                      <label for="Certificate_of_indigency">Certificate of indigency</label>
-                    </div>
-                    <div class="form-label-group">
-                      <input type="checkbox" name="Barangay_id" id="Barangay_id" value="Barangay_id">
-                      <label for="Barangay_id">Barangay Id</label>
-                    </div>
-                    <div class="form-label-group">
-                      <input type="checkbox" name="Certifiacte_of_ownership" id="Certifiacte_of_ownership" value="Certifiacte_of_ownership">
-                      <label for="Certifiacte_of_ownership">Certifiacte of ownership</label>
-                    </div>
-                    <div class="form-label-group">
-                      <input type="checkbox" name="Certifiacte_of_livebirth" id="Certifiacte_of_livebirth" value="Certifiacte_of_livebirth">
-                      <label for="Certifiacte_of_livebirth">Certifiacte of Live birth</label>
-                    </div>
-                    <div class="form-label-group">
-                      <input type="checkbox" name="Certifiacte_of_Guardianship" id="Certifiacte_of_Guardianship" value="Certifiacte_of_Guardianship">
-                      <label for="Certifiacte_of_Guardianship">Certificate of Guardianship</label>
-                    </div>
-                    <div class="form-label-group">
-                      <input type="checkbox" name="Health_certificate" id="Health_certificate" value="Health_certificate">
-                      <label for="Health_certificate">Health Certificate</label>
-                    </div>
-                    <div class="form-label-group">
-                      <input type="checkbox" name="FirstTime_Job_Seeker" id="FirstTime_Job_Seeker" value="FirstTime_Job_Seeker">
-                      <label for="FirstTime_Job_Seeker">First-Time Job Seeker</label>
-                    </div>
-                  </div>
-                  <div id="menu2" class="container tab-pane fade"><br>
-                    <h3>Certified true and Correct</h3>
-                    <div class="container mt-5">
-                      <form>
+                    <div id="menu2" class="container tab-pane fade"><br>
+                      <h3>Certified true and Correct</h3>
+                      <div class="container mt-5">
                         <div class="mb-4">
                           <canvas></canvas>
                           <div class="signature-box"></div>
-                          <button class="clear">Clear</button>
+                          <button type="button" class="clear">Clear</button>
                           <div class="text-center">Signature </div>
                           <div class="text-muted text-center">Applicant</div>
                         </div>
                         <div class="mb-3">
                           <span>Date:</span>
                           <h4 class="dateToday"></h4>
+                          <button type="submit" name="submit" id="submitBtn" class="btn btn-primary">Submit</button>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                      </form>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>
@@ -246,8 +240,10 @@
       const dateToday = document.querySelector(".dateToday");
       const clear = document.querySelector(".clear");
       const Age = document.getElementById("Age");
+      const form = document.querySelector("form");
       dateToday.innerHTML = new Date().toLocaleDateString();
-
+      const submit = document.getElementById("submitBtn");
+    
       dateOfBirth.addEventListener("input", function() { 
         const today = new Date();
         const birthDate = new Date(dateOfBirth.value);
