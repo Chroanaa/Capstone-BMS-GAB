@@ -166,7 +166,12 @@ body::before {
     font: 5em roboto;
   }
 }
-
+.login-btn-container{
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin-top: 20px !important;
+}
  .signature-box {
             border-top: 2px solid black;
             margin-bottom: 10px;
