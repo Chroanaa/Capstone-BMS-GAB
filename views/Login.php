@@ -26,14 +26,14 @@
             <div class="card card-signin my-5">
               <div class="card-body">
                 <h3 class="card-title">Log in</h3>
-                   <form action="">
+                   <form action="../controller/loginController.php" method = "post">
                    <div class="form-label-group">
                       <label for="username">Username:</label>
-                        <input type="text" id="username" class="form-control" placeholder="Username" required autofocus>
+                        <input type="text" id="username" class="form-control" name = "username" placeholder="Username" required autofocus>
                     </div>
                     <div class="form-label-group">
                       <label for="username">Password:</label>
-                        <input type="password" id="Password" class="form-control" placeholder="Password" required autofocus>
+                        <input type="password" id="Password" name = "password" class="form-control" placeholder="Password" required autofocus>
                     </div>
                     <a href="SignUp.php" style = "text-align:center">Dont have an account? sign up here</a>
 

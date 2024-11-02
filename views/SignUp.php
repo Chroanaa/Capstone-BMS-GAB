@@ -29,7 +29,7 @@
               <div class="card-body">
                 <h5 class="card-title text-center">Sign Up</h5>
                
-                <form action="../controller/addUserRequest.php" method="post">
+                <form action="../controller/signUpController.php" method="post">
                   <div class="tab-content">
                     <div id="home" class="container tab-pane active"><br>
                       <div class="form-label-group">
@@ -116,11 +116,11 @@
                       </div>
                       <div class="form-label-group">
                       <label for="username">Username:</label>
-                        <input type="text" id="username" class="form-control" placeholder="Username" required autofocus>
+                        <input type="text" id="username" name = "username" class="form-control" placeholder="Username" required autofocus>
                     </div>
                     <div class="form-label-group">
                       <label for="username">Password:</label>
-                        <input type="password" id="Password" class="form-control" placeholder="Password" required autofocus>
+                        <input type="password" name = "password" id="Password" class="form-control" placeholder="Password" required autofocus>
                     </div>
                     <div class="login-btn-container">
                         <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" id ="submitBtn">Register</button>
@@ -147,12 +147,7 @@
       const submit = document.getElementById("submitBtn");
       const sex = document.querySelector("input[name=sex]:checked");
       const civilStatus = document.querySelector("input[name=Civilstatus]:checked");
-      submit.addEventListener("click", function(e){
-        if(sex === null || civilStatus === null){
-          alert(`Please select ${sex ? "civil status":"Sex"}`);
-          return
-        }
-      })
+    
       dateOfBirth.addEventListener("input", function() { 
         const today = new Date();
         const birthDate = new Date(dateOfBirth.value);
@@ -162,10 +157,17 @@
           Age.value = "";
           return;
         }
+        
         let age = today.getFullYear() - birthDate.getFullYear();
         const monthDiff = today.getMonth() - birthDate.getMonth();
         if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
           age--;
+        }
+        if(age > 100) {
+          alert("Invalid date of birth");
+          dateOfBirth.value = "";
+          Age.value = "";
+          return;
         }
         document.getElementById("Age").value = age;
       });
