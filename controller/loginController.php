@@ -1,4 +1,6 @@
 <?php 
+session_start();
+
 include ('../databaseconn/connection.php');
 $userCreds_conn = $GLOBALS['userCreds_conn'];
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -16,7 +18,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $count = $stmt->rowCount();
     if($count > 0){
         header('Location: ../views/services.php');
-        exit();
+        $_SESSION['session'] = $user['id'] ?? 'null';
+      
     }else{
         header('Location: ../views/Login.php?error=true');
     }

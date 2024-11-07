@@ -1,5 +1,5 @@
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelector('#header').innerHTML = `
+export function header(isLoggedIn) {
+  document.querySelector("#header").innerHTML = `
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <button
         class="navbar-toggler bg-light"
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" href="./index.html"
+            <a class="nav-link" href="./index.php"
               >Home <i class="bi bi-house-fill"></i
             ></a>
           </li>
@@ -39,13 +39,23 @@ document.addEventListener('DOMContentLoaded', function() {
               >About us <i class="bi bi-person-lines-fill"></i
             ></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="Login.php"
-              >Login<i class="bi bi-person-plus-fill"></i
-            ></a>
-          </li>
+           ${
+             isLoggedIn
+               ? `
+             <li class='nav-item'>
+                <a class='nav-link' href='Login.php'>
+                  Account<i class='bi bi-person-plus-fill'></i>
+                </a>
+              </li>
+            `
+               : `<li class='nav-item'>
+                <a class='nav-link' href='Login.php'>
+                  Login<i class='bi bi-person-plus-fill'></i>
+                </a>
+              </li>`
+           }
         </ul>
       </div>
     </nav>
-`
-});
+`;
+}

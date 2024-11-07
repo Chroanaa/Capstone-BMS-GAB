@@ -1,9 +1,7 @@
 <?php
 session_start();
-function isLoggedIn(){
-  return false;
-}
-$LoggedIn = isLoggedIn();
+$loginSession = $_SESSION['session'];
+
 ?>
 
 <!DOCTYPE html>
@@ -44,21 +42,22 @@ $LoggedIn = isLoggedIn();
            $arr = ['Certificate of Indigency', 'Barangay Clearance', 'Business Permit', 
            'First-Time Job Seeker', 'Barangay ID', 'Certificate of Late Live Birth', 'Certificate of Guardianship','Health Certificate'];
             foreach($arr as $item){
-              $link = $LoggedIn ? "forUserOrOthers.html" : "Login.php?error=MustBeLoggedIn";
               echo "<li class='service-item'>
-              <a class='bg-light p-4 rounded-pill text-black text-decoration-none' href=$link>$item</a>
+              <a class='bg-light p-4 rounded-pill text-black text-decoration-none' href=''>$item</a>
             </li>";
             }
            ?>
         </ul>
       </div>
     </div>
-    <!-- Bootstrap JS and dependencies -->
-    <script src = "header.js"></script>
-   
+    <!-- Bootstrap JS and dependencies -->   
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="module" >
+      import {header} from './header.js';
+      header(<?php $_SESSION['session']?>);
+    </script>
   </body>
 </html>

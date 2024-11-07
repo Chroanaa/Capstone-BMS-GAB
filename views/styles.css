@@ -162,25 +162,27 @@ body::before {
     text-shadow: 1px 1px 1px #1c6ea4;
     width: 30%;
   }
-  .header .title{
+  .header .title {
     font: 5em roboto;
   }
 }
-.login-btn-container{
+.login-btn-container {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
   margin-top: 20px !important;
 }
- .signature-box {
-            border-top: 2px solid black;
-            margin-bottom: 10px;
-            height: 40px;
-        }
-        .label-over {
-            position: relative;
-            top: -30px;
-            left: 10px;
-            background: white;
-            padding: 0 5px;
-        }
+.signature-box {
+  border-top: 2px solid black;
+  margin-bottom: 10px;
+  height: 40px;
+}
+.label-over {
+  position: relative;
+  top: -30px;
+  left: 10px;
+  background: white;
+  padding: 0 5px;
+}
+
+/* FORMS CSS */

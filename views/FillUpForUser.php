@@ -1,3 +1,8 @@
+<?php
+session_start();
+$loginSession = $_SESSION['session'];
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -111,13 +116,13 @@
         </div>
       </div>
     </main>
-    <script src="header.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
-    <script>
+    <script type="module">
+   import { header } from "./Header.js";
       const dateOfBirth = document.getElementById("date"); 
       const dateToday = document.querySelector(".dateToday");
       const clear = document.querySelector(".clear");
@@ -125,7 +130,7 @@
       const form = document.querySelector("form");
       dateToday.innerHTML = new Date().toLocaleDateString();
       const submit = document.getElementById("submitBtn");
-    
+      header(false);
       dateOfBirth.addEventListener("input", function() { 
         const today = new Date();
         const birthDate = new Date(dateOfBirth.value);

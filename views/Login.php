@@ -1,3 +1,11 @@
+<?php
+session_start();
+$loginSession = $_SESSION['session'];
+
+if($loginSession){
+    header('Location: services.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,11 +26,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css?=time()?>" />
 </head>
-<style>
-  #header{
-    backround-color: white;
-  }
-</style>
+
 <body>
    <div id="header"></div>
   <div class="container">
@@ -51,8 +55,9 @@
        </div>
      </div>
   </div>
-  <script src="header.js"></script> 
-  <script>
+  <script type="module">
+    import {header} from './header.js';
+    header(false);
     const params = new URLSearchParams(window.location?.search);
     const error = params.get('error');
     if(error){

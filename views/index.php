@@ -1,4 +1,9 @@
-<!doctype html>
+<?php
+session_start();
+$loginSession = $_SESSION['session'];
+
+?>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -20,7 +25,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-   <div id="header"></div>
+    <div id="header"></div>
     <div class="header">
       <h1 style="font-family: Impact, Charcoal, sans-serif">WELCOME</h1>
       <h2 style="font-family: Impact, Charcoal, sans-serif">
@@ -48,9 +53,12 @@
       </div>
     </div>
     <!-- Bootstrap JS and dependencies -->
-    <script src="header.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="module">
+      import { header } from "./header.js";
+      header(false);
+    </script>
   </body>
 </html>
