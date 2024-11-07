@@ -10,7 +10,6 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  position: relative;
 }
 
 body::before {
@@ -39,10 +38,10 @@ body::before {
 }
 .navbar {
   position: absolute;
-  top: 20px;
+  top: 0;
   left: 0;
   width: 100%;
-  margin: 0;
+  margin-top: 25px;
   padding: 0;
   background-color: transparent !important;
 }
@@ -186,3 +185,24 @@ body::before {
 }
 
 /* FORMS CSS */
+
+.certificate-of-indigency-form{
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  width: 50%;
+  margin-top: 200px !important;
+}
+
+.indigency-btn{
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  margin-left: auto;
+  background-color: yellow;
+}
+.h2-indigency{
+  font-weight: 700;
+}
