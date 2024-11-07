@@ -16,8 +16,13 @@
       rel="stylesheet"
     />
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="styles.css?=time()?>" />
 </head>
+<style>
+  #header{
+    backround-color: white;
+  }
+</style>
 <body>
    <div id="header"></div>
   <div class="container">
@@ -41,7 +46,7 @@
                         <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
                     </div>
                    </form>
-                 </div>
+               </div>
             </div>
        </div>
      </div>
