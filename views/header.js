@@ -48,11 +48,15 @@ export function header(isLoggedIn) {
                 </a>
               </li>
             `
-               : `<li class='nav-item'>
-                <a class='nav-link' href='Login.php'>
-                  Login<i class='bi bi-person-plus-fill'></i>
-                </a>
-              </li>`
+               : `<div class="dropdown">
+                  <button class="btn nav-item dropdown-toggle" style = "color: yellow;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown button
+                  </button>
+                  <div class="dropdown-menu w-25" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item nav-link "  href="#">Account</a>
+                  <a class="dropdown-item nav-link" href="#">Sign Out</a>
+                </div>
+                </div>`
            }
         </ul>
       </div>
