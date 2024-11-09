@@ -1,3 +1,8 @@
+<?php
+$loginSession = $_SESSION['session'] ?? null;
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +43,7 @@
                     <a class="nav-link" data-bs-toggle="tab" href="#menu2">Signature</a>
                   </li>
                 </ul>
-                <form action="../controller/addUserRequest.php" method="post">
+                <form action="../controller/addRequestForOthers.php" method="post">
                   <div class="tab-content">
                     <div id="home" class="container tab-pane active"><br>
                       <div class="form-label-group">

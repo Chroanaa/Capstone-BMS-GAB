@@ -17,7 +17,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $user = $stmt->fetch();
     $count = $stmt->rowCount();
     if($count > 0){
-        header('Location: ../views/services.php');
+        header('Location: ../views/index.php');
         $_SESSION['session'] = $user['id'] ?? 'null';
       
     }else{

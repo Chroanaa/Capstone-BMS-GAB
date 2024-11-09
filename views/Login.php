@@ -1,6 +1,6 @@
 <?php
 session_start();
-$loginSession = $_SESSION['session'];
+$loginSession = $_SESSION['session'] ?? null;
 
 if($loginSession){
     header('Location: services.php');
@@ -57,7 +57,7 @@ if($loginSession){
   </div>
   <script type="module">
     import {header} from './header.js';
-    header(false);
+    header();
     const params = new URLSearchParams(window.location?.search);
     const error = params.get('error');
     if(error){

@@ -1,7 +1,15 @@
 <?php
 session_start();
-$loginSession = $_SESSION['session'];
+$loginSession = $_SESSION['session'] ?? null;
 
+  if(isset($_POST['logout'])){
+   session_destroy();
+   session_unset();
+   
+   header('Refresh:0; url = ./index.php');
+
+  }
+  var_dump($loginSession)
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,31 +34,19 @@ $loginSession = $_SESSION['session'];
   </head>
   <body>
     <div id="header"></div>
-    <div class="header">
-      <h1 style="font-family: Impact, Charcoal, sans-serif">WELCOME</h1>
-      <h2 style="font-family: Impact, Charcoal, sans-serif">
-        BARANGAY 201, ZONE 20
-      </h2>
-      <h2
-        style="
-          font-size: 25px;
-          margin-top: 10px;
-          font-family: Impact, Charcoal, sans-serif;
-        "
-      >
-        Pasay city, Philippines
-      </h2>
-    </div>
-    <div class="content">
-      <h3 style="font-family: Impact, Charcoal, sans-serif; margin-top: -10%">
-        CONTACT US:
-      </h3>
-      <div class="contact-info">
-        FACEBOOK :<br />
-        CONTACT NUMBER :<br />
-        EMAIL ACCOUNT :<br />
-        ADDRESS :
+    <div class="container">
+   <div class="row">
+    <div class="col-sm-7 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <h5 class = "card-title ext-center">Logout</h5>
+          <form action = "" method = "post">
+    <input type="submit" value="Logout" name = "logout">
+    </form>
+        </div>
       </div>
+    </div>
+   </div>
     </div>
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

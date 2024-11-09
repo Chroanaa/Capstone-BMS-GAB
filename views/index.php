@@ -1,6 +1,7 @@
 <?php
 session_start();
-$loginSession = $_SESSION['session'];
+$loginSession = $_SESSION['session'] ?? null;
+
 
 ?>
 <!DOCTYPE html>
@@ -58,7 +59,7 @@ $loginSession = $_SESSION['session'];
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="module">
       import { header } from "./header.js";
-      header(false);
+      header(<?= json_encode($loginSession)?>);
     </script>
   </body>
 </html>

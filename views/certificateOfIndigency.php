@@ -1,4 +1,7 @@
+<?php
+$loginSession = $_SESSION['session'] ?? null;
 
+?>
 
 <!DOCTYPE html>
 <html lang="en">

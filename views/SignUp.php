@@ -1,6 +1,6 @@
 <?php
 session_start();
-$loginSession = $_SESSION['session'];
+$loginSession = $_SESSION['session'] ?? null;
 
 ?>
 <!DOCTYPE html>

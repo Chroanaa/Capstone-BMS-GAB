@@ -1,6 +1,7 @@
 <?php
 session_start();
-$loginSession = $_SESSION['session'];
+$loginSession = $_SESSION['session'] ?? null;
+var_dump($loginSession);
 
 ?>
 
@@ -56,8 +57,9 @@ $loginSession = $_SESSION['session'];
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="module" >
+      const id = "<?php json_encode($loginSession)?>"
       import {header} from './header.js';
-      header(<?php $_SESSION['session']?>);
+      header("<?php echo $loginSession?>");
     </script>
   </body>
 </html>

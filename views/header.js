@@ -40,26 +40,28 @@ export function header(isLoggedIn) {
             ></a>
           </li>
            ${
-             isLoggedIn
+             typeof isLoggedIn === 'string'
                ? `
-             <li class='nav-item'>
-                <a class='nav-link' href='Login.php'>
-                  Account<i class='bi bi-person-plus-fill'></i>
-                </a>
-              </li>
-            `
-               : `<div class="dropdown">
+              <div class="dropdown">
                   <button class="btn nav-item dropdown-toggle" style = "color: yellow;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Dropdown button
                   </button>
-                  <div class="dropdown-menu w-25" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item nav-link "  href="#">Account</a>
-                  <a class="dropdown-item nav-link" href="#">Sign Out</a>
+                    <div class="dropdown-menu w-25" aria-labelledby="dropdownMenuButton">
+                     <a class="dropdown-item nav-link "  href="#">Account</a>
+                     <a class="dropdown-item nav-link" href="SignOut.php">Sign Out</a>
+                    </div>
                 </div>
-                </div>`
+            `
+               : `
+               <li class='nav-item'>
+                <a class='nav-link' href='Login.php'>
+                  Account<i class='bi bi-person-plus-fill'></i>
+                </a>
+              </li>                `
            }
         </ul>
       </div>
     </nav>
 `;
+console.log(typeof isLoggedIn === 'string')
 }
