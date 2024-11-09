@@ -38,6 +38,7 @@ body::before {
 }
 .navbar {
   position: absolute;
+  display: flex;
   top: 0;
   left: 0;
   width: 100%;
@@ -45,6 +46,7 @@ body::before {
   padding: 0;
   background-color: transparent !important;
 }
+
 .navbar .navbar-nav li a {
   padding: 14px 20px;
   text-decoration: none;
@@ -205,4 +207,39 @@ body::before {
 }
 .h2-indigency{
   font-weight: 700;
+}
+
+/*dropdown header*/
+.dropdown-btn{
+ width: fit-content;
+ padding: 12px 40px 12px 40px
+}
+@media(min-width: 600px){
+  .dropdown-header{
+    padding: 0 35px 0 35px;
+  }
+}
+@media(min-width:1000px){
+  .dropdown-header{
+    position: absolute;
+    top: 7px;
+    right: 20px
+  }
+}
+.dropdown-btn:hover{
+  transform: scale(1.1);
+  background-color: #1c6ea4;
+  border-radius: 10px;
+}
+.dropdown-btn{
+  font-size: 25px;
+  transition: all 0.3s ease-in-out;
+  text-shadow: 2px 2px 2px #1c6ea4;
+}
+.dropdown-pop-up{
+  position: absolute;
+  top: 50px;
+}
+.dropdown-pop-up a{
+  text-align: center;
 }
