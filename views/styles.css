@@ -194,8 +194,17 @@ body::before {
   border-radius: 4px;
   width: 50%;
   margin-top: 200px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
+.certificate-of-indigency-form h2{
+  color: #1c6ea4;
+}
+.form-floating{
+  padding: 0 5px 0 5px;
+}
 .indigency-btn{
   height: 50px;
   display: flex;
@@ -203,7 +212,12 @@ body::before {
   align-items: center;
   width: 20%;
   margin-left: auto;
-  background-color: yellow;
+  background-color: #1c6ea4;
+  color:yellow;
+}
+.indigency-btn:hover{
+  background-color: transparent;
+  color: #1c6ea4;
 }
 .h2-indigency{
   font-weight: 700;
@@ -242,4 +256,37 @@ body::before {
 }
 .dropdown-pop-up a{
   text-align: center;
+}
+
+/*barangay-clearance-form*/
+.barangay-clearance-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  width: 50%;
+  margin-top: 200px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.barangay-clearance-form h2{
+  color: #1c6ea4
+}
+.brgy-clearance-btn{
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  margin-left: auto;
+  background-color: #1c6ea4;
+  font-weight: 700;
+  color: yellow;
+}
+.brgy-clearance-btn:hover{
+  background-color: transparent;
+  color: #1c6ea4;
+}
+.h2-brgy-clearance{
+  font-weight: 700;
 }
