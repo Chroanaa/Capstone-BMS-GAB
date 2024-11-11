@@ -137,6 +137,26 @@ $loginSession = $_SESSION['session'] ?? null;
           </div>
         </div>
       </div>
+     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Logout</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <h4>Are you sure you want to logout?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        <a href="../controller/logoutController.php" class = "btn btn-danger">Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </main>
     <script src = "header.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -146,7 +166,7 @@ $loginSession = $_SESSION['session'] ?? null;
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
     <script type = "module">
       import {header} from './header.js';
-      header(false);
+      header(<?= $loginSession?>);
      const dateOfBirth = document.getElementById("date"); 
       const clear = document.querySelector(".clear");
       const Age = document.getElementById("Age");

@@ -41,24 +41,26 @@ export function header(isLoggedIn) {
           </li>
           
            ${
-             typeof isLoggedIn === 'string'
+             isLoggedIn
                ? `
 
-              <div class="dropdown dropdown-header">
+              <div class="dropdown dropdown-header w-25">
                   <button class="btn nav-item dropdown-toggle dropdown-btn" style = "color: yellow;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Settings
                   </button>
               
                     <div class="dropdown-menu dropdown-pop-up" aria-labelledby="dropdownMenuButton">
                      <a class="dropdown-item nav-link "  href="#">Account</a>
-                     <a class="dropdown-item nav-link" href="SignOut.php">Sign Out</a>
+                     <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                     Logout
+                     </button>
                     </div>
               </div>
             `
                : `
                <li class='nav-item'>
                 <a class='nav-link' href='Login.php'>
-                  Account<i class='bi bi-person-plus-fill'></i>
+                  Login <i class='bi bi-person-plus-fill'></i>
                 </a>
               </li>                `
            }
@@ -66,5 +68,5 @@ export function header(isLoggedIn) {
       </div>
     </nav>
 `;
-console.log(typeof isLoggedIn === 'string')
+  console.log(isLoggedIn);
 }
