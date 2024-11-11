@@ -53,7 +53,7 @@ $loginSession = $_SESSION['session'] ?? null;
 
 
 
-    
+
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -82,6 +82,18 @@ $loginSession = $_SESSION['session'] ?? null;
     <script type="module" >
       import {header} from './header.js';
       header(<?= $loginSession?>);
+       // dito mo lagay kim yung mga services 
+      const serviceItem = document.querySelectorAll('.service-item');
+       serviceItem.forEach((item) => {
+         item.addEventListener('click', (e) => {
+          e.preventDefault();
+           if(e.target.innerText === 'Certificate of Indigency'){
+             window.location.href = 'certificateOfIndigency.php';
+           }else if (e.target.innerText === 'Barangay Clearance'){
+             window.location.href = 'barangayClearance.php';
+           }
+         });
+       });
     </script>
   </body>
 </html>
