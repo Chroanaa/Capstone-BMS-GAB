@@ -36,26 +36,27 @@ export function header(isLoggedIn) {
           </li>
           <li class="nav-item header-nav-item">
             <a class="nav-link" href="#"
-              >About us <i class="bi bi-person-lines-fill"></i
+              >About&nbspUs<i class="bi bi-person-lines-fill"></i
             ></a>
           </li>
           
            ${
              isLoggedIn
                ? `
-
+              </li>
               <div class="dropdown dropdown-header w-25">
-                  <button class="btn nav-item dropdown-toggle dropdown-btn" style = "color: yellow;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Settings
-                  </button>
-              
-                    <div class="dropdown-menu dropdown-pop-up" aria-labelledby="dropdownMenuButton">
-                     <a class="dropdown-item nav-link "  href="#">Account</a>
-                     <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                     Logout
-                     </button>
-                    </div>
+                <button class="btn nav-item dropdown-toggle dropdown-btn" style="color: yellow;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="../images/profile.svg" alt="profile" class="dropdown-icon"/>
+                    <span class="dropdown-label">Profile</span>
+                </button>
+
+              <div class="dropdown-menu dropdown-pop-up" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item nav-link" href="#">Account</a>
+                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  Logout
+                </button>
               </div>
+            </div>
             `
                : `
                <li class='nav-item'>

@@ -46,7 +46,6 @@ body::before {
   padding: 0;
   background-color: transparent !important;
 }
-
 .navbar .navbar-nav li a {
   padding: 14px 20px;
   text-decoration: none;
@@ -226,18 +225,40 @@ body::before {
 /*dropdown header*/
 .dropdown-btn{
  width: fit-content;
- padding: 12px 40px 12px 40px
+ display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 4px 10px 4px;
 }
-@media(min-width: 600px){
-  .dropdown-header{
-    padding: 0 35px 0 35px;
+
+@media (max-width: 990px) {
+  .dropdown-header {
+    padding: 0 20px;
+    width: 100%;
+  }
+  .dropdown-btn {
+    margin-top: 10px;
+    width: 155%;
+  }
+  .dropdown-icon {
+    display: none;
+  }
+  .dropdown-label {
+    display: block;
+    font-size: 20px; 
+  }
+}
+
+@media (min-width: 991px) {
+  .dropdown-label {
+    display: none; /
   }
 }
 @media(min-width:1000px){
   .dropdown-header{
     position: absolute;
-    top: 7px;
-    right: 20px
+    top: 10px;
+    right: -175px;
   }
 }
 .dropdown-btn:hover{
@@ -253,6 +274,7 @@ body::before {
 .dropdown-pop-up{
   position: absolute;
   top: 50px;
+  text-align: center;
 }
 .dropdown-pop-up a{
   text-align: center;
@@ -289,4 +311,211 @@ body::before {
 }
 .h2-brgy-clearance{
   font-weight: 700;
+}
+/*business permit*/
+.business-permit-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  width: 50%;
+  margin-top: 200px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.business-permit-form h2{
+  font-weight: 700;
+  color: #1c6ea4;
+}
+.btn-business-permit{
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  margin-left: auto;
+  background-color: #1c6ea4;
+  font-weight: 700;
+  color: yellow;
+}
+.btn-business-permit:hover{
+  color: #1c6ea4;
+  background-color: transparent;
+}
+
+/*firsttimejobseeker*/
+.job-seeker-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  width: 50%;
+  margin-top: 200px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.job-seeker-form h2{
+  font-weight: 700;
+  color: #1c6ea4;
+}
+.btn-job-seeker{
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  margin-left: auto;
+  background-color: #1c6ea4;
+  font-weight: 700;
+  color: yellow;
+}
+.btn-job-seeker:hover{
+  color: #1c6ea4;
+  background-color: transparent;
+}
+
+/*barangay id*/
+.barangay-id-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  width: 50%;
+  margin-top: 200px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.barangay-id-form h2{
+  font-weight: 700;
+  color: #1c6ea4;
+}
+.btn-barangay-id{
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  margin-left: auto;
+  background-color: #1c6ea4;
+  font-weight: 700;
+  color: yellow;
+}
+.btn-barangay-id:hover{
+  color: #1c6ea4;
+  background-color: transparent;
+}
+
+/*certificate of late live form*/
+.late-birth-certificate-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  width: 50%;
+  margin-top: 200px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.late-birth-certificate-form h2{
+  font-weight: 700;
+  color: #1c6ea4;
+  text-align: center;
+  margin: 10px 0 10px 0;
+}
+.late-birth-certificate-form h4{
+  color: #1c6ea4;
+  text-align: center;
+  margin: 10px 0 10px 0;
+}
+.btn-late-live-birth{
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  margin-left: auto;
+  background-color: #1c6ea4;
+  font-weight: 700;
+  color: yellow;
+}
+.btn-late-live-birth:hover{
+  color: #1c6ea4;
+  background-color: transparent;
+}
+
+/*certificate of guardianship*/
+
+.guardianship-certificate-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  width: 50%;
+  margin-top: 200px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.guardianship-certificate-form h2{
+  font-weight: 700;
+  color: #1c6ea4;
+  text-align: center;
+  margin: 10px 0 10px 0;
+}
+.guardianship-certificate-form h4{
+  color: #1c6ea4;
+  text-align: center;
+  margin: 10px 0 10px 0;
+}
+.btn-guardianship{
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  margin-left: auto;
+  background-color: #1c6ea4;
+  font-weight: 700;
+  color: yellow;
+}
+.btn-guardianship:hover{
+  color: #1c6ea4;
+  background-color: transparent;
+}
+
+/*health certificate*/
+.health-certificate-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  width: 50%;
+  margin-top: 200px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.health-certificate-form h2{
+  font-weight: 700;
+  color: #1c6ea4;
+  text-align: center;
+  margin: 10px 0 10px 0;
+}
+.health-certificate-form h4{
+  color: #1c6ea4;
+  text-align: center;
+  margin: 10px 0 10px 0;
+}
+.btn-health-certificate{
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
+  margin-left: auto;
+  background-color: #1c6ea4;
+  font-weight: 700;
+  color: yellow;
+}
+.btn-health-certificate:hover{
+  color: #1c6ea4;
+  background-color: transparent;
 }
