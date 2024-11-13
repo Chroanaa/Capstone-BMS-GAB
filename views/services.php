@@ -91,20 +91,7 @@ $loginSession = $_SESSION['session'] ?? null;
              window.location.href = 'certificateOfIndigency.php';
            }else if (e.target.innerText === 'Barangay Clearance'){
              window.location.href = 'barangayClearance.php';
-           }else if (e.target.innerText === 'Business Permit'){
-            window.location.href = 'businessPermit.php';
-           }else if (e.target.innerText === 'First-Time Job Seeker'){
-            window.location.href = 'firstTimeJobSeeker.php';
-           }else if (e.target.innerText === 'Barangay ID'){
-            window.location.href = 'barangayId.php';
-           }else if (e.target.innerText === 'Certificate of Late Live Birth'){
-            window.location.href = 'certificateOfLateLiveBirth.php';
-           }else if (e.target.innerText === 'Certificate of Guardianship'){
-            window.location.href = 'certificateOfGuardianship.php';
-           }else if (e.target.innerText === 'Health Certificate'){
-            window.location.href = 'healthCertificate.php';
            }
-           
          });
        });
     </script>
