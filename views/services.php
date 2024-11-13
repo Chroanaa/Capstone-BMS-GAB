@@ -91,7 +91,10 @@ $loginSession = $_SESSION['session'] ?? null;
              window.location.href = 'certificateOfIndigency.php';
            }else if (e.target.innerText === 'Barangay Clearance'){
              window.location.href = 'barangayClearance.php';
-           }
+           }else if (e.target.innerText === 'Business Permit'){
+            window.location.href = 'businessPermit.php'
+           }else if (e.target.innerText === 'First-Time Job Seeker'){
+            window.location.href = 'firstTimeJobSeeker.php'
          });
        });
     </script>
