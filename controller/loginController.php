@@ -2,13 +2,13 @@
 session_start();
 
 include ('../databaseconn/connection.php');
-$userCreds_conn = $GLOBALS['userCreds_conn'];
+$conn = $GLOBALS['conn'];
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     try{
     $username = $_POST['username'];
     $password = $_POST['password'];
     $sql = "SELECT * FROM user_creds WHERE Username = :username AND Password = :password";
-    $stmt = $userCreds_conn->prepare($sql);
+    $stmt = $conn->prepare($sql);
     $db = [
         'username' => $username,
         'password' => $password,
