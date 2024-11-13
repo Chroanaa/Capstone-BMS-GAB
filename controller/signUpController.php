@@ -1,19 +1,21 @@
 <?php
 include ('../databaseconn/connection.php');
 $conn = $GLOBALS['conn'];
+$user_creds_conn = $GLOBALS['User_conn'];
 if($_SERVER["REQUEST_METHOD"] == "POST") {
   try {
     //User Creds
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $sql = "INSERT INTO user_creds (Username, Password) VALUES (:username, :password)";
-    $stmt = $conn->prepare($sql);
+    $sql = "INSERT INTO user_creds (Username, Password, time_Created) VALUES (:username, :password, :time_Created)";
+    $stmt = $user_creds_conn->prepare($sql);
     $db = [
         'username' => $username,
         'password' => $password,
+        'time_Created' => date('Y-m-d H:i:s'),
     ];
     $stmt->execute($db);
-    $creds_id = $conn->lastInsertId();
+    $creds_id = $user_creds_conn  ->lastInsertId();
 
 
 

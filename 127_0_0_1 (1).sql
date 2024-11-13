@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2024 at 12:56 PM
+-- Generation Time: Nov 13, 2024 at 04:36 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.6
 
@@ -18,53 +18,6 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `user_creds`
---
-CREATE DATABASE IF NOT EXISTS `user_creds` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `user_creds`;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_creds`
---
-
-CREATE TABLE `user_creds` (
-  `id` int(11) NOT NULL,
-  `Username` varchar(255) NOT NULL,
-  `Password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `user_creds`
---
-
-INSERT INTO `user_creds` (`id`, `Username`, `Password`) VALUES
-(11, 'test', 'test'),
-(12, 'test1', 'test'),
-(13, 'test', 'test'),
-(14, 'test', 'test');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `user_creds`
---
-ALTER TABLE `user_creds`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `user_creds`
---
-ALTER TABLE `user_creds`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
---
 -- Database: `user_request`
 --
 CREATE DATABASE IF NOT EXISTS `user_request` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
@@ -78,8 +31,14 @@ USE `user_request`;
 
 CREATE TABLE `certificate_of_indigency` (
   `id` int(11) NOT NULL,
-  `user_request_id` int(11) NOT NULL,
-  `user_request_name` int(11) NOT NULL,
+  `Firstname` varchar(255) NOT NULL,
+  `Middlename` varchar(255) DEFAULT NULL,
+  `Lastname` varchar(255) NOT NULL,
+  `Birthday` varchar(255) NOT NULL,
+  `Contact_number` varchar(255) NOT NULL,
+  `Monthly_income` varchar(255) NOT NULL,
+  `Number_of_dependents` varchar(255) NOT NULL,
+  `reason` varchar(255) DEFAULT NULL,
   `time_Created` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -129,7 +88,8 @@ INSERT INTO `user_info` (`id`, `Fullname`, `creds_id`, `House/floor/bldgno.`, `S
 (23, 'test', 11, 'test', 'test', 'test', 'test', '2024-11-01', 0, 'test', 'test', 'Male', 'single', '2024-11-02 03:36:52'),
 (24, 'test', 12, 'test', 'test', 'test', 'test', '2024-11-01', 0, 'test', 'test', 'Male', 'single', '2024-11-02 03:57:36'),
 (25, 'test ', 13, 'test', 'test', 'test', 'test', '2024-11-01', 0, 'test', 'test', 'Male', 'single', '2024-11-02 04:18:21'),
-(26, 'test', 14, 'test', 'test', 'test', 'test', '2014-07-04', 10, 'dito', '09274615182', 'Male', 'single', '2024-11-03 21:01:56');
+(26, 'test', 14, 'test', 'test', 'test', 'test', '2014-07-04', 10, 'dito', '09274615182', 'Male', 'single', '2024-11-03 21:01:56'),
+(27, 'test', 15, 'test', 'test', 'test', 'test', '2024-11-01', 0, 'Quezon City', 'test', 'Male', 'single', '2024-11-13 08:12:16');
 
 --
 -- Indexes for dumped tables
@@ -174,7 +134,7 @@ ALTER TABLE `document_requested`
 -- AUTO_INCREMENT for table `user_info`
 --
 ALTER TABLE `user_info`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Constraints for dumped tables

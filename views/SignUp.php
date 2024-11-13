@@ -33,7 +33,6 @@ $loginSession = $_SESSION['session'] ?? null;
             <div class="card card-signin my-5">
               <div class="card-body">
                 <h5 class="card-title text-center">Sign Up</h5>
-               
                 <form action="../controller/signUpController.php" method="post">
                   <div class="tab-content">
                     <div id="home" class="container tab-pane active"><br>
