@@ -50,6 +50,9 @@ if($loginSession){
                         <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
                     </div>
                    </form>
+                   <div class="card-error">
+
+                   </div>
                </div>
             </div>
        </div>
@@ -60,10 +63,21 @@ if($loginSession){
     header();
     const params = new URLSearchParams(window.location?.search);
     const error = params.get('error');
-    if(error){
-     document.querySelector('.card-body').innerHTML += `<div class="alert alert-danger mt-5" role="alert">
-       <h4 class = "text-center"> You must be logged in first to use our services </h4>
-    </div>`;
+    if(error === 'wrongcreds'){
+      document.querySelector('.card-error').innerHTML += `<div class="alert alert-danger mt-5" role="alert">
+       <h4 class = "text-center"> Wrong credentials </h4>
+    </div>`
+    setTimeout(() => {
+      document.querySelector('.card-error').innerHTML = ""
+    }, 3000);
+    }
+    if(error === "notLoggedIn"){
+      document.querySelector('.card-error').innerHTML += `<div class="alert alert-danger mt-5" role="alert">
+       <h4 class = "text-center"> Must be logged In</h4>
+    </div>`
+    setTimeout(() => {
+      document.querySelector('.card-error').innerHTML = ""
+    }, 3000);
     }
     
   </script>

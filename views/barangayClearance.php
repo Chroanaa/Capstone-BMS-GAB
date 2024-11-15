@@ -3,7 +3,7 @@ session_start();
 
 $loginSession = $_SESSION['session'] ?? null;
 if($loginSession == null){
-  header('Location: Login.php');
+  header('Location: Login.php?error=notLoggedIn');
 }
 ?>
 

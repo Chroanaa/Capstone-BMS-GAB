@@ -1,7 +1,8 @@
 <?php 
+session_start();
 include ('../databaseconn/connection.php');
 $conn = $GLOBALS['conn'];
-
+$requestor_id = $_SESSION['session'] ?? 0;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   try {
     // Check if documents are set, otherwise initialize as an empty array
@@ -20,12 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $civilstatus = $_POST['Civilstatus'];
     $purpose = $_POST['Purpose'];
 
-    $query = 'INSERT INTO `user_info`(`Fullname`, `House/floor/bldgno.`, `Street`, `from`, `to`, `date_of_birth`, `Age`, `place_of_birth`, `contact_number`, `gender`, `civil_status`, `time_Created`) VALUES 
-    (:Fullname, :HouseBldgFloorno, :Street, :from, :to, :date_of_birth, :Age, :place_of_birth, :contact_number, :gender, :civil_status, :time_Created)';
+    $query = 'INSERT INTO `user_info`(`Fullname`,`creds_id`, `House/floor/bldgno.`, `Street`, `from`, `to`, `date_of_birth`, `Age`, `place_of_birth`, `contact_number`, `gender`, `civil_status`, `time_Created`) VALUES 
+    (:Fullname,:creds_id, :HouseBldgFloorno, :Street, :from, :to, :date_of_birth, :Age, :place_of_birth, :contact_number, :gender, :civil_status, :time_Created)';
 
     $stmt = $conn->prepare($query);
     $db_arr = [
         'Fullname' => $name,
+        'creds_id' => $requestor_id,
         'HouseBldgFloorno' => $houseBLdgFloorno,
         'Street' => $street,
         'from' => $from,
@@ -46,11 +48,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Insert documents if any are selected
     if (!empty($documents)) {
       foreach ($documents as $document) {
-        $doc_query = 'INSERT INTO `document_requested`(`user_id`, `documents_requested`) VALUES (:user_id, :documents_requested)';
+        $doc_query = 'INSERT INTO `document_requested_for_others`(`requestor_id`,`documents_requested`,`purpose`) VALUES ( :requestor_id,:documents_requested,:purpose)';
         $doc_stmt = $conn->prepare($doc_query);
         $db_arr = [
-          'user_id' => $user_id,
+          'requestor_id' => $requestor_id,
           'documents_requested' => $document,
+          'purpose' => $purpose
         ];
         $doc_stmt->execute($db_arr);
       }

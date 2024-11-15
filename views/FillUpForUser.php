@@ -2,7 +2,7 @@
 session_start();
 $loginSession = $_SESSION['session'] ?? null;
 if($loginSession == null){
-  header('Location: Login.php');
+  header('Location: Login.php?error=notLoggedIn');
 }
 ?>
 <!DOCTYPE html>
@@ -42,7 +42,7 @@ if($loginSession == null){
                     <a class="nav-link" data-bs-toggle="tab" href="#Signature">Signature</a>
                   </li>
                 </ul>
-                <form action="../controller/addUserRequest.php" method="post">
+                <form action="../controller/addRequestForUser.php" method="post">
                   <div class="tab-content">
                     <div id="documents" class="container tab-pane active"><br>
                     <div class="form-label-group">
@@ -146,30 +146,12 @@ if($loginSession == null){
     <script type="module">
    import { header } from "./Header.js";
       header(<?= $loginSession?>);
-
-      const dateOfBirth = document.getElementById("date"); 
       const dateToday = document.querySelector(".dateToday");
+      dateToday.textContent = new Date().toLocaleDateString();
+ 
       const clear = document.querySelector(".clear");
-      const Age = document.getElementById("Age");
-      const form = document.querySelector("form");
-      dateToday.innerHTML = new Date().toLocaleDateString();
       const submit = document.getElementById("submitBtn");
-      dateOfBirth.addEventListener("input", function() { 
-        const today = new Date();
-        const birthDate = new Date(dateOfBirth.value);
-        if(birthDate > today) {
-          alert("Date of birth cannot be in the future");
-          dateOfBirth.value = "";
-          Age.value = "";
-          return;
-        }
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const monthDiff = today.getMonth() - birthDate.getMonth();
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-          age--;
-        }
-        document.getElementById("Age").value = age;
-      });
+     
 
       const canvas = document.querySelector("canvas");
       const ctx = canvas.getContext("2d");

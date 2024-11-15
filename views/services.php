@@ -43,7 +43,7 @@ $loginSession = $_SESSION['session'] ?? null;
            'First-Time Job Seeker', 'Barangay ID', 'Certificate of Late Live Birth', 'Certificate of Guardianship','Health Certificate'];
             foreach($arr as $item){
               echo "<li class='service-item'>
-              <a class='bg-light p-4 rounded-pill text-black text-decoration-none' href=''>$item</a>
+              <a class='bg-light p-4 rounded-pill text-black text-decoration-none' href='forUserOrOthers.php'>$item</a>
             </li>";
             }
            ?>
@@ -66,47 +66,23 @@ $loginSession = $_SESSION['session'] ?? null;
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
-        <a href="../controller/logoutController.php" class = "btn btn-danger">Logout</a>
+        <a href="../controller/logoutController.php" class = "btn btn-danger" id = "logoutBtn">Logout</a>
       </div>
     </div>
   </div>
-</div>
+</div> 
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <!-- Bootstrap JS and dependencies -->   
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="module" >
       import {header} from './header.js';
       header(<?= $loginSession?>);
-       // dito mo lagay kim yung mga services 
-      const serviceItem = document.querySelectorAll('.service-item');
-       serviceItem.forEach((item) => {
-         item.addEventListener('click', (e) => {
-          e.preventDefault();
-           if(e.target.innerText === 'Certificate of Indigency'){
-             window.location.href = 'certificateOfIndigency.php';
-           }else if (e.target.innerText === 'Barangay Clearance'){
-             window.location.href = 'barangayClearance.php';
-           }else if (e.target.innerText === 'Business Permit'){
-             window.location.href = 'businessPermit.php';
-           }else if (e.target.innerText === 'First-Time Job Seeker'){
-             window.location.href = 'firstTimeJobSeeker.php';
-           }else if (e.target.innerText === 'Barangay ID'){
-             window.location.href = 'barangayId.php';
-           }else if (e.target.innerText === 'Certificate of Late Live Birth'){
-             window.location.href = 'certificateOfLateLiveBirth.php';
-           }else if (e.target.innerText === 'Certificate of Guardianship'){
-             window.location.href = 'certificateOfGuardianship.php';
-           }else if (e.target.innerText === 'Health Certificate'){
-             window.location.href = 'healthCertificate.php';
-           }
-           
-         });
-       });
+          
+      
     </script>
   </body>
 </html>

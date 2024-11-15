@@ -21,7 +21,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $_SESSION['session'] = $user['id'] ?? 'null';
       
     }else{
-        header('Location: ../views/Login.php?error=true');
+        header('Location: ../views/Login.php?error=wrongcreds');
     }
 
     }catch(PDOException $e){
