@@ -28,27 +28,27 @@ if($loginSession == null){
   </head>
   <body>
     <header id="header"></header>
-    <div class="container">
+    <div class="container card-container">
       <div class="row">
         <div class="col-sm-7 col-md-7 col-lg-5 mx-auto mt-5">
           <div class="card card-signin my-5">
-            <div class="card-body">
+            <div class="card-body card-body-for-user-or-others">
               <h3
                 class="card-title text-center"
-                style="color: black; text-shadow: 2px 2px 2px #1c6ea4"
+                
               >
                 Is it for you or for others?
               </h3>
-              <div class="form-label-group">
-                <input type="radio" name="choose" value="user" id="user" />
+              <div class="form-label-group for-user-or-others-radio-div">
+                <input type="radio" name="choose" value="user" id="user" class="form-check-input"/>
                 <label for="user"><h4>For Me</h4></label>
               </div>
-              <div class="form-label-group">
-                <input type="radio" name="choose" value="others" id="others" />
+              <div class="form-label-group for-user-or-others-radio-div">
+                <input type="radio" name="choose" value="others" id="others" class="form-check-input"/>
                 <label for="others"><h4>For Others</h4></label>
               </div>
               <button
-                class="btn btn-lg btn-primary btn-block text-uppercase mt-5"
+                class="btn-primary btn cards-for-user-or-others-btn "
                 type="submit"
                 id="submit"
               >
