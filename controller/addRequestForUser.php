@@ -14,6 +14,7 @@ session_start();
         'documents_requested' => $document,
       ];
       $doc_stmt->execute($db_arr);
+      header('Location: ../views/request.php');
     }
   }
 

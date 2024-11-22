@@ -2,7 +2,7 @@
 session_start();
 include ('../databaseconn/connection.php');
 $conn = $GLOBALS['conn'];
-$requestor_id = $_SESSION['session'] ?? 0;
+$requestor_id = $_SESSION['session'] ?? null;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   try {
     // Check if documents are set, otherwise initialize as an empty array
@@ -21,13 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $civilstatus = $_POST['Civilstatus'];
     $purpose = $_POST['Purpose'];
 
-    $query = 'INSERT INTO `user_info`(`Fullname`,`creds_id`, `House/floor/bldgno.`, `Street`, `from`, `to`, `date_of_birth`, `Age`, `place_of_birth`, `contact_number`, `gender`, `civil_status`, `time_Created`) VALUES 
-    (:Fullname,:creds_id, :HouseBldgFloorno, :Street, :from, :to, :date_of_birth, :Age, :place_of_birth, :contact_number, :gender, :civil_status, :time_Created)';
+    $query = 'INSERT INTO `requested_for_others_info`(`Fullname`,`requestor_id`, `HouseBldgFloorno`, `Street`, `from`, `to`, `date_of_birth`, `Age`, `place_of_birth`, `contact_number`, `gender`, `civil_status`, `time_Created`) VALUES 
+    (:Fullname,:requestor_id, :HouseBldgFloorno, :Street, :from, :to, :date_of_birth, :Age, :place_of_birth, :contact_number, :gender, :civil_status, :time_Created)';
 
     $stmt = $conn->prepare($query);
     $db_arr = [
         'Fullname' => $name,
-        'creds_id' => $requestor_id,
+        'requestor_id' => $requestor_id,
         'HouseBldgFloorno' => $houseBLdgFloorno,
         'Street' => $street,
         'from' => $from,
@@ -56,6 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           'purpose' => $purpose
         ];
         $doc_stmt->execute($db_arr);
+        header('Location: ../views/request.php');
       }
     }
 
