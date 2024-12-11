@@ -29,27 +29,45 @@ if($loginSession){
 
 <body>
    <div id="header"></div>
-  <div class="container">
+  <div class="container mt-5">
         <div class="row">
           <div class="col-sm-7 col-md-7 col-lg-5 mx-auto mt-5">
             <div class="card card-signin my-5">
               <div class="card-body">
-                <h3 class="card-title">Log in</h3>
-                   <form action="../controller/loginController.php" method = "post">
-                   <div class="form-label-group">
-                      <label for="username">Username:</label>
-                        <input type="text" id="username" class="form-control" name = "username" placeholder="Username" required autofocus>
+                <h1 class="card-title text-center h5">LOGIN <i class="bi bi-person-circle"></i></h1>
+                <form action="../controller/loginController.php" method="post">
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        id="username"
+                        class="form-control"
+                        name="username"
+                        placeholder="Username"
+                        required
+                      />
+                      <label for="username">Username</label>
                     </div>
-                    <div class="form-label-group">
-                      <label for="username">Password:</label>
-                        <input type="password" id="Password" name = "password" class="form-control" placeholder="Password" required autofocus>
+                    <div class="form-floating mb-3 position-relative">
+                      <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="Password"
+                        required
+                      />
+                      <label for="password">Password</label>
+                      <i
+                        class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3 toggle-password fs-5"
+                        style="cursor: pointer;"
+                      ></i>
                     </div>
-                    <a href="SignUp.php" style = "text-align:center">Dont have an account? sign up here</a>
-
+                    <a href="SignUp.php" class="d-block mb-3 text-center login-link">Don't have an account? Sign up here</a>
                     <div class="login-btn-container">
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Login</button>
+                      <button class="btn btn-primary btn-block text-uppercase button-main login-btn btn-lg" type="submit">Login <i class="bi bi-box-arrow-in-right"></i></button>
                     </div>
-                   </form>
+                  </form>
+
                    <div class="card-error">
 
                    </div>
@@ -81,6 +99,24 @@ if($loginSession){
     }
     
   </script>
+  <script>
+  document.querySelector('.toggle-password').addEventListener('click', function () {
+    const passwordInput = document.getElementById('password');
+    const icon = this;
+
+    // Toggle the password field type
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      icon.classList.remove('bi-eye-slash');
+      icon.classList.add('bi-eye');
+    } else {
+      passwordInput.type = 'password';
+      icon.classList.remove('bi-eye');
+      icon.classList.add('bi-eye-slash');
+    }
+  });
+</script>
+
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

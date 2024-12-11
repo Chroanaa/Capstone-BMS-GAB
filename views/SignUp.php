@@ -32,102 +32,248 @@ $loginSession = $_SESSION['session'] ?? null;
           <div class="col-sm-7 col-md-7 col-lg-5 mx-auto mt-5">
             <div class="card card-signin my-5">
               <div class="card-body">
-                <h5 class="card-title text-center">Sign Up</h5>
+                <h1 class="card-title text-center h5">REGISTER <i class="bi bi-person-plus-fill"></i></h1>
                 <form action="../controller/signUpController.php" method="post">
-                  <div class="tab-content">
-                    <div id="home" class="container tab-pane active"><br>
-                      <div class="form-label-group">
-                        <label for="inputName">Full name of APPLICANT:</label>
-                        <input
-                          type="text"
-                          id="inputName"
-                          name="name"
-                          class="form-control"
-                          placeholder="Name"
-                          required
-                          autofocus
-                        />
-                      </div>
-                      <h4>RESIDENCE:</h4>
+                  <div class="container">
+                    <div class="tab-content">
+                      <div id="home" class="container tab-pane active"><br>
+                        <div class="form-floating mb-3">
+                          <input
+                            type="text"
+                            id="inputName"
+                            name="name"
+                            class="form-control"
+                            placeholder="Full Name"
+                            required
+                          />
+                          <label for="inputName">Full name of APPLICANT:</label>
+                        </div>
+                        
+                        <h4 class="h4">RESIDENCE:</h4>
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-floating mb-3">
+                              <input
+                                type="text"
+                                id="inputBldg"
+                                name="bldg"
+                                class="form-control"
+                                placeholder="HOUSE/BLDG/Floor no."
+                                required
+                              />
+                              <label for="inputBldg">HOUSE/BLDG/Floor no.:</label>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="form-floating mb-3">
+                              <input
+                                type="text"
+                                id="street"
+                                name="street"
+                                class="form-control"
+                                placeholder="Street"
+                                required
+                              />
+                              <label for="street">Street:</label>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <h4 class="h4">RESIDENT OF THE BARANGAY</h4>
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-floating mb-3">
+                              <input
+                                type="text"
+                                id="from"
+                                name="From"
+                                class="form-control"
+                                placeholder="From"
+                                required
+                              />
+                              <label for="from">From:</label>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="form-floating mb-3">
+                              <input
+                                type="text"
+                                id="to"
+                                name="to"
+                                class="form-control"
+                                placeholder="To"
+                                required
+                              />
+                              <label for="to">To:</label>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="row">
+                          <div class="col">
+                            <div class="form-floating mb-3">
+                              <input
+                                type="date"
+                                id="date"
+                                name="date"
+                                class="form-control"
+                                placeholder="Date of Birth"
+                                required
+                              />
+                              <label for="date">Date of Birth:</label>
+                            </div>
+                          </div>
+                          <div class="col">
+                            <div class="form-floating mb-3">
+                              <input
+                                type="text"
+                                id="Age"
+                                name="Age"
+                                class="form-control"
+                                placeholder="Age"
+                                required
+                              />
+                              <label for="Age">Age:</label>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="form-floating mb-3">
+                          <input
+                            type="text"
+                            id="placeofbirth"
+                            name="placeofbirth"
+                            class="form-control"
+                            placeholder="Place of Birth"
+                            required
+                          />
+                          <label for="placeofbirth">Place of Birth:</label>
+                        </div>
+                        
+                        <div class="form-floating mb-3">
+                          <input
+                            type="text"
+                            id="Contactnumber"
+                            name="Contactnumber"
+                            class="form-control"
+                            placeholder="Contact Number"
+                            required
+                          />
+                          <label for="Contactnumber">Contact No: <i class="bi bi-telephone-plus"></i></label>
+                        </div>
                       <div class="row">
                         <div class="col">
-                          <div class="form-label-group">
-                            <label for="inputBldg" style="font-size: 0.7rem;">HOUSE/BLDG/Floor no.:</label>
-                            <input type="text" id="inputBldg" name="bldg" class="form-control" required>
+                          <span><b class="h2">Sex: </b></span>
+                          <div class="form-check">
+                            <input
+                              type="radio"
+                              id="Male"
+                              name="sex"
+                              value="Male"
+                              class="form-check-input main-radio"
+                              required
+                            />
+                            <label class="form-check-label" for="Male">Male</label>
+                          </div>
+                          <div class="form-check">
+                            <input
+                              type="radio"
+                              id="Female"
+                              name="sex"
+                              value="Female"
+                              class="form-check-input main-radio"
+                              required
+                            />
+                            <label class="form-check-label" for="Female">Female</label>
                           </div>
                         </div>
+                        
                         <div class="col">
-                          <div class="form-label-group">
-                            <label for="street">Street:</label>
-                            <input type="text" id="street" name="street" class="form-control" required>
+                          <span><b class="h2">Civil Status:</b></span>
+                          <div class="form-check">
+                            <input
+                              type="radio"
+                              id="Single"
+                              name="Civilstatus"
+                              value="single"
+                              class="form-check-input main-radio"
+                              required
+                            />
+                            <label class="form-check-label" for="Single">Single</label>
+                          </div>
+                          <div class="form-check">
+                            <input
+                              type="radio"
+                              id="Separated"
+                              name="Civilstatus"
+                              value="separated"
+                              class="form-check-input main-radio"
+                              required
+                            />
+                            <label class="form-check-label" for="Separated">Separated</label>
+                          </div>
+                          <div class="form-check">
+                            <input
+                              type="radio"
+                              id="Married"
+                              name="Civilstatus"
+                              value="Married"
+                              class="form-check-input main-radio main-radio"
+                              required
+                            />
+                            <label class="form-check-label" for="Married">Married</label>
+                          </div>
+                          <div class="form-check">
+                            <input
+                              type="radio"
+                              id="Widow"
+                              name="Civilstatus"
+                              value="Widow"
+                              class="form-check-input main-radio"
+                              required
+                            />
+                            <label class="form-check-label" for="Widow">Widow</label>
                           </div>
                         </div>
                       </div>
-                      <h4>RESIDENT OF THE BARANGAY</h4>
-                      <div class="row">
-                        <div class="col">
-                          <div class="form-label-group">
-                            <label for="From">From:</label>
-                            <input type="text" id="from" name="From" class="form-control" required>
-                          </div>
+                        <div class="form-floating mb-3">
+                          <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            class="form-control"
+                            placeholder="Username"
+                            required
+                          />
+                          <label for="username">Username:</label>
                         </div>
-                        <div class="col">
-                          <div class="form-label-group">
-                            <label for="to">To:</label>
-                            <input type="text" id="to" name="to" class="form-control" required>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="form-label-group">
-                            <label for="date">Date of birth:</label>
-                            <input type="date" name="date" id="date" class="form-control" required>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div class="form-label-group">
-                            <label for="Age">Age:</label>
-                            <input type="text" id="Age" name="Age" class="form-control" required>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="form-label-group">
-                        <label for="placeofbirth">Place of birth:</label>
-                        <input type="text" id="placeofbirth" name="placeofbirth" class="form-control" required>
-                      </div>
-                      <div class="form-label-group">
-                        <label for="Contact number">Contact number:</label>
-                        <input type="text" id="Contactnumber" name="Contactnumber" class="form-control" required>
-                      </div>
-                      <div class="form-label-group">
-                        <span><b>Sex:</b></span>
-                        <input type="radio" id="Male" name="sex" value="Male">
-                        <label for="Male">Male</label>
-                        <input type="radio" id="Female" name="sex" value="Female">
-                        <label for="Female">Female</label>
-                      </div>
-                      <div class="form-label-group">
-                        <span><b>Civil Status:</b></span>
-                        <input type="radio" id="Single" name="Civilstatus" value="single">
-                        <label for="Single">Single</label>
-                        <input type="radio" id="Separated" name="Civilstatus" value="separated">
-                        <label for="Separated">Separated</label>
-                        <input type="radio" id="Married" name="Civilstatus" value="Married">
-                        <label for="Married">Married</label>
-                        <input type="radio" id="Widow" name="Civilstatus" value="Widow">
-                        <label for="Widow">Widow</label>
-                      </div>
-                      <div class="form-label-group">
-                      <label for="username">Username:</label>
-                        <input type="text" id="username" name = "username" class="form-control" placeholder="Username" required autofocus>
+                        
+                        <div class="form-floating mb-3 position-relative">
+                      <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="Password"
+                        required
+                      />
+                      <label for="password">Password</label>
+                      <i
+                        class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3 toggle-password fs-5"
+                        style="cursor: pointer;"
+                      ></i>
                     </div>
-                    <div class="form-label-group">
-                      <label for="username">Password:</label>
-                        <input type="password" name = "password" id="Password" class="form-control" placeholder="Password" required autofocus>
-                    </div>
-                    <div class="login-btn-container">
-                        <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" id ="submitBtn">Register</button>
+                    <a href="login.php" class="d-block mb-3 text-center login-link">Already have an account? Login here</a>
+                        <div class="login-btn-container">
+                          <button
+                            class="btn btn-lg btn-primary btn-block text-uppercase button-main register-btn"
+                            type="submit"
+                            id="submitBtn"
+                          >
+                            Register <i class="bi bi-person-plus"></i>
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </form>
@@ -200,5 +346,22 @@ $loginSession = $_SESSION['session'] ?? null;
      
    
     </script>
+    <script>
+  document.querySelector('.toggle-password').addEventListener('click', function () {
+    const passwordInput = document.getElementById('password');
+    const icon = this;
+
+    // Toggle the password field type
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      icon.classList.remove('bi-eye-slash');
+      icon.classList.add('bi-eye');
+    } else {
+      passwordInput.type = 'password';
+      icon.classList.remove('bi-eye');
+      icon.classList.add('bi-eye-slash');
+    }
+  });
+</script>
 </body>
 </html>
