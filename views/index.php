@@ -27,30 +27,23 @@ $loginSession = $_SESSION['session'] ?? null;
   </head>
   <body>
     <div id="header"></div>
-    <div class="header">
-      <h1 style="font-family: Impact, Charcoal, sans-serif">WELCOME</h1>
-      <h2 style="font-family: Impact, Charcoal, sans-serif">
-        BARANGAY 201, ZONE 20
-      </h2>
-      <h2
-        style="
-          font-size: 25px;
-          margin-top: 10px;
-          font-family: Impact, Charcoal, sans-serif;
-        "
-      >
-        Pasay city, Philippines
-      </h2>
-    </div>
-    <div class="content">
-      <h3 style="font-family: Impact, Charcoal, sans-serif; margin-top: -10%">
-        CONTACT US:
-      </h3>
-      <div class="contact-info">
-        FACEBOOK :<br />
-        CONTACT NUMBER :<br />
-        EMAIL ACCOUNT :<br />
-        ADDRESS :
+    <div class="container mt-5" style="margin-top: 10% !important">
+      <div class="row">
+        <div class="col index-left">
+            <h1 class="index-welcome">Welcome !</h1>
+            <h2 class="index-location">BARANGAY 201, ZONE 20 Pasay city, Philippines</h2>
+            <h2 class="contact-us">Contact Us:</h2>
+            <div class="contact-info">
+              <p class="contact-infos"><i class="bi bi-facebook"></i> <a href="https://www.facebook.com/brgy201zone20">https://www.facebook.com/brgy201zone20</a></p>
+              <p class="contact-infos"><i class="bi bi-telephone-plus"></i> 0995-984-0893</p>
+              <p class="contact-infos"><i class="bi bi-envelope-fill"></i> barangay201pasaycity2018@gmail.com</p>
+              <p class="contact-infos"><i class="bi bi-geo-alt-fill"></i> Gate 2 Kalayaan Village Barangay 201, Zone 20 1300 Pasay City, Philippines
+              </p>
+            </div>
+        </div>
+        <div class="col">
+          <img src="../images/baranggay.svg" alt ="barangay logo" width="100%" height="100%"/>
+        </div>
       </div>
     </div>
     <!-- Modal for Logging out please wag mo ibahin kupal --> 
