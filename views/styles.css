@@ -691,7 +691,7 @@ body::before {
   width: fit-content !important;
   display: flex !important;
   justify-content: start;
-  gap: 4px;
+  gap: 7px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 2% 5% 2% 10%;
   border-radius: 50px
