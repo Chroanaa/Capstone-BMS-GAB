@@ -33,7 +33,7 @@ if($loginSession == null){
           <div class="col-sm-7 col-md-7 col-lg-5 mx-auto mt-5">
             <div class="card card-signin my-5">
               <div class="card-body">
-                <h5 class="card-title text-center">Fill up</h5>
+                <h5 class="card-title text-center h5">Fill Up <i class="bi bi-pencil-square"></i></h5>
                 <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" data-bs-toggle="tab" href="#documents">Certificates/permits/ID</a>
@@ -45,68 +45,71 @@ if($loginSession == null){
                 <form action="../controller/addRequestForUser.php" method="post">
                   <div class="tab-content">
                     <div id="documents" class="container tab-pane active"><br>
-                    <div class="form-label-group">
-                        <label for="Purpose">Purpose:</label>
-                        <select name="Purpose" id="Purpose">
-                          <option value="employment">Employment</option>
-                          <option value="Driver's License">Driver's License</option>
-                          <option value="Tricycle Franchise">Tricycle Franchise</option>
-                          <option value="DSWD">DSWD</option>
-                          <option value="Housing loan">Housing loan</option>
-                          <option value="Burial Assistance">Burial Assistance</option>
-                          <option value="Finance Assistance">Finance Assistance</option>
-                          <option value="Postal ID">Postal ID</option>
-                          <option value="Multi-purpose Loan">Multi-purpose Loan</option>
-                          <option value="Medical Assistance">Medical Assistance</option>
-                        </select>
-                      </div>
-                      <div class="form-label-group">
-                        <input type="checkbox" name="documents[]" id="Barangay_clearance" value="Barangay_clearance">
-                        <label for="Barangay_clearance">Barangay clearance</label>
-                      </div>
-                      <div class="form-label-group">
-                        <input type="checkbox" name="documents[]" id="Certificate_of_indigency" value="Certificate_of_indigency">
-                        <label for="Certificate_of_indigency">Certificate of indigency</label>
-                      </div>
-                      <div class="form-label-group">
-                        <input type="checkbox" name="documents[]" id="Barangay_id" value="Barangay_id">
-                        <label for="Barangay_id">Barangay Id</label>
-                      </div>
-                      <div class="form-label-group">
-                        <input type="checkbox" name="documents[]" id="Certifiacte_of_ownership" value="Certifiacte_of_ownership">
-                        <label for="Certifiacte_of_ownership">Certificate of ownership</label>
-                      </div>
-                      <div class="form-label-group">
-                        <input type="checkbox" name="documents[]" id="Certifiacte_of_livebirth" value="Certifiacte_of_livebirth">
-                        <label for="Certifiacte_of_livebirth">Certificate of Live birth</label>
-                      </div>
-                      <div class="form-label-group">
-                        <input type="checkbox" name="documents[]" id="Certifiacte_of_Guardianship" value="Certifiacte_of_Guardianship">
-                        <label for="Certifiacte_of_Guardianship">Certificate of Guardianship</label>
-                      </div>
-                      <div class="form-label-group">
-                        <input type="checkbox" name="documents[]" id="Health_certificate" value="Health_certificate">
-                        <label for="Health_certificate">Health Certificate</label>
-                      </div>
-                      <div class="form-label-group">
-                        <input type="checkbox" name="documents[]" id="FirstTime_Job_Seeker" value="FirstTime_Job_Seeker">
-                        <label for="FirstTime_Job_Seeker">First-Time Job Seeker</label>
-                      </div>
-                    </div>
+              <div class="form-label-group mb-3">
+                <label for="Purpose" class="form-label purpose">Purpose:</label>
+                <select name="Purpose" id="Purpose" class="form-select fill-form-select">
+                  <option value="employment">Employment</option>
+                  <option value="Driver's License">Driver's License</option>
+                  <option value="Tricycle Franchise">Tricycle Franchise</option>
+                  <option value="DSWD">DSWD</option>
+                  <option value="Housing loan">Housing loan</option>
+                  <option value="Burial Assistance">Burial Assistance</option>
+                  <option value="Finance Assistance">Finance Assistance</option>
+                  <option value="Postal ID">Postal ID</option>
+                  <option value="Multi-purpose Loan">Multi-purpose Loan</option>
+                  <option value="Medical Assistance">Medical Assistance</option>
+                </select>
+              </div>
+              <div class="form-label-group mb-3 fill-label-group">
+                <div class="form-check fill-up-label">
+                  <input type="checkbox" name="documents[]" id="Barangay_clearance" value="Barangay_clearance" class="form-check-input">
+                  <label for="Barangay_clearance" class="form-check-label">Barangay clearance</label>
+                </div>
+                <div class="form-check fill-up-label">
+                  <input type="checkbox" name="documents[]" id="Certificate_of_indigency" value="Certificate_of_indigency" class="form-check-input">
+                  <label for="Certificate_of_indigency" class="form-check-label">Certificate of indigency</label>
+                </div>
+                <div class="form-check fill-up-label">
+                  <input type="checkbox" name="documents[]" id="Barangay_id" value="Barangay_id" class="form-check-input">
+                  <label for="Barangay_id" class="form-check-label">Barangay Id</label>
+                </div>
+                <div class="form-check fill-up-label">
+                  <input type="checkbox" name="documents[]" id="Certifiacte_of_ownership" value="Certifiacte_of_ownership" class="form-check-input">
+                  <label for="Certifiacte_of_ownership" class="form-check-label">Certificate of ownership</label>
+                </div>
+                <div class="form-check fill-up-label">
+                  <input type="checkbox" name="documents[]" id="Certifiacte_of_livebirth" value="Certifiacte_of_livebirth" class="form-check-input">
+                  <label for="Certifiacte_of_livebirth" class="form-check-label">Certificate of Live birth</label>
+                </div>
+                <div class="form-check fill-up-label">
+                  <input type="checkbox" name="documents[]" id="Certifiacte_of_Guardianship" value="Certifiacte_of_Guardianship" class="form-check-input">
+                  <label for="Certifiacte_of_Guardianship" class="form-check-label">Certificate of Guardianship</label>
+                </div>
+                <div class="form-check fill-up-label">
+                  <input type="checkbox" name="documents[]" id="Health_certificate" value="Health_certificate" class="form-check-input">
+                  <label for="Health_certificate" class="form-check-label">Health Certificate</label>
+                </div>
+                <div class="form-check fill-up-label">
+                  <input type="checkbox" name="documents[]" id="FirstTime_Job_Seeker" value="FirstTime_Job_Seeker" class="form-check-input">
+                  <label for="FirstTime_Job_Seeker" class="form-check-label">First-Time Job Seeker</label>
+                </div>
+              </div>
+            </div>
+
                     <div id="Signature" class="container tab-pane fade"><br>
-                      <h3>Certified true and Correct</h3>
+                      <h3 class="purpose">Certified true and Correct</h3>
                       <div class="container mt-5">
                         <div class="mb-4">
-                          <canvas></canvas>
+                        <button type="button" class="clear btn btn-primary"><i class="bi bi-arrow-clockwise"></i></button>
+                          <canvas class="signature-canvas"></canvas>
                           <div class="signature-box"></div>
-                          <button type="button" class="clear">Clear</button>
                           <div class="text-center">Signature </div>
                           <div class="text-muted text-center">Applicant</div>
                         </div>
                         <div class="mb-3">
-                          <span>Date:</span>
-                          <h4 class="dateToday"></h4>
-                          <button type="submit" name="submit" id="submitBtn" class="btn btn-primary">Submit</button>
+                          <span class="h2">Date:</span>
+                          <p class="dateToday"></p>
+                          <button type="submit" name="submit" id="submitBtn" class="btn btn-primary button-main ms-auto">Submit <i class="bi bi-box-arrow-in-right"></i></button>
                         </div>
                       </div>
                     </div>
