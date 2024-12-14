@@ -44,19 +44,23 @@ export function header(isLoggedIn) {
              isLoggedIn
                ? `
               </li>
-              <div class="dropdown dropdown-header w-25">
-                <button class="btn nav-item dropdown-toggle dropdown-btn" style="color: yellow;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <li class="nav-item header-nav-item">
+              <div class="dropdown dropdown-header w-100">
+                <button class="btn dropdown-toggle dropdown-btn" style="color: yellow;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="../images/profile.svg" alt="profile" class="dropdown-icon"/>
                     <span class="dropdown-label">Profile</span>
                 </button>
 
               <div class="dropdown-menu dropdown-pop-up" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item nav-link" href="#">Account</a>
+                <button type="button" class="btn">
+                  Account
+                </button>
                 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   Logout
                 </button>
               </div>
             </div>
+            </li>
             `
                : `
                <li class='nav-item'>
