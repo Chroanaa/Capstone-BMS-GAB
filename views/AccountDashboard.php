@@ -20,6 +20,7 @@
         return $row;
     }
     $document_requested = getAllDocumentRequested($loginSession);
+    // please ayaw ko na makakita ng table sa pag display for this be creative
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +47,7 @@
     </div>
      <div class="container mt-5 guardianship-certificate-form">
         <h2 class="text-center">Account Dashboard</h2>
-        
+        <!----------- display the fucking document requested sorted by name including yung requested for others reqd the db and you will understand what i mean ---------------->
             
         </div>
     <?php include 'modals/modalLogout.html'?>
