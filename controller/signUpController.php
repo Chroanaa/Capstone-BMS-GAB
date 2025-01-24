@@ -7,11 +7,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     //User Creds
     $username = $_POST['username'];
     $password = $_POST['password'];
+    $hash_password = password_hash($password, PASSWORD_DEFAULT);
     $sql = "INSERT INTO user_creds (Username, Password, time_Created) VALUES (:username, :password, :time_Created)";
     $stmt = $user_creds_conn->prepare($sql);
     $db = [
         'username' => $username,
-        'password' => $password,
+        'password' => $hash_password,
         'time_Created' => date('Y-m-d H:i:s'),
     ];
     $stmt->execute($db);
@@ -32,9 +33,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $gender = $_POST['sex'];
     $civilstatus = $_POST['Civilstatus'];
     $placeofbirth = $_POST['placeofbirth'];
-    $contactnumber = $_POST['Contactnumber'];
-    $username = $_POST['username'];
-    $password = $_POST['password'];
    $sql = "INSERT INTO `user_info`( `Fullname`, `creds_id`, `House/floor/bldgno.`, `Street`, `from`, `to`, `date_of_birth`, `Age`, `place_of_birth`, `contact_number`, `gender`, `civil_status`, `time_Created`)
     VALUES (:Fullname,:creds_id,:HouseBldgFloorno,:Street,:from,:to,:date_of_birth,:Age,:place_of_birth,:contact_number,:gender,:civil_status,:time_Created)";
     $stmt = $conn->prepare($sql);
