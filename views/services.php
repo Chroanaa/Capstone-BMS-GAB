@@ -30,7 +30,7 @@ $loginSession = $_SESSION['session'] ?? null;
 
     </header>
     <div class="header">
-      <div class="container-sm border border-5" style="margin-top: 5rem">
+      <div class="container-sm border border-5 services-container" style="margin-top: 5rem">
         <h1
           class="text-center mt-3 text-white title"
           style="margin-bottom: 3rem"
