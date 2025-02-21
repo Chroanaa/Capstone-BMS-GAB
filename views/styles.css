@@ -69,6 +69,8 @@ body::before {
   color: var(--primary-yellow) !important;
   margin-left: 20px !important;
 }
+
+
 @media(max-width: 991px){
 #navbarNav{
   width: 500px !important;
@@ -114,7 +116,6 @@ body::before {
   -webkit-text-stroke: 3px black;
   font-weight: 900;
   font-size: 2rem;
-  font-family: roboto;
 }
 .flex-column {
   gap: 1rem;
@@ -127,12 +128,12 @@ body::before {
 
 .service-item a {
   display: block;
-  width: 25%;
+  width: 30%;
   min-width: 200px;
   text-align: center;
   font-family: roboto;
   font-weight: 900;
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: black;
   transition: all 0.3s ease-in-out;
 }
@@ -194,9 +195,7 @@ body::before {
     text-shadow: 1px 1px 1px var(--primary-blue);
     width: 30%;
   }
-  .header .title {
-    font: 3em roboto;
-  }
+
 }
 .login-btn-container {
   display: flex !important;
@@ -488,12 +487,12 @@ body::before {
   background-color: #fff;
   padding: 20px;
   border-radius: 4px;
-  width: 50%;
-  margin-top: 200px !important;
+  width: 60%;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
+
 .guardianship-certificate-form h2{
   font-weight: 700;
   color: var(--primary-blue);
@@ -777,3 +776,20 @@ body::before {
 .services-container{
   width: 60% !important;
 }
+
+.guardianship-certificate-main-container{
+  padding-top: 100px;
+
+}
+.navbar-adminBrand{
+  color: yellow;
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.navbar-nav {
+  flex-direction: row !important; /* For desktop */
+}
+
+

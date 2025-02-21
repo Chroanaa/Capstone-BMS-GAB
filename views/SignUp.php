@@ -236,6 +236,14 @@ $loginSession = $_SESSION['session'] ?? null;
                           </div>
                         </div>
                       </div>
+                      <div class="mb-3">
+                          <label for="profilePicture" class="form-label">Upload Profile Picture:</label>
+                          <input class="form-control" type="file" id="profilePicture" name="profilePicture" accept="image/*" required>
+                        </div>
+                        <div class="mb-3">
+                          <img id="profilePicturePreview" src="#" alt="Profile Picture Preview" class="img-fluid" style="display: none; max-width: 100%; height: auto;">
+                        </div>
+
                         <div class="form-floating mb-3">
                           <input
                             type="text"
@@ -299,17 +307,16 @@ $loginSession = $_SESSION['session'] ?? null;
     </div>
   </div>
 </div>
-
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+ <!-- Bootstrap JS and dependencies -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </main>
-    <script src = "header.js"></script>
+    <script src="header.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
-    <script type = "module">
+    <script type="module">
       import {header} from './header.js';
       header(<?= $loginSession?>);
      const dateOfBirth = document.getElementById("date"); 
@@ -343,25 +350,33 @@ $loginSession = $_SESSION['session'] ?? null;
         }
         document.getElementById("Age").value = age;
       });
-     
-   
     </script>
     <script>
-  document.querySelector('.toggle-password').addEventListener('click', function () {
-    const passwordInput = document.getElementById('password');
-    const icon = this;
+      document.querySelector('.toggle-password').addEventListener('click', function () {
+        const passwordInput = document.getElementById('password');
+        const icon = this;
 
-    // Toggle the password field type
-    if (passwordInput.type === 'password') {
-      passwordInput.type = 'text';
-      icon.classList.remove('bi-eye-slash');
-      icon.classList.add('bi-eye');
-    } else {
-      passwordInput.type = 'password';
-      icon.classList.remove('bi-eye');
-      icon.classList.add('bi-eye-slash');
-    }
-  });
-</script>
+        // Toggle the password field type
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          icon.classList.remove('bi-eye-slash');
+          icon.classList.add('bi-eye');
+        } else {
+          passwordInput.type = 'password';
+          icon.classList.remove('bi-eye');
+          icon.classList.add('bi-eye-slash');
+        }
+      });
+
+      // JavaScript for image preview
+      document.getElementById('profilePicture').addEventListener('change', function(event) {
+        const [file] = event.target.files;
+        if (file) {
+          const preview = document.getElementById('profilePicturePreview');
+          preview.src = URL.createObjectURL(file);
+          preview.style.display = 'block';
+        }
+      });
+    </script>
 </body>
 </html>

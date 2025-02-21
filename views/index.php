@@ -31,7 +31,7 @@ $loginSession = $_SESSION['session'] ?? null;
       <div class="row">
         <div class="col index-left">
             <h1 class="index-welcome">Welcome!</h1>
-            <h2 class="index-location">BARANGAY 201, ZONE 20 Pasay city, Philippines <a href="services.php" class="services-call-btn">Services <i class="bi bi-arrow-right-short"></i></a></h2>
+            <h2 class="index-location">BARANGAY 201, ZONE 20 Pasay city, Philippines </h2>
             <h2 class="contact-us">Contact Us:</h2>
             <div class="contact-info">
               <p class="contact-infos"><i class="bi bi-facebook"></i> <a href="https://www.facebook.com/brgy201zone20" target="_blank">https://www.facebook.com/brgy201zone20</a></p>

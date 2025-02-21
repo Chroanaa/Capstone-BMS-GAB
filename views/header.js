@@ -52,7 +52,7 @@ export function header(isLoggedIn) {
                 </button>
 
               <div class="dropdown-menu dropdown-pop-up" aria-labelledby="dropdownMenuButton">
-                <button type="button" class="btn">
+                <button onclick="window.location.href='accountDashboard.php'" class="btn">
                   Account
                 </button>
                 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
