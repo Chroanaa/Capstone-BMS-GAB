@@ -5,32 +5,36 @@
     }
     $loginSession = $_SESSION['session'];
     //get all document requested by the user
-     function getAllDocumentRequested($requestor_id){
-        include ('../databaseconn/connection.php');
-        $conn = $GLOBALS['conn'];
-        $sql = "SELECT * FROM document_requested WHERE user_id = '$requestor_id'";
-        $result = $conn->prepare($sql);
-        $result->execute();
-        $document_requested = $result->fetchAll();
-        $get_document_requested_for_others_qry = "SELECT * FROM  document_requested_for_others WHERE user_requestor_id = '$requestor_id'";
-        $get_document_requested_for_others_result = $conn->prepare($get_document_requested_for_others_qry);
-        $get_document_requested_for_others_result->execute();   
-        $document_requested_for_others = $get_document_requested_for_others_result->fetchAll();
-        $others_info_qry = "SELECT * FROM requested_for_others_info WHERE requestor_id = '$requestor_id'";
-        $others_info_result = $conn->prepare($others_info_qry);
-        $others_info_result->execute();
-        $others_info = $others_info_result->fetchAll();
-        return [
-            'document_requested' => $document_requested,
-            'document_requested_for_others' => $document_requested_for_others,
-            'document_requested_for_others_id' => $document_requested_for_others,
-            'others_info_fullname' => $others_info
-        ];  
-    }
-    $document_requested = getAllDocumentRequested($loginSession);
-    $documents = $document_requested['document_requested'];
-    
-    
+ function getDocumentsRequested($id){
+    include '../databaseconn/connection.php';
+    $conn = $GLOBALS['conn'];
+    $sql = "SELECT * FROM document_requested WHERE user_id = $id";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $documents = $stmt->fetchAll();
+    return $documents;
+ }
+ function getOthersDocumentRequested($id){
+    include '../databaseconn/connection.php';
+    $conn = $GLOBALS['conn'];
+    $sql = "SELECT * FROM document_requested_for_others WHERE user_requestor_id = $id";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $documents = $stmt->fetchAll();
+    return $documents;
+ }
+ function getOthersInfo($id){
+    include '../databaseconn/connection.php';
+    $conn = $GLOBALS['conn'];
+    $sql = "SELECT * FROM requested_for_others_info WHERE requestor_id = $id";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $documents = $stmt->fetchAll();
+    return $documents;
+ }
+ $others_info = getOthersInfo($loginSession);   
+ $other_documents = getOthersDocumentRequested($loginSession);
+ $documents = getDocumentsRequested($loginSession);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,21 +57,69 @@
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <div id="header">       
+    <div id="header"> </div> 
     </div>
-     <div class="container mt-5 guardianship-certificate-form">
+     <div class="container mt-2 guardianship-certificate-form   rounded-3">
         <h2 class="text-center">Account Dashboard</h2>
+        <h3 class="text-center">Your requested Documents</h3>
             <table>
                 <th>
                     <tr>
+                        <td> ID</td>
                         <td>Document Requested</td>
-                        <td>Document Requested For</td>
                         <td>Document Requested Date</td>
+                        <td>purpose</td>
                         <td>Document Status</td>
                     </tr>
                 </th>
                 <tbody>
-                   
+                   <?php
+                foreach($documents as $document){
+                    echo "<tr>";
+                    echo "<td>".$loginSession."</td>";
+                    echo "<td>".$document['documents_requested']."</td>";
+                    echo "<td>".$document['timestamp']."</td>";
+                    echo "<td>".$document['purpose']."</td>";
+                    echo "<td>".$document['status']."</td>";
+                    echo "</tr>";
+                }
+                
+                   ?>
+            </table>
+             <h3 class="text-center">Your requested Documents for others</h3>
+           
+        </div>
+             <div class="container mt-1 guardianship-certificate-form  rounded-3">
+        <h3 class="text-center">Your requested Documents for others</h3>
+         <table>
+                <th>
+                    <tr>
+                        <td> ID</td>
+                        <td>Document Requested</td>
+                        <td>Full name</td>
+                        <td>Document Requested Date</td>
+                        <td>purpose</td>
+                        <td>Document Status</td>
+                    </tr>
+                </th>
+                <tbody>
+              <?php
+            foreach($other_documents as $document){
+                foreach($others_info as $info){
+                    if($info['requestor_id'] == $loginSession && $info['id'] == $document['requestor_id']){
+                        echo "<tr>";
+                        echo "<td>".$document['id']."</td>";
+                        echo "<td>".$document['documents_requested']."</td>";
+                        echo "<td>".$info['Fullname']."</td>";
+                        echo "<td>".$document['time_Created']."</td>";
+                        echo "<td>".$document['purpose']."</td>";
+                        echo "<td>".$document['status']."</td>";
+                        echo "</tr>";
+                        break; // Exit the inner loop once a match is found
+                    }
+                }
+            }
+            ?>
             </table>
         </div>
     <?php include 'modals/modalLogout.html'?>
