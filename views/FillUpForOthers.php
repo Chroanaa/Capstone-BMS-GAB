@@ -62,9 +62,8 @@ if($loginSession == null){
                         />
                         <label for="inputName">Full name of APPLICANT</label>
                       </div>
-
-                      <h5 class="card-title">RESIDENCE:</h5>
-                      <div class="row mb-3">
+                      <h5>RESIDENCE:</h5>
+                      <div class="row">
                         <div class="col">
                           <div class="form-floating">
                             <input type="text" id="inputBldg" name="bldg" class="form-control" placeholder="House/Bldg/Floor no.">

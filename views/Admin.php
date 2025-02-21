@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Admin Dashboard</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
@@ -57,5 +58,11 @@
             }
         }
     </script>
+=======
+    <title>Document</title>
+</head>
+<body>
+    
+>>>>>>> 13402c8bc95f4a096b919edd6564617aebca4d38
 </body>
 </html>
