@@ -33,7 +33,7 @@ $loginSession = $_SESSION['session'] ?? null;
             <div class="card card-signin my-5">
               <div class="card-body">
                 <h1 class="card-title text-center h5">REGISTER <i class="bi bi-person-plus-fill"></i></h1>
-                <form action="../controller/signUpController.php" method="post">
+                <form action="../controller/signUpController.php" method="post" enctype="multipart/form-data">
                   <div class="container">
                     <div class="tab-content">
                       <div id="home" class="container tab-pane active"><br>
@@ -48,7 +48,16 @@ $loginSession = $_SESSION['session'] ?? null;
                           />
                           <label for="inputName">Full name of APPLICANT:</label>
                         </div>
-                        
+                        <div class="form-label-group">
+                        <label for="picture">Picture:</label>
+                        <input
+                          type="file"
+                          id="picture"
+                          name="user_picture"
+                          class="form-control"
+                          required
+                        />
+                      </div>
                         <h4 class="h4">RESIDENCE:</h4>
                         <div class="row">
                           <div class="col">

@@ -55,7 +55,7 @@ export function header(isLoggedIn) {
                 <button type="button" class="btn">
                   Account
                 </button>
-                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <button type="button" id = "dashboard" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   Logout
                 </button>
               </div>

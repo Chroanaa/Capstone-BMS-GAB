@@ -62,6 +62,16 @@ if($loginSession == null){
                           autofocus
                         />
                       </div>
+                      <div class="form-label-group">
+                        <label for="picture">Picture:</label>
+                        <input
+                          type="file"
+                          id="picture"
+                          name="picture"
+                          class="form-control"
+                          
+                        />
+                      </div>
                       <h5>RESIDENCE:</h5>
                       <div class="row">
                         <div class="col">
