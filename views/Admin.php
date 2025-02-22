@@ -29,10 +29,10 @@
                 <div class="collapse navbar-collapse" id="adminNavbarNav">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link" href="#adminResidents"><i class="bi bi-people-fill"></i> Residents</a>
+                            <a class="nav-link" href="adminAllResidents.php"><i class="bi bi-people-fill"></i> Residents</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#adminDocuments"><i class="bi bi-file-earmark-text-fill"></i> Document Requested</a>
+                            <a class="nav-link" href="AdminDocumentRequest.php"><i class="bi bi-file-earmark-text-fill"></i> Document Requested</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav">

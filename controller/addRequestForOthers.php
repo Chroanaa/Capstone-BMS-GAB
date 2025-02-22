@@ -43,20 +43,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $stmt->execute($db_arr);
 
     // Get the last inserted user ID
-    $user_id = $conn->lastInsertId();
+    $others_id = $conn->lastInsertId();
 
     // Insert documents if any are selected
     if (!empty($documents)) {
       foreach ($documents as $document) {
-        $doc_query = 'INSERT INTO `document_requested_for_others`(`requestor_id`,`documents_requested`,`purpose`) VALUES ( :requestor_id,:documents_requested,:purpose)';
+        $doc_query = 'INSERT INTO `document_requested_for_others`(`requestor_id`,`user_requestor_id`,`documents_requested`,`purpose`, `status`) VALUES ( :requestor_id,:user_requestor_id,:documents_requested,:purpose, "Pending")';
         $doc_stmt = $conn->prepare($doc_query);
         $db_arr = [
-          'requestor_id' => $requestor_id,
+          'requestor_id' => $others_id,
+          'user_requestor_id' => $requestor_id,
           'documents_requested' => $document,
           'purpose' => $purpose
         ];
         $doc_stmt->execute($db_arr);
-        header('Location: ../views/request.php');
+        header('Location: ../views/AccountDashboard.php');
       }
     }
 
