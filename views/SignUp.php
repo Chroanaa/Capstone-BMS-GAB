@@ -49,14 +49,7 @@ $loginSession = $_SESSION['session'] ?? null;
                           <label for="inputName">Full name of APPLICANT:</label>
                         </div>
                         <div class="form-label-group">
-                        <label for="picture">Picture:</label>
-                        <input
-                          type="file"
-                          id="picture"
-                          name="user_picture"
-                          class="form-control"
-                          required
-                        />
+                       
                       </div>
                         <h4 class="h4">RESIDENCE:</h4>
                         <div class="row">
@@ -247,7 +240,7 @@ $loginSession = $_SESSION['session'] ?? null;
                       </div>
                       <div class="mb-3">
                           <label for="profilePicture" class="form-label">Upload Profile Picture:</label>
-                          <input class="form-control" type="file" id="profilePicture" name="profilePicture" accept="image/*" required>
+                          <input class="form-control" type="file" id="profilePicture" name="user_picture" accept="image/*" required>
                         </div>
                         <div class="mb-3">
                           <img id="profilePicturePreview" src="#" alt="Profile Picture Preview" class="img-fluid" style="display: none; max-width: 100%; height: auto;">

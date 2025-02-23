@@ -16,7 +16,7 @@ $residents = getAllResidents();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Residents</title>
-     <link
+    <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
@@ -27,9 +27,20 @@ $residents = getAllResidents();
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css"
       rel="stylesheet"
     />
+    <!-- DataTables CSS -->
+    <link
+      href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
 <body>
-    <table>
+  <div id="adminHeader"></div>
+  <div class="residents-main-container">
+    <h1 class="text-center h5 blue">Residents</h1>
+    <table id="residentsTable">
         <thead>
             <th>ID</th>
             <th>Fullname</th>
@@ -61,55 +72,141 @@ $residents = getAllResidents();
                     <td><?php echo $resident['gender'] ?></td>
                     <td><?php echo $resident['civil_status'] ?></td>
                     <td>
-                        <a href="../controller/deleteResidentController.php?id=<?php echo $resident['creds_id'] ?>">Delete</a>
-                        <button onclick="setUrlId(<?php echo $resident['id'] ?>)" data-toggle="modal" data-target="#issue-document">Issue a document</button>
+                        <a href="#" class="delete-link btn btn-danger" data-id="<?php echo $resident['creds_id'] ?>"><i class="bi bi-trash"></i></a>
+                        <button onclick="setUrlId(<?php echo $resident['id'] ?>)" data-toggle="modal" data-target="#issue-document" class="btn-primary btn">Issue a document</button>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
-
     </table>
 
     <div class="modal fade" id="issue-document" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Issue a document</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-       <select name="document" id="document">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Issue a document</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <select name="document" id="document">
               <option value="1">Barangay Clearance</option>
               <option value="2">Barangay ID</option>
               <option value="3">Business Permit</option>
-                <option value="4">Barangay Certificate of Indigency</option>
-                <option value="5">First-Time Job Seeker</option>
-                <option value="5">Certicate of Live Birth</option>
-                <option value="5">Certicate of Guardianship</option>
-                <option value="5">Health Certificate</option>
-                
-       </select>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Print</button>
+              <option value="4">Barangay Certificate of Indigency</option>
+              <option value="5">First-Time Job Seeker</option>
+              <option value="5">Certicate of Live Birth</option>
+              <option value="5">Certicate of Guardianship</option>
+              <option value="5">Health Certificate</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Print</button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 </div>
-
 </body>
+<!-- jQuery and DataTables JS -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
+<!-- SweetAlert JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#residentsTable').DataTable({
+            responsive: true,
+            lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+            pageLength: 5,
+            scrollY: '50vh',  // Set vertical scroll height to 50% of viewport height
+            scrollX: true,    // Enable horizontal scrolling
+            scrollCollapse: true  // Enable scroll collapse
+        });
+
+        // SweetAlert for delete confirmation
+        $('.delete-link').on('click', function(e) {
+            e.preventDefault();
+            const id = $(this).data('id');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = `../controller/deleteResidentController.php?id=${id}`;
+                }
+            });
+        });
+
+        // SweetAlert for status messages
+        const urlParams = new URLSearchParams(window.location.search);
+        const status = urlParams.get('status');
+        if (status === 'success') {
+            Swal.fire({
+                title: 'Deleted!',
+                text: 'The resident has been deleted.',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            });
+        } else if (status === 'error') {
+            Swal.fire({
+                title: 'Error!',
+                text: 'There was an error deleting the resident.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        }
+    });
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
     function setUrlId(id){
         const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?id=${id}`;
         window.history.pushState({ path: newUrl }, '', newUrl);
-    
     }
 </script>
+<script type="module">
+        import { header } from './adminHeader.js';
+        header(false); // Pass false since the user is not logged in
+        const params = new URLSearchParams(window.location?.search);
+        const error = params.get('error');
+        if(error === 'wrongcreds'){
+            document.querySelector('.card-error').innerHTML += `<div class="alert alert-danger mt-5" role="alert">
+                <h4 class="text-center"> Wrong credentials </h4>
+            </div>`;
+            setTimeout(() => {
+                document.querySelector('.card-error').innerHTML = "";
+            }, 3000);
+        }
+        if(error === "notLoggedIn"){
+            document.querySelector('.card-error').innerHTML += `<div class="alert alert-danger mt-5" role="alert">
+                <h4 class="text-center"> Must be logged In</h4>
+            </div>`;
+            setTimeout(() => {
+                document.querySelector('.card-error').innerHTML = "";
+            }, 3000);
+        }
+    </script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        header(true); // Pass true if the user is logged in
+        $('#residentsTable').DataTable(); // Initialize DataTable
+    });
+    </script>
 </html>

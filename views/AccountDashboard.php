@@ -82,7 +82,7 @@
                             echo "<tr>";
                             echo "<td>".$loginSession."</td>";
                             echo "<td>".$document['documents_requested']."</td>";
-                            echo "<td>".$document['timestamp']."</td>";
+                            echo "<td>".date('Y-m-d', strtotime($document['timestamp']))."</td>";
                             echo "<td>".$document['purpose']."</td>";
                             echo "<td>".$document['status']."</td>";
                             echo "</tr>";
@@ -117,7 +117,7 @@
                                     echo "<td>".$document['id']."</td>";
                                     echo "<td>".$document['documents_requested']."</td>";
                                     echo "<td>".$info['Fullname']."</td>";
-                                    echo "<td>".$document['time_Created']."</td>";
+                                    echo "<td>".date('Y-m-d', strtotime($document['time_Created']))."</td>";
                                     echo "<td>".$document['purpose']."</td>";
                                     echo "<td>".$document['status']."</td>";
                                     echo "</tr>";
@@ -139,6 +139,9 @@
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap5.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#requestedDocsTable').DataTable({

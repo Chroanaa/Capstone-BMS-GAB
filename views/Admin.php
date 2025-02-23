@@ -19,42 +19,35 @@
     <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Admin Dashboard</a>
-                <button class="navbar-toggler" type="button" onclick="toggleNavbar()" aria-controls="adminNavbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="adminNavbarNav">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="adminAllResidents.php"><i class="bi bi-people-fill"></i> Residents</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="AdminDocumentRequest.php"><i class="bi bi-file-earmark-text-fill"></i> Document Requested</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="../controller/logoutController.php"> Logout <i class="bi bi-box-arrow-right"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <?php include 'modals/modalLogout.html'?>
-    <!-- Bootstrap JS and dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"></script>
+    <div id="adminHeader"></div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="adminHeader.js"></script>
     <script>
-        function toggleNavbar() {
-            var navbar = document.getElementById('adminNavbarNav');
-            if (navbar.classList.contains('show')) {
-                navbar.classList.remove('show');
-            } else {
-                navbar.classList.add('show');
-            }
+        document.addEventListener("DOMContentLoaded", function() {
+            header(false); // Pass false since the user is not logged in
+        });
+    </script>
+    <script type="module">
+        import { header } from './adminHeader.js';
+        header(false); // Pass false since the user is not logged in
+        const params = new URLSearchParams(window.location?.search);
+        const error = params.get('error');
+        if(error === 'wrongcreds'){
+            document.querySelector('.card-error').innerHTML += `<div class="alert alert-danger mt-5" role="alert">
+                <h4 class="text-center"> Wrong credentials </h4>
+            </div>`;
+            setTimeout(() => {
+                document.querySelector('.card-error').innerHTML = "";
+            }, 3000);
+        }
+        if(error === "notLoggedIn"){
+            document.querySelector('.card-error').innerHTML += `<div class="alert alert-danger mt-5" role="alert">
+                <h4 class="text-center"> Must be logged In</h4>
+            </div>`;
+            setTimeout(() => {
+                document.querySelector('.card-error').innerHTML = "";
+            }, 3000);
         }
     </script>
 </body>

@@ -781,7 +781,8 @@ body::before {
   padding-top: 100px;
 
 }
-.navbar-adminBrand{
+/* Ensure the navbar is styled correctly for both desktop and mobile views */
+.navbar-adminBrand {
   color: yellow;
   text-decoration: none;
   font-size: 1.8rem;
@@ -792,4 +793,120 @@ body::before {
   flex-direction: row !important; /* For desktop */
 }
 
+.navbar-toggler {
+  transform: scale(0.8);
+  margin-left: 5%;
+  background-color: yellow !important;
+  border: 2px solid var(--primary-blue);
+  color: var(--primary-blue) !important; /* Make the button smaller */
+}
 
+
+.nav-link.active {
+  color: var(--primary-blue) !important;
+}
+
+.nav-link:hover {
+  color: var(--primary-blue) !important;
+}
+
+
+/* Ensure the navbar is styled correctly for both desktop and mobile views */
+.admin-navbar-brand {
+  color: yellow !important;
+  text-decoration: none;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.navbar-nav {
+  flex-direction: row !important; /* For desktop */
+}
+
+.navbar-toggler {
+  transform: scale(0.8);
+  margin-left: 5%;
+  background-color: yellow !important;
+  border: 2px solid var(--primary-blue);
+  color: var(--primary-blue) !important; /* Make the button smaller */
+}
+
+.navbar .navbar-nav li a {
+  padding: 14px 20px;
+  text-decoration: none;
+  text-align: center;
+  font-size: 25px;
+  transition: all 0.3s ease-in-out;
+  text-shadow: 2px 2px 2px var(--primary-blue);
+  color: var(--primary-yellow) !important;
+  margin-left: 20px !important;
+}
+
+.navbar .navbar-nav li a:hover {
+  transform: scale(1.1);
+  background-color: var(--primary-blue);
+  border-radius: 10px;
+}
+
+@media (max-width: 991px) {
+  .navbar .navbar-nav li a {
+    font-size: 22px; /* Adjust the font size for smaller screens */
+    padding: 10px 15px; /* Adjust the padding for smaller screens */
+    text-shadow: 1px 1px 1px var(--primary-blue);
+    width: 30%;
+  }
+
+  #adminNavbarNav {
+    width: 500px !important;
+    max-width: 300px !important;
+    min-width: 300px !important;
+    background-color: var(--secondary-blue) !important;
+    position: absolute !important;
+    top: 50px;
+    border-radius: 25px;
+    left: 5%;
+    padding: 1.5% 2% 1.5% 2%;
+    z-index: 99;
+  }
+
+  .navbar-collapse.show {
+    display: block !important;
+    background-color: var(--secondary-blue) !important;
+    border-radius: 25px;
+    padding: 1.5% 2% 1.5% 2%;
+  }
+}
+
+.nav-link.active {
+  color: var(--primary-blue) !important;
+}
+
+.nav-link:hover {
+  color: var(--primary-blue) !important;
+}
+
+@media (max-width: 991px) {
+.navbar-nav-unique{
+  display: flex !important;
+  flex-direction: column !important;
+}
+}
+
+.residents-main-container{
+  margin-top: 200px;
+  margin: 200px auto 0 auto;
+  width: 80%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.blue{
+  color: var(--primary-blue);
+  font-weight: bold;
+}
+
+#documentRequestTable thead th {
+  width: 20% !important; /* Equal width for all columns */
+  min-width: 150px; /* Minimum width to prevent squeezing */
+}
