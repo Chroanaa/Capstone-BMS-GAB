@@ -789,9 +789,6 @@ body::before {
   font-weight: 600;
 }
 
-.navbar-nav {
-  flex-direction: row !important; /* For desktop */
-}
 
 .navbar-toggler {
   transform: scale(0.8);
@@ -819,9 +816,6 @@ body::before {
   font-weight: 600;
 }
 
-.navbar-nav {
-  flex-direction: row !important; /* For desktop */
-}
 
 .navbar-toggler {
   transform: scale(0.8);
@@ -885,12 +879,6 @@ body::before {
   color: var(--primary-blue) !important;
 }
 
-@media (max-width: 991px) {
-.navbar-nav-unique{
-  display: flex !important;
-  flex-direction: column !important;
-}
-}
 
 .residents-main-container{
   margin-top: 200px;
@@ -910,3 +898,18 @@ body::before {
   width: 20% !important; /* Equal width for all columns */
   min-width: 150px; /* Minimum width to prevent squeezing */
 }
+
+#adminDashboard{
+  padding-top: 5%;
+}
+
+
+@media (max-width: 991px) {
+  .navbar-nav-unique{
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  #adminDashboard{
+    padding-top: 15%;
+  }
+  }
