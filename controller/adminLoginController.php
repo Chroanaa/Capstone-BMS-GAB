@@ -11,7 +11,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $stmt->execute();
     $result = $stmt->fetch();
     if($result){
-        $_SESSION['username'] = $username;
+        $_SESSION['admin'] = $result['id'];
         header('Location: ../views/Admin.php');
     }else{
         header('Location: ../views/AdminLogin.php');

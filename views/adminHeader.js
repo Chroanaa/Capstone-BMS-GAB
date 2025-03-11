@@ -1,10 +1,10 @@
 export function header(isLoggedIn) {
-    const headerDiv = document.getElementById('adminHeader');
-    if (headerDiv) {
-        headerDiv.innerHTML = `
+  const headerDiv = document.getElementById("adminHeader");
+  if (headerDiv) {
+    headerDiv.innerHTML = `
             <nav class="navbar navbar-expand-lg navbar-light bg-light admin-navbar">
                 <div class="container-fluid">
-                    <a class="navbar-brand admin-navbar-brand" href="#">Admin</a>
+                    <a class="navbar-brand admin-navbar-brand" href=Admin.php>Admin</a>
                     <button class="navbar-toggler admin-navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbarNav" aria-controls="adminNavbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -18,11 +18,15 @@ export function header(isLoggedIn) {
                             </li>
                         </ul>
                         <ul class="navbar-nav">
-                            ${isLoggedIn ? `
+                            ${
+                              isLoggedIn
+                                ? `
                             <li class="nav-item">
                                 <button class="nav-link admin-nav-link btn" data-bs-toggle="modal" data-bs-target="#exampleModal"> Logout <i class="bi bi-box-arrow-right"></i></button>
                             </li>
-                            ` : ''}
+                            `
+                                : ""
+                            }
                         </ul>
                     </div>
                 </div>
@@ -49,5 +53,5 @@ export function header(isLoggedIn) {
                 </div>
             </div>
         `;
-    }
+  }
 }

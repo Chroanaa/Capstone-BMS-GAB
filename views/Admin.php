@@ -1,3 +1,48 @@
+<?php
+    session_start();
+    if(!isset($_SESSION['admin'])){
+        header('Location: /admin/login.php?error=notLoggedIn');
+    }
+function getAllResidents(){
+    include '../databaseconn/connection.php';
+    try {
+        $conn = $GLOBALS['User_conn'];
+        $stmt = $conn->prepare("SELECT COUNT(*) FROM user_creds");
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result;
+    } catch (PDOException $e) {
+        return "No residents found";
+    }
+}
+function getAllCountOfDocumentRequest(){
+    include '../databaseconn/connection.php';
+    try {
+        $conn = $GLOBALS['conn'];
+        $stmt = $conn->prepare("SELECT COUNT(*) FROM document_requested WHERE status = 'Pending'");
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result;
+    } catch (PDOException $e) {
+        return "No Documents requested today";
+    }
+}
+function getAllOthersCountOfDocumentRequest(){
+    include '../databaseconn/connection.php';
+    try {
+        $conn = $GLOBALS['conn'];
+        $stmt = $conn->prepare("SELECT COUNT(*) FROM document_requested_for_others WHERE status = 'Pending'");
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result;
+    } catch (PDOException $e) {
+        return "No Documents requested today";
+    }
+}
+$resident_count = getAllResidents()[0];
+$doc_query = getAllCountOfDocumentRequest()[0] + getAllOthersCountOfDocumentRequest()[0];
+var_dump($doc_query);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,16 +72,16 @@
             <div class="col-md-4">
                 <div class="card text-white bg-primary mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Test Nigga</h5>
-                        <p class="card-text display-4">150</p>
+                        <h5 class="card-title">Registered Residents</h5>
+                        <p class="card-text display-4"><?php echo $resident_count ?> </p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card text-white bg-success mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Test Nigga</h5>
-                        <p class="card-text display-4">25</p>
+                        <h5 class="card-title">Pending Document Request</h5>
+                        <p class="card-text display-4"><?php echo $doc_query ?></p>
                     </div>
                 </div>
             </div>
@@ -54,7 +99,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Test</h5>
+                        <h5 class="card-title">Age distribution</h5>
                         <canvas id="revenueChart"></canvas>
                     </div>
                 </div>
@@ -66,11 +111,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="adminHeader.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            header(false); // Pass false since the user is not logged in
-        });
-    </script>
+ 
     <script type="module">
         import { header } from './adminHeader.js';
         header(false); // Pass false since the user is not logged in

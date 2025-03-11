@@ -1,9 +1,14 @@
 <?php
 session_start();
 $loginSession = $_SESSION['session'] ?? null;
-
+$adminSession = $_SESSION['admin'] ?? null;
 if($loginSession){
+    echo "<script>alert('You are not an admin!')</script>";
     header('Location: services.php');
+}
+if($adminSession){
+    echo "<script>alert('You are already logged in!')</script>";
+    header('Location: admin.php');
 }
 ?>
 <!DOCTYPE html>
