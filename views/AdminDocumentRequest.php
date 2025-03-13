@@ -60,15 +60,22 @@ $documents = getAllDocumentRequest();
                     <td><?php echo $document['purpose']; ?></td>
                     <td><?php echo $document['status']; ?></td>
                     <td>
-                        <form action="../controller/approveDocumentRequest.php" method="POST" class="d-inline">
-                            <input type="hidden" name="id" value="<?php echo $document['document_id']; ?>">
-                            <button type="submit" class="btn btn-success btn-sm">Approve</button>
-                        </form>
-                        <form action="../controller/rejectDocumentRequest.php" method="POST" class="d-inline">
-                            <input type="hidden" name="id" value="<?php echo $document['document_id']; ?>">
-                            <button type="submit" class="btn btn-danger btn-sm">Reject</button>
-                        </form>
-                    </td>
+                        <?php if($document['status'] === 'Pending'): ?>
+                            <form action="../controller/approveDocumentRequest.php" method="POST" class="d-inline">
+                                <input type="hidden" name="id" value="<?php echo $document['document_id']; ?>">
+                                <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                            </form>
+                            <form action="../controller/rejectDocumentRequest.php" method="POST" class="d-inline">
+                                <input type="hidden" name="id" value="<?php echo $document['document_id']; ?>">
+                                <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                            </form>
+                        <?php else: ?>
+                            <form action="../controller/undoDocumentRequest.php" method="POST" class="d-inline">
+                                <input type="hidden" name="id" value="<?php echo $document['document_id']; ?>">
+                                <button type="submit" class="btn btn-warning btn-sm">Cancel</button>
+                            </form>
+                        <?php endif; ?>
+</td>
                 </tr>
             <?php endforeach; ?>
             <?php foreach($others as $other): ?>
@@ -78,14 +85,21 @@ $documents = getAllDocumentRequest();
                     <td><?php echo $other['purpose']; ?></td>
                     <td><?php echo $other['status']; ?></td>
                     <td>
-                        <form action="../controller/approveOthersDocumentRequest.php" method="POST" class="d-inline">
-                            <input type="hidden" name="id" value="<?php echo $other['document_id']; ?>">
-                            <button type="submit" class="btn btn-success btn-sm">Approve</button>
-                        </form>
-                        <form action="../controller/rejectOthersDocumentRequest.php" method="POST" class="d-inline">
-                            <input type="hidden" name="id" value="<?php echo $other['document_id']; ?>">
-                            <button type="submit" class="btn btn-danger btn-sm">Reject</button>
-                        </form>
+                        <?php if($other['status'] === 'Pending'): ?>
+                            <form action="../controller/approveOthersDocumentRequest.php" method="POST" class="d-inline">
+                                <input type="hidden" name="id" value="<?php echo $other['document_id']; ?>">
+                                <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                            </form>
+                            <form action="../controller/rejectOthersDocumentRequest.php" method="POST" class="d-inline">
+                                <input type="hidden" name="id" value="<?php echo $other['document_id']; ?>">
+                                <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                            </form>
+                        <?php else: ?>
+                            <form action="../controller/undoOthersDocumentRequest.php" method="POST" class="d-inline">
+                                <input type="hidden" name="id" value="<?php echo $other['document_id']; ?>">
+                                <button type="submit" class="btn btn-warning btn-sm">Cancel</button>
+                            </form>
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -130,36 +144,29 @@ $documents = getAllDocumentRequest();
     const urlParams = new URLSearchParams(window.location.search);
     const status = urlParams.get('status');
     
+    $(document).ready(function() {
+    // ... existing datatable initialization ...
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const status = urlParams.get('status');
+    
     if (status === 'approved') {
-        Swal.fire({
-            title: 'Approved!',
-            text: 'Document request has been approved successfully.',
-            icon: 'success',
-            confirmButtonText: 'OK'
-        }).then(() => {
-            // Clear the status parameter from URL
-            history.replaceState({}, document.title, window.location.pathname);
-        });
+        Swal.fire('Approved!', 'Document request has been approved.', 'success');
     } else if (status === 'rejected') {
-        Swal.fire({
-            title: 'Rejected!',
-            text: 'Document request has been rejected.',
-            icon: 'error',
-            confirmButtonText: 'OK'
-        }).then(() => {
-            history.replaceState({}, document.title, window.location.pathname);
-        });
+        Swal.fire('Rejected!', 'Document request has been rejected.', 'error');
+    } else if (status === 'undone') {
+        Swal.fire('Cancelled!', 'Document Cancelled', 'info');
     } else if (status === 'error') {
-        Swal.fire({
-            title: 'Error!',
-            text: 'An error occurred while processing the request.',
-            icon: 'error',
-            confirmButtonText: 'OK'
-        }).then(() => {
-            history.replaceState({}, document.title, window.location.pathname);
-        });
+        Swal.fire('Error!', 'An error occurred.', 'error');
     }
+    
+    // Clear URL parameters after showing alert
+    history.replaceState({}, document.title, window.location.pathname);
   });
+  $('.dataTables_filter input').attr('placeholder', 'Search by Name...');
+    }
+    
+  );
 </script>
 </body>
 </html>

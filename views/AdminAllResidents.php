@@ -129,7 +129,7 @@ $residents = getAllResidents();
             scrollX: true,    // Enable horizontal scrolling
             scrollCollapse: true  // Enable scroll collapse
         });
-
+        $('.dataTables_filter input').attr('placeholder', 'Search By Name...');
         // SweetAlert for delete confirmation
         $('.delete-link').on('click', function(e) {
             e.preventDefault();

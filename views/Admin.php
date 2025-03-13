@@ -60,7 +60,6 @@ var_dump($doc_query);
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css"
       rel="stylesheet"
     />
-
     <link rel="stylesheet" href="styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -70,24 +69,24 @@ var_dump($doc_query);
      <div class="container mt-5">
         <div class="row">
             <div class="col-md-4">
-                <div class="card text-white bg-primary mb-3">
-                    <div class="card-body">
+                <div class="card text-white pale-pink mb-3">
+                    <div class="card-body dashboard-card">
                         <h5 class="card-title">Registered Residents</h5>
                         <p class="card-text display-4"><?php echo $resident_count ?> </p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card text-white bg-success mb-3">
-                    <div class="card-body">
+                <div class="card text-whitemb-3 light-cyan">
+                    <div class="card-body dashboard-card">
                         <h5 class="card-title">Pending Document Request</h5>
                         <p class="card-text display-4"><?php echo $doc_query ?></p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card text-white bg-warning mb-3">
-                    <div class="card-body">
+                <div class="card text-white pale-yellow mb-3">
+                    <div class="card-body dashboard-card">
                         <h5 class="card-title">Test Nigga</h5>
                         <p class="card-text display-4">$5,000</p>
                     </div>

@@ -913,3 +913,19 @@ body::before {
     padding-top: 15%;
   }
   }
+
+  .pale-pink{
+    background-color: #FFF0F5;
+  }
+  .light-cyan{
+    background-color: #E0FFFF;
+  }
+  .pale-yellow{
+    background-color: #FFFFE0;
+  }
+
+  .dashboard-card{
+    color: black !important;
+  }
+
+ 
