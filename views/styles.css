@@ -928,4 +928,11 @@ body::before {
     color: black !important;
   }
 
- 
+  .residents-table-action {
+    white-space: nowrap;
+  }
+
+  .print-close{
+    margin-left: auto;
+    color: black !important;
+  }

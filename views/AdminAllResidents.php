@@ -40,7 +40,7 @@ $residents = getAllResidents();
   <div id="adminHeader"></div>
   <div class="residents-main-container">
     <h1 class="text-center h5 blue">Residents</h1>
-    <table id="residentsTable">
+    <table id="residentsTable" class="table table-striped table-bordered">
         <thead>
             <th>ID</th>
             <th>Fullname</th>
@@ -71,7 +71,7 @@ $residents = getAllResidents();
                     <td><?php echo $resident['contact_number'] ?></td>
                     <td><?php echo $resident['gender'] ?></td>
                     <td><?php echo $resident['civil_status'] ?></td>
-                    <td>
+                    <td class="residents-table-action">
                         <a href="#" class="delete-link btn btn-danger" data-id="<?php echo $resident['creds_id'] ?>"><i class="bi bi-trash"></i></a>
                         <button onclick="setUrlId(<?php echo $resident['id'] ?>)" data-toggle="modal" data-target="#issue-document" class="btn-primary btn">Issue a document</button>
                     </td>
@@ -81,33 +81,35 @@ $residents = getAllResidents();
     </table>
 
     <div class="modal fade" id="issue-document" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Issue a document</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <select name="document" id="document">
-              <option value="1">Barangay Clearance</option>
-              <option value="2">Barangay ID</option>
-              <option value="3">Business Permit</option>
-              <option value="4">Barangay Certificate of Indigency</option>
-              <option value="5">First-Time Job Seeker</option>
-              <option value="5">Certicate of Live Birth</option>
-              <option value="5">Certicate of Guardianship</option>
-              <option value="5">Health Certificate</option>
-            </select>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Print</button>
-          </div>
-        </div>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">Issue a Document</h5>
+        <button type="button" class="close text-white print-close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label for="document" class="form-label">Select Document:</label>
+        <select class="form-control" name="document" id="document">
+          <option value="1">Barangay Clearance</option>
+          <option value="2">Barangay ID</option>
+          <option value="3">Business Permit</option>
+          <option value="4">Barangay Certificate of Indigency</option>
+          <option value="5">First-Time Job Seeker</option>
+          <option value="6">Certificate of Live Birth</option>
+          <option value="7">Certificate of Guardianship</option>
+          <option value="8">Health Certificate</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Print</button>
       </div>
     </div>
+  </div>
+</div>
+
 </div>
 </body>
 <!-- jQuery and DataTables JS -->
