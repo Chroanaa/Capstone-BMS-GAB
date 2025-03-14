@@ -39,9 +39,35 @@ function getAllOthersCountOfDocumentRequest(){
         return "No Documents requested today";
     }
 }
+function getAllAges(){
+    include '../databaseconn/connection.php';
+    try {
+        $conn = $GLOBALS['conn'];
+        $stmt = $conn->prepare(" SELECT 
+            CASE 
+                WHEN Age BETWEEN 0 AND 10 THEN '0-10'
+                WHEN Age BETWEEN 11 AND 20 THEN '11-20'
+                WHEN Age BETWEEN 21 AND 30 THEN '21-30'
+                WHEN Age BETWEEN 31 AND 40 THEN '31-40'
+                WHEN Age BETWEEN 41 AND 50 THEN '41-50'
+                WHEN Age BETWEEN 51 AND 60 THEN '51-60'
+                WHEN Age BETWEEN 61 AND 70 THEN '61-70'
+                WHEN Age BETWEEN 71 AND 80 THEN '71-80'
+                ELSE '81+' 
+            END as age_range, 
+            COUNT(*) as count  
+        FROM user_info
+        GROUP BY age_range");
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result;
+    } catch (PDOException $e) {
+        return 0;
+    }
+}
 $resident_count = getAllResidents()[0];
 $doc_query = getAllCountOfDocumentRequest()[0] + getAllOthersCountOfDocumentRequest()[0];
-var_dump($doc_query);
+$age_data = getAllAges();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,7 +113,7 @@ var_dump($doc_query);
             <div class="col-md-4">
                 <div class="card text-white pale-yellow mb-3">
                     <div class="card-body dashboard-card">
-                        <h5 class="card-title">Test Nigga</h5>
+                        <h5 class="card-title">Test</h5>
                         <p class="card-text display-4">$5,000</p>
                     </div>
                 </div>
@@ -136,13 +162,16 @@ var_dump($doc_query);
      <script>
         // Chart Configuration
         const ctx = document.getElementById('revenueChart').getContext('2d');
+        const ageData = <?php echo json_encode($age_data) ?>;
+        const ageDistribution = ageData.map(data => data.count);
+        const ageLabels = ageData.map(data => data.age_range);
         new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: ['test', 'test', 'test', 'test', 'test', 'test'],
+                labels: ageLabels,
                 datasets: [{
-                    label: 'test',
-                    data: [1200, 1900, 3000, 5000, 2000, 3000],
+                    label: 'Age distribution',
+                    data: ageDistribution,
                     backgroundColor: 'rgba(54, 162, 235, 0.5)',
                     borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
