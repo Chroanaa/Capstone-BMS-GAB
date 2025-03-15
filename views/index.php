@@ -36,6 +36,7 @@ $loginSession = $_SESSION['session'] ?? null;
             <div class="contact-info">
               <p class="contact-infos"><i class="bi bi-facebook"></i> <a href="https://www.facebook.com/brgy201zone20" target="_blank">https://www.facebook.com/brgy201zone20</a></p>
               <p class="contact-infos"><i class="bi bi-telephone-plus"></i> 0995-984-0893</p>
+              <p class="contact-infos"><i class="bi bi-telephone-outbound"></i> Hotline: 8 7760822</p>
               <p class="contact-infos"><i class="bi bi-envelope-fill"></i> barangay201pasaycity2018@gmail.com</p>
               <p class="contact-infos"><i class="bi bi-geo-alt-fill"></i> Gate 2 Kalayaan Village Barangay 201, Zone 20 1300 Pasay City, Philippines
               </p>
