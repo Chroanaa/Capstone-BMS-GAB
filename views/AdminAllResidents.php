@@ -39,7 +39,12 @@ $residents = getAllResidents();
 <body>
   <div id="adminHeader"></div>
   <div class="residents-main-container">
-    <h1 class="text-center h5 blue">Residents</h1>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="h5 blue">Residents</h1>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addResidentModal">
+            <i class="bi bi-person-plus"></i> Add Resident
+        </button>
+    </div>
     <table id="residentsTable" class="table table-striped table-bordered">
         <thead>
             <th>ID</th>
@@ -72,8 +77,29 @@ $residents = getAllResidents();
                     <td><?php echo $resident['gender'] ?></td>
                     <td><?php echo $resident['civil_status'] ?></td>
                     <td class="residents-table-action">
-                        <a href="#" class="delete-link btn btn-danger" data-id="<?php echo $resident['creds_id'] ?>"><i class="bi bi-trash"></i></a>
-                        <button onclick="setUrlId(<?php echo $resident['id'] ?>)" data-toggle="modal" data-target="#issue-document" class="btn-primary btn">Issue a document</button>
+                        <button class="btn btn-warning btn-sm edit-resident" data-toggle="modal" data-target="#editResidentModal" 
+                            data-id="<?php echo $resident['id']; ?>"
+                            data-firstname="<?php echo explode(' ', $resident['Fullname'])[0]; ?>"
+                            data-middlename="<?php echo explode(' ', $resident['Fullname'])[1] ?? ''; ?>"
+                            data-lastname="<?php echo explode(' ', $resident['Fullname'])[2] ?? ''; ?>"
+                            data-houseno="<?php echo $resident['House/floor/bldgno.']; ?>"
+                            data-street="<?php echo $resident['Street']; ?>"
+                            data-from="<?php echo $resident['from']; ?>"
+                            data-to="<?php echo $resident['to']; ?>"
+                            data-dob="<?php echo $resident['date_of_birth']; ?>"
+                            data-age="<?php echo $resident['Age']; ?>"
+                            data-pob="<?php echo $resident['place_of_birth']; ?>"
+                            data-contact="<?php echo $resident['contact_number']; ?>"
+                            data-gender="<?php echo $resident['gender']; ?>"
+                            data-civil="<?php echo $resident['civil_status']; ?>">
+                            <i class="bi bi-pencil"></i>
+                        </button>
+                        <a href="#" class="delete-link btn btn-danger btn-sm" data-id="<?php echo $resident['creds_id'] ?>">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                        <button onclick="setUrlId(<?php echo $resident['id'] ?>)" data-toggle="modal" data-target="#issue-document" class="btn-primary btn btn-sm">
+                            Issue a document
+                        </button>
                     </td>
                 </tr>
             <?php endforeach; ?>
@@ -109,7 +135,255 @@ $residents = getAllResidents();
     </div>
   </div>
 </div>
+</div>
 
+<!-- Add Resident Modal -->
+<div class="modal fade" id="addResidentModal" tabindex="-1" role="dialog" aria-labelledby="addResidentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="addResidentModalLabel">Add New Resident</h5>
+                <button type="button" class="close text-white print-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="../controller/addResidentController.php" method="post" enctype="multipart/form-data">
+                    <!-- Personal Information -->
+                    <div class="row mb-3">
+                        <div class="col-md-4 form-floating">
+                            <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First Name" required>
+                            <label for="firstName">First Name</label>
+                        </div>
+                        <div class="col-md-4 form-floating">
+                            <input type="text" id="middleName" name="middleName" class="form-control" placeholder="Middle Name">
+                            <label for="middleName">Middle Name</label>
+                        </div>
+                        <div class="col-md-4 form-floating">
+                            <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last Name" required>
+                            <label for="lastName">Last Name</label>
+                        </div>
+                    </div>
+
+                    <!-- Residence -->
+                    <h6 class="mb-3">Residence</h6>
+                    <div class="row mb-3">
+                        <div class="col-md-6 form-floating">
+                            <input type="text" id="bldg" name="bldg" class="form-control" placeholder="House/Bldg/Floor no." required>
+                            <label for="bldg">House/Bldg/Floor no.</label>
+                        </div>
+                        <div class="col-md-6 form-floating">
+                            <input type="text" id="street" name="street" class="form-control" placeholder="Street" required>
+                            <label for="street">Street</label>
+                        </div>
+                    </div>
+
+                    <!-- Residency Period -->
+                    <h6 class="mb-3">Residency Period</h6>
+                    <div class="row mb-3">
+                        <div class="col-md-6 form-floating">
+                            <input type="date" id="from" name="From" class="form-control" required>
+                            <label for="from">From</label>
+                        </div>
+                        <div class="col-md-6 form-floating">
+                            <input type="date" id="to" name="to" class="form-control" required>
+                            <label for="to">To</label>
+                        </div>
+                    </div>
+
+                    <!-- Personal Details -->
+                    <div class="row mb-3">
+                        <div class="col-md-6 form-floating">
+                            <input type="date" id="date" name="date" class="form-control" required>
+                            <label for="date">Date of Birth</label>
+                        </div>
+                        <div class="col-md-6 form-floating">
+                            <input type="text" id="Age" name="Age" class="form-control" readonly>
+                            <label for="Age">Age</label>
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" id="placeofbirth" name="placeofbirth" class="form-control" placeholder="Place of birth" required>
+                        <label for="placeofbirth">Place of birth</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" id="Contactnumber" name="Contactnumber" class="form-control" placeholder="Contact number" required>
+                        <label for="Contactnumber">Contact number</label>
+                    </div>
+
+                    <!-- Sex and Civil Status -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="mb-2"><b>Sex</b></label>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="Male" name="sex" value="Male" required>
+                                <label class="form-check-label" for="Male">Male</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="Female" name="sex" value="Female">
+                                <label class="form-check-label" for="Female">Female</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="mb-2"><b>Civil Status</b></label>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="Single" name="Civilstatus" value="Single" required>
+                                <label class="form-check-label" for="Single">Single</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="Married" name="Civilstatus" value="Married">
+                                <label class="form-check-label" for="Married">Married</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="Separated" name="Civilstatus" value="Separated">
+                                <label class="form-check-label" for="Separated">Separated</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="Widow" name="Civilstatus" value="Widow">
+                                <label class="form-check-label" for="Widow">Widow</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile Picture -->
+                    <div class="mb-3">
+                        <label for="profilePicture" class="form-label">Profile Picture</label>
+                        <input type="file" class="form-control" id="profilePicture" name="profilePicture" accept="image/*" required>
+                    </div>
+                    <div class="mb-3">
+                        <img id="profilePicturePreview" src="#" alt="Profile Picture Preview" class="img-fluid" style="display: none; max-width: 200px;">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Resident</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Resident Modal -->
+<div class="modal fade" id="editResidentModal" tabindex="-1" role="dialog" aria-labelledby="editResidentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <h5 class="modal-title" id="editResidentModalLabel">Edit Resident</h5>
+                <button type="button" class="close print-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="../controller/editResidentController.php" method="post">
+                    <input type="hidden" id="edit_id" name="id">
+                    
+                    <!-- Personal Information -->
+                    <div class="row mb-3">
+                        <div class="col-md-4 form-floating">
+                            <input type="text" id="edit_firstName" name="firstName" class="form-control" placeholder="First Name" required>
+                            <label for="edit_firstName">First Name</label>
+                        </div>
+                        <div class="col-md-4 form-floating">
+                            <input type="text" id="edit_middleName" name="middleName" class="form-control" placeholder="Middle Name">
+                            <label for="edit_middleName">Middle Name</label>
+                        </div>
+                        <div class="col-md-4 form-floating">
+                            <input type="text" id="edit_lastName" name="lastName" class="form-control" placeholder="Last Name" required>
+                            <label for="edit_lastName">Last Name</label>
+                        </div>
+                    </div>
+
+                    <!-- Residence -->
+                    <div class="row mb-3">
+                        <div class="col-md-6 form-floating">
+                            <input type="text" id="edit_bldg" name="bldg" class="form-control" placeholder="House/Bldg/Floor no." required>
+                            <label for="edit_bldg">House/Bldg/Floor no.</label>
+                        </div>
+                        <div class="col-md-6 form-floating">
+                            <input type="text" id="edit_street" name="street" class="form-control" placeholder="Street" required>
+                            <label for="edit_street">Street</label>
+                        </div>
+                    </div>
+
+                    <!-- Residency Period -->
+                    <div class="row mb-3">
+                        <div class="col-md-6 form-floating">
+                            <input type="date" id="edit_from" name="From" class="form-control" required>
+                            <label for="edit_from">From</label>
+                        </div>
+                        <div class="col-md-6 form-floating">
+                            <input type="date" id="edit_to" name="to" class="form-control" required>
+                            <label for="edit_to">To</label>
+                        </div>
+                    </div>
+
+                    <!-- Personal Details -->
+                    <div class="row mb-3">
+                        <div class="col-md-6 form-floating">
+                            <input type="date" id="edit_date" name="date" class="form-control" required>
+                            <label for="edit_date">Date of Birth</label>
+                        </div>
+                        <div class="col-md-6 form-floating">
+                            <input type="text" id="edit_Age" name="Age" class="form-control" readonly>
+                            <label for="edit_Age">Age</label>
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" id="edit_placeofbirth" name="placeofbirth" class="form-control" placeholder="Place of birth" required>
+                        <label for="edit_placeofbirth">Place of birth</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="text" id="edit_Contactnumber" name="Contactnumber" class="form-control" placeholder="Contact number" required>
+                        <label for="edit_Contactnumber">Contact number</label>
+                    </div>
+
+                    <!-- Sex and Civil Status -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label class="mb-2"><b>Sex</b></label>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="edit_Male" name="sex" value="Male" required>
+                                <label class="form-check-label" for="edit_Male">Male</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="edit_Female" name="sex" value="Female">
+                                <label class="form-check-label" for="edit_Female">Female</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="mb-2"><b>Civil Status</b></label>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="edit_Single" name="Civilstatus" value="Single" required>
+                                <label class="form-check-label" for="edit_Single">Single</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="edit_Married" name="Civilstatus" value="Married">
+                                <label class="form-check-label" for="edit_Married">Married</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="edit_Separated" name="Civilstatus" value="Separated">
+                                <label class="form-check-label" for="edit_Separated">Separated</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="edit_Widow" name="Civilstatus" value="Widow">
+                                <label class="form-check-label" for="edit_Widow">Widow</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-warning">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 <!-- jQuery and DataTables JS -->
@@ -170,18 +444,100 @@ $residents = getAllResidents();
             });
         }
     });
+
+
+    // Add to your existing script section
+$(document).ready(function() {
+    // Age calculation
+    $('#date').on('change', function() {
+        const today = new Date();
+        const birthDate = new Date(this.value);
+        if(birthDate > today) {
+            alert("Date of birth cannot be in the future");
+            this.value = "";
+            $('#Age').val("");
+            return;
+        }
+        
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        if(age > 100) {
+            alert("Invalid date of birth");
+            this.value = "";
+            $('#Age').val("");
+            return;
+        }
+        $('#Age').val(age);
+    });
+
+    // Profile picture preview
+    $('#profilePicture').on('change', function(event) {
+        const [file] = event.target.files;
+        if (file) {
+            const preview = $('#profilePicturePreview');
+            preview.attr('src', URL.createObjectURL(file));
+            preview.show();
+        }
+    });
+});
+
+
+// Add this to your existing $(document).ready function
+$('.edit-resident').on('click', function() {
+    const btn = $(this);
+    
+    // Set values in form
+    $('#edit_id').val(btn.data('id'));
+    $('#edit_firstName').val(btn.data('firstname'));
+    $('#edit_middleName').val(btn.data('middlename'));
+    $('#edit_lastName').val(btn.data('lastname'));
+    $('#edit_bldg').val(btn.data('houseno'));
+    $('#edit_street').val(btn.data('street'));
+    $('#edit_from').val(btn.data('from'));
+    $('#edit_to').val(btn.data('to'));
+    $('#edit_date').val(btn.data('dob'));
+    $('#edit_Age').val(btn.data('age'));
+    $('#edit_placeofbirth').val(btn.data('pob'));
+    $('#edit_Contactnumber').val(btn.data('contact'));
+    
+    // Set radio buttons
+    $(`input[name="sex"][value="${btn.data('gender')}"]`).prop('checked', true);
+    $(`input[name="Civilstatus"][value="${btn.data('civil')}"]`).prop('checked', true);
+});
+
+// Add the age calculation for edit form
+$('#edit_date').on('change', function() {
+    const today = new Date();
+    const birthDate = new Date(this.value);
+    if(birthDate > today) {
+        alert("Date of birth cannot be in the future");
+        this.value = "";
+        $('#edit_Age').val("");
+        return;
+    }
+    
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    if(age > 100) {
+        alert("Invalid date of birth");
+        this.value = "";
+        $('#edit_Age').val("");
+        return;
+    }
+    $('#edit_Age').val(age);
+});
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    function setUrlId(id){
-        const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?id=${id}`;
-        window.history.pushState({ path: newUrl }, '', newUrl);
-    }
-</script>
 <script type="module">
         import { header } from './adminHeader.js';
         header(false); // Pass false since the user is not logged in
@@ -210,5 +566,10 @@ $residents = getAllResidents();
         header(true); // Pass true if the user is logged in
         $('#residentsTable').DataTable(); // Initialize DataTable
     });
+
+    function setUrlId(id){
+        const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?id=${id}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+    }
     </script>
 </html>

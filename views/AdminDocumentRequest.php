@@ -25,6 +25,10 @@ function getOthersDocumentRequest(){
 }
 $others = getOthersDocumentRequest();
 $documents = getAllDocumentRequest();
+
+function formatDocumentName($documentName) {
+    return ucwords(str_replace('_', ' ', $documentName));
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,7 +60,7 @@ $documents = getAllDocumentRequest();
             <?php foreach($documents as $document): ?>
                 <tr>
                     <td><?php echo $document['Fullname']; ?></td>
-                    <td><?php echo $document['documents_requested']; ?></td>
+                    <td><?php echo formatDocumentName($document['documents_requested']); ?></td>
                     <td><?php echo $document['purpose']; ?></td>
                     <td><?php echo $document['status']; ?></td>
                     <td>
@@ -81,7 +85,7 @@ $documents = getAllDocumentRequest();
             <?php foreach($others as $other): ?>
                 <tr>
                     <td><?php echo $other['Fullname']; ?></td>
-                    <td><?php echo $other['documents_requested']; ?></td>
+                    <td><?php echo formatDocumentName($other['documents_requested']); ?></td>
                     <td><?php echo $other['purpose']; ?></td>
                     <td><?php echo $other['status']; ?></td>
                     <td>

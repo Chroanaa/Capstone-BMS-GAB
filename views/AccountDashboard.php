@@ -35,6 +35,10 @@
  $others_info = getOthersInfo($loginSession);   
  $other_documents = getOthersDocumentRequested($loginSession);
  $documents = getDocumentsRequested($loginSession);
+
+ function formatDocumentName($documentName) {
+    return ucwords(str_replace('_', ' ', $documentName));
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,7 +85,7 @@
                         foreach($documents as $document){
                             echo "<tr>";
                             echo "<td>".$loginSession."</td>";
-                            echo "<td>".$document['documents_requested']."</td>";
+                            echo "<td>".formatDocumentName($document['documents_requested'])."</td>";
                             echo "<td>".date('Y-m-d', strtotime($document['timestamp']))."</td>";
                             echo "<td>".$document['purpose']."</td>";
                             echo "<td>".$document['status']."</td>";
@@ -115,7 +119,7 @@
                                 if($info['requestor_id'] == $loginSession && $info['id'] == $document['requestor_id']){
                                     echo "<tr>";
                                     echo "<td>".$document['id']."</td>";
-                                    echo "<td>".$document['documents_requested']."</td>";
+                                    echo "<td>".formatDocumentName($document['documents_requested'])."</td>";
                                     echo "<td>".$info['Fullname']."</td>";
                                     echo "<td>".date('Y-m-d', strtotime($document['time_Created']))."</td>";
                                     echo "<td>".$document['purpose']."</td>";

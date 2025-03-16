@@ -50,19 +50,46 @@ if($loginSession == null){
                 <form action="../controller/addRequestForOthers.php" method="post" enctype="multipart/form-data">
                   <div class="tab-content">
                     <div id="home" class="container tab-pane active"><br>
-                      <div class="form-floating mb-3">
-                        <input
-                          type="text"
-                          id="inputName"
-                          name="name"
-                          class="form-control"
-                          placeholder="Name"
-                          required
-                          autofocus
-                        />
-                        <label for="inputName">Full name of APPLICANT</label>
-                      </div>
-                      <h5>RESIDENCE:</h5>
+                    <div class="row mb-3">
+                        <!-- First Name -->
+                        <div class="col-md-4 form-floating">
+                            <input 
+                                type="text"
+                                id="firstName"
+                                name="firstName"
+                                class="form-control"
+                                placeholder="First Name"
+                                required
+                            />
+                            <label for="firstName">First Name</label>
+                        </div>
+
+                        <!-- Middle Name -->
+                        <div class="col-md-4 form-floating">
+                            <input
+                                type="text"
+                                id="middleName"
+                                name="middleName"
+                                class="form-control"
+                                placeholder="Middle Name"
+                            />
+                            <label for="middleName">Middle Name</label>
+                        </div>
+
+                        <!-- Last Name -->
+                        <div class="col-md-4 form-floating">
+                            <input
+                                type="text"
+                                id="lastName"
+                                name="lastName"
+                                class="form-control"
+                                placeholder="Last Name"
+                                required
+                            />
+                            <label for="lastName">Last Name</label>
+                        </div>
+                    </div>
+                      <h4 class="card-title">RESIDENCE</h5>
                       <div class="row">
                         <div class="col">
                           <div class="form-floating">
@@ -77,18 +104,18 @@ if($loginSession == null){
                           </div>
                         </div>
                       </div>
-
                       <h4 class="card-title">RESIDENT OF THE BARANGAY</h4>
-                      <div class="row mb-3">
+                      <div class="row">
+                      <h5 class="note">Ex. Resident of Barangay since From : 1/16/2025 To: 3/16/2025</h5>
                         <div class="col">
                           <div class="form-floating">
-                            <input type="text" id="from" name="From" class="form-control" placeholder="From">
+                            <input type="date" id="from" name="From" class="form-control" placeholder="From">
                             <label for="from">From</label>
                           </div>
                         </div>
                         <div class="col">
                           <div class="form-floating">
-                            <input type="text" id="to" name="to" class="form-control" placeholder="To">
+                            <input type="date" id="to" name="to" class="form-control" placeholder="To">
                             <label for="to">To</label>
                           </div>
                         </div>

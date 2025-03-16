@@ -37,17 +37,45 @@ $loginSession = $_SESSION['session'] ?? null;
                   <div class="container">
                     <div class="tab-content">
                       <div id="home" class="container tab-pane active"><br>
-                        <div class="form-floating mb-3">
-                          <input
-                            type="text"
-                            id="inputName"
-                            name="name"
-                            class="form-control"
-                            placeholder="Full Name"
-                            required
-                          />
-                          <label for="inputName">Full name of APPLICANT:</label>
-                        </div>
+                      <div class="row mb-3">
+                          <!-- First Name -->
+                          <div class="col-md-4 form-floating">
+                              <input
+                                  type="text"
+                                  id="firstName"
+                                  name="firstName"
+                                  class="form-control"
+                                  placeholder="First Name"
+                                  required
+                              />
+                              <label for="firstName">First Name</label>
+                          </div>
+
+                          <!-- Middle Name -->
+                          <div class="col-md-4 form-floating">
+                              <input
+                                  type="text"
+                                  id="middleName"
+                                  name="middleName"
+                                  class="form-control"
+                                  placeholder="Middle Name"
+                              />
+                              <label for="middleName">Middle Name</label>
+                          </div>
+
+                          <!-- Last Name -->
+                          <div class="col-md-4 form-floating">
+                              <input
+                                  type="text"
+                                  id="lastName" 
+                                  name="lastName"
+                                  class="form-control"
+                                  placeholder="Last Name"
+                                  required
+                              />
+                              <label for="lastName">Last Name</label>
+                          </div>
+                      </div>
                         <div class="form-label-group">
                        
                       </div>
@@ -83,10 +111,11 @@ $loginSession = $_SESSION['session'] ?? null;
                         
                         <h4 class="h4">RESIDENT OF THE BARANGAY</h4>
                         <div class="row">
+                          <h5 class="note">Ex. Resident of Barangay since From : 1/16/2025 To: 3/16/2025</h5>
                           <div class="col">
                             <div class="form-floating mb-3">
                               <input
-                                type="text"
+                                type="date"
                                 id="from"
                                 name="From"
                                 class="form-control"
@@ -99,7 +128,7 @@ $loginSession = $_SESSION['session'] ?? null;
                           <div class="col">
                             <div class="form-floating mb-3">
                               <input
-                                type="text"
+                                type="date"
                                 id="to"
                                 name="to"
                                 class="form-control"
@@ -239,7 +268,7 @@ $loginSession = $_SESSION['session'] ?? null;
                         </div>
                       </div>
                       <div class="mb-3">
-                          <label for="profilePicture" class="form-label">Upload Profile Picture:</label>
+                          <label for="profilePicture" class="form-label">Picture:</label>
                           <input class="form-control" type="file" id="profilePicture" name="user_picture" accept="image/*" required>
                         </div>
                         <div class="mb-3">
