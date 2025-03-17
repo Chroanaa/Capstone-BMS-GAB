@@ -63,13 +63,15 @@ $residents = getAllResidents();
         </thead>
         <tbody>
             <?php foreach($residents as $resident): ?>
+                <?php $fullname = $resident['first_name'] . ' ' . $resident['middle_name'] . ' ' . $resident['last_name']; ?>
+                
                 <tr>
                     <td><?php echo $resident['id'] ?></td>
-                    <td><?php echo $resident['Fullname'] ?></td>
+                    <td><?php echo $fullname?></td>
                     <td><?php echo $resident['House/floor/bldgno.'] ?></td>
                     <td><?php echo $resident['Street'] ?></td>
                     <td><?php echo $resident['from'] ?></td>
-                    <td><?php echo $resident['to'] ?></td>
+                    <td><?php echo $resident['to'] ?></td> 
                     <td><?php echo $resident['date_of_birth'] ?></td>
                     <td><?php echo $resident['Age'] ?></td>
                     <td><?php echo $resident['place_of_birth'] ?></td>
@@ -79,9 +81,9 @@ $residents = getAllResidents();
                     <td class="residents-table-action">
                         <button class="btn btn-warning btn-sm edit-resident" data-toggle="modal" data-target="#editResidentModal" 
                             data-id="<?php echo $resident['id']; ?>"
-                            data-firstname="<?php echo explode(' ', $resident['Fullname'])[0]; ?>"
-                            data-middlename="<?php echo explode(' ', $resident['Fullname'])[1] ?? ''; ?>"
-                            data-lastname="<?php echo explode(' ', $resident['Fullname'])[2] ?? ''; ?>"
+                            data-firstname="<?php echo $resident['first_name']; ?>"
+                            data-middlename="<?php echo $resident['middle_name']; ?>"
+                            data-lastname="<?php echo $resident['last_name']; ?> "
                             data-houseno="<?php echo $resident['House/floor/bldgno.']; ?>"
                             data-street="<?php echo $resident['Street']; ?>"
                             data-from="<?php echo $resident['from']; ?>"
@@ -148,7 +150,7 @@ $residents = getAllResidents();
                 </button>
             </div>
             <div class="modal-body">
-                <form action="../controller/addResidentController.php" method="post" enctype="multipart/form-data">
+                <form id="addResidentForm" action="../controller/addResidentController.php" method="POST" enctype="multipart/form-data">
                     <!-- Personal Information -->
                     <div class="row mb-3">
                         <div class="col-md-4 form-floating">
@@ -257,7 +259,6 @@ $residents = getAllResidents();
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Add Resident</button>
                     </div>
                 </form>
@@ -428,6 +429,50 @@ $residents = getAllResidents();
         // SweetAlert for status messages
         const urlParams = new URLSearchParams(window.location.search);
         const status = urlParams.get('status');
+        const editStatus = urlParams.get('edit');
+        const addStatus = urlParams.get('add');
+        if(addStatus == "success"){
+            Swal.fire({
+                title: 'Success!',
+                text: 'Resident has been added.',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                preConfirm: () => {
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+            });
+        }else if(addStatus == "failed"){
+            Swal.fire({
+                title: 'Error!',
+                text: 'There was an error adding the resident.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+                preConfirm: () => {
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+            });
+        }
+        if(editStatus == "success"){
+            Swal.fire({
+                title: 'Success!',
+                text: 'Resident has been updated.',
+                icon: 'success',
+                confirmButtonText: 'OK',
+                preConfirm: () => {
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+            });
+        }else if(editStatus == "failed"){
+            Swal.fire({
+                title: 'Error!',
+                text: 'There was an error updating the resident.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+                preConfirm: () => {
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+            });
+        }
         if (status === 'success') {
             Swal.fire({
                 title: 'Deleted!',

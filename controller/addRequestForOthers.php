@@ -8,7 +8,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check if documents are set, otherwise initialize as an empty array
     $documents = isset($_POST['documents']) ? $_POST['documents'] : [];
     
-    $name = $_POST['name'];
+    $firstname = $_POST['firstName'];
+    $lastname = $_POST['lastName'];
+    $middlename = $_POST['middleName'] ?? "";
     $houseBLdgFloorno = $_POST['bldg'];
     $street = $_POST['street'];
     $from = $_POST['From'];
@@ -21,12 +23,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $civilstatus = $_POST['Civilstatus'];
     $purpose = $_POST['Purpose'];
 
-    $query = 'INSERT INTO `requested_for_others_info`(`Fullname`,`requestor_id`, `HouseBldgFloorno`, `Street`, `from`, `to`, `date_of_birth`, `Age`, `place_of_birth`, `contact_number`, `gender`, `civil_status`, `time_Created`) VALUES 
-    (:Fullname,:requestor_id, :HouseBldgFloorno, :Street, :from, :to, :date_of_birth, :Age, :place_of_birth, :contact_number, :gender, :civil_status, :time_Created)';
+    $query = 'INSERT INTO `requested_for_others_info`(`first_name`,`middle_name`,`last_name`,`requestor_id`, `HouseBldgFloorno`, `Street`, `from`, `to`, `date_of_birth`, `Age`, `place_of_birth`, `contact_number`, `gender`, `civil_status`, `time_Created`) VALUES 
+    (:first_name,:middle_name,:last_name,:requestor_id, :HouseBldgFloorno, :Street, :from, :to, :date_of_birth, :Age, :place_of_birth, :contact_number, :gender, :civil_status, :time_Created)';
 
     $stmt = $conn->prepare($query);
     $db_arr = [
-        'Fullname' => $name,
+        'first_name' => $firstname,
+        'middle_name' => $middlename,
+        'last_name' => $lastname,
         'requestor_id' => $requestor_id,
         'HouseBldgFloorno' => $houseBLdgFloorno,
         'Street' => $street,

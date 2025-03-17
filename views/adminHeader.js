@@ -1,26 +1,41 @@
 export function header() {
-    const currentPath = window.location.pathname.split('/').pop();
-    const headerDiv = document.getElementById("adminHeader");
-    
-    if (headerDiv) {
-      headerDiv.innerHTML = `
+  const currentPath = window.location.pathname.split("/").pop();
+  const headerDiv = document.getElementById("adminHeader");
+
+  if (headerDiv) {
+    headerDiv.innerHTML = `
               <nav class="navbar navbar-expand-lg navbar-light bg-light admin-navbar">
                   <div class="container-fluid">
-                      <a class="navbar-brand admin-navbar-brand ${currentPath === 'Admin.php' ? 'active' : ''}" href="Admin.php">Admin</a>
+                      <a class="navbar-brand admin-navbar-brand ${
+                        currentPath === "Admin.php" ? "active" : ""
+                      }" href="Admin.php">Admin</a>
                       <button class="navbar-toggler admin-navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#adminNavbarNav" aria-controls="adminNavbarNav" aria-expanded="false" aria-label="Toggle navigation">
                           <span class="navbar-toggler-icon"></span>
                       </button>
                       <div class="collapse navbar-collapse" id="adminNavbarNav">
                           <ul class="navbar-nav me-auto mb-2 mb-lg-0 navbar-nav-unique">
-                              <li class="nav-item ${currentPath === 'AdminAllResidents.php' ? 'active' : ''}">
+                              <li class="nav-item ${
+                                currentPath === "AdminAllResidents.php"
+                                  ? "active"
+                                  : ""
+                              }">
                                   <a class="nav-link admin-nav-link" href="AdminAllResidents.php"><i class="bi bi-people-fill"></i> Residents</a>
                               </li>
-                              <li class="nav-item ${currentPath === 'AdminDocumentRequest.php' ? 'active' : ''}">
+                              <li class="nav-item ${
+                                currentPath === "AdminDocumentRequest.php"
+                                  ? "active"
+                                  : ""
+                              }">
                                   <a class="nav-link admin-nav-link" href="AdminDocumentRequest.php"><i class="bi bi-file-earmark-text-fill"></i> Document Requested</a>
                               </li>
-                              <li class="nav-item ${currentPath === 'TransactionLogs.php' ? 'active' : ''}">
+                              <li class="nav-item ${
+                                currentPath === "TransactionLogs.php"
+                                  ? "active"
+                                  : ""
+                              }">
                                   <a class="nav-link admin-nav-link" href="TransactionLogs.php"><i class="bi bi-clock-history"></i> Transaction Logs</a>
                               </li>
+                              
                           </ul>
                           <ul class="navbar-nav">
                               <li class="nav-item">
@@ -54,5 +69,5 @@ export function header() {
                   </div>
               </div>
           `;
-    }
   }
+}

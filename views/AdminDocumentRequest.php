@@ -58,8 +58,9 @@ function formatDocumentName($documentName) {
         </thead>
         <tbody>
             <?php foreach($documents as $document): ?>
+                <?php $fullname = $document['Firstname'] . " " . $document['middle_name'] . " " . $document['Lastname']; ?>
                 <tr>
-                    <td><?php echo $document['Fullname']; ?></td>
+                    <td><?php echo $fullname; ?></td>
                     <td><?php echo formatDocumentName($document['documents_requested']); ?></td>
                     <td><?php echo $document['purpose']; ?></td>
                     <td><?php echo $document['status']; ?></td>
@@ -83,8 +84,9 @@ function formatDocumentName($documentName) {
                 </tr>
             <?php endforeach; ?>
             <?php foreach($others as $other): ?>
+                <?php $fullname = $other['first_name'] . " " . $other['middle_name'] . " " . $other['last_name']; ?>
                 <tr>
-                    <td><?php echo $other['Fullname']; ?></td>
+                    <td><?php echo $fullname; ?></td>
                     <td><?php echo formatDocumentName($other['documents_requested']); ?></td>
                     <td><?php echo $other['purpose']; ?></td>
                     <td><?php echo $other['status']; ?></td>
@@ -99,10 +101,19 @@ function formatDocumentName($documentName) {
                                 <button type="submit" class="btn btn-danger btn-sm">Reject</button>
                             </form>
                         <?php else: ?>
+                        <?php if($other['status'] === 'Approved'): ?>
                             <form action="../controller/undoOthersDocumentRequest.php" method="POST" class="d-inline">
                                 <input type="hidden" name="id" value="<?php echo $other['document_id']; ?>">
                                 <button type="submit" class="btn btn-warning btn-sm">Cancel</button>
+                                <button type="submit" class="btn btn-primary btn-sm">Issue document</button>
+
                             </form>
+                        <?php else: ?>
+                        <form action="../controller/undoOthersDocumentRequest.php" method="POST" class="d-inline">
+                                <input type="hidden" name="id" value="<?php echo $other['document_id']; ?>">
+                                <button type="submit" class="btn btn-warning btn-sm">Cancel</button>
+                            </form>
+                        <?php endif; ?>
                         <?php endif; ?>
                     </td>
                 </tr>

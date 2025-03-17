@@ -116,11 +116,12 @@
                         <?php
                         foreach($other_documents as $document){
                             foreach($others_info as $info){
+                                $fullname = $info['first_name'].' '.$info['middle_name'].' '.$info['last_name'];
                                 if($info['requestor_id'] == $loginSession && $info['id'] == $document['requestor_id']){
                                     echo "<tr>";
                                     echo "<td>".$document['id']."</td>";
                                     echo "<td>".formatDocumentName($document['documents_requested'])."</td>";
-                                    echo "<td>".$info['Fullname']."</td>";
+                                    echo "<td>".$fullname."</td>";
                                     echo "<td>".date('Y-m-d', strtotime($document['time_Created']))."</td>";
                                     echo "<td>".$document['purpose']."</td>";
                                     echo "<td>".$document['status']."</td>";

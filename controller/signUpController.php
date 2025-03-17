@@ -47,7 +47,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     //User Information
-    $name = $_POST['name'];
+    $firstname = $_POST['firstName'];
+    $middlename = $_POST['middleName'] ?? "";
+    $lastname = $_POST['lastName'];
     $houseBLdgFloorno = $_POST['bldg'];
     $street = $_POST['street'];
     $from = $_POST['From'];
@@ -60,11 +62,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $contactnumber = $_POST['Contactnumber'];
     $picture = isset($_FILES['user_picture']['tmp_name']) ? base64_encode( resizeImage($_FILES['user_picture']['tmp_name'],250,250)) : null;
    
-   $sql = "INSERT INTO `user_info`( `Fullname`,`picture`, `creds_id`, `House/floor/bldgno.`, `Street`, `from`, `to`, `date_of_birth`, `Age`, `place_of_birth`, `contact_number`, `gender`, `civil_status`, `time_Created`)
-    VALUES (:Fullname,:picture,:creds_id,:HouseBldgFloorno,:Street,:from,:to,:date_of_birth,:Age,:place_of_birth,:contact_number,:gender,:civil_status,:time_Created)";
+   $sql = "INSERT INTO `user_info`( `first_name`,`middle_name`,`last_name`,`picture`, `creds_id`, `House/floor/bldgno.`, `Street`, `from`, `to`, `date_of_birth`, `Age`, `place_of_birth`, `contact_number`, `gender`, `civil_status`, `time_Created`)
+    VALUES (:first_name,:middle_name,:last_name,:picture,:creds_id,:HouseBldgFloorno,:Street,:from,:to,:date_of_birth,:Age,:place_of_birth,:contact_number,:gender,:civil_status,:time_Created)";
     $stmt = $conn->prepare($sql);
     $db = [
-        'Fullname' => $name,
+        'first_name' => $firstname,
+        'middle_name' => $middlename,
+        'last_name' => $lastname,
         'picture' => $picture,
         'creds_id' => $creds_id,
         'HouseBldgFloorno' => $houseBLdgFloorno,
