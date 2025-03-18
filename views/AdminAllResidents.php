@@ -176,6 +176,8 @@ $residents = getAllResidents();
                         <div class="col-md-6 form-floating">
                             <input type="text" id="username" name="username" class="form-control" placeholder="Username">
                             <label for="username">Username (Optional)</label>
+                            <span class="text-danger" id="usernameError"></span>
+
                         </div>
                         <div class="col-md-6 form-floating">
                             <input type="password" id="password" name="password" class="form-control" placeholder="Password">
@@ -231,6 +233,10 @@ $residents = getAllResidents();
                         <input type="text" id="Contactnumber" name="Contactnumber" class="form-control" placeholder="Contact number" required>
                         <label for="Contactnumber">Contact number</label>
                     </div>
+                    <div class="form-floating mb-3">
+                        <input type="text" id="Email" name="Email" class="form-control" placeholder="Email" required>
+                        <label for="Contactnumber">Email</label>
+                    </div>
 
                     <!-- Sex and Civil Status -->
                     <div class="row mb-3">
@@ -276,7 +282,7 @@ $residents = getAllResidents();
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Add Resident</button>
+                        <button type="submit" class="btn btn-primary" id = "submitBtn">Add Resident</button>
                     </div>
                 </form>
             </div>
@@ -318,17 +324,7 @@ $residents = getAllResidents();
                     </div>
 
                                         <!-- Add after personal information section in the Edit Resident Modal -->
-                    <div class="row mb-3">
-                        <div class="col-md-6 form-floating">
-                            <input type="text" id="edit_username" name="username" class="form-control" placeholder="Username">
-                            <label for="edit_username">Username (Optional)</label>
-                        </div>
-                        <div class="col-md-6 form-floating position-relative">
-                            <input type="password" id="edit_password" name="password" class="form-control" placeholder="Password">
-                            <label for="edit_password">Password (Optional)</label>
-                            <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3 toggle-password-edit fs-5" style="cursor: pointer;"></i>
-                        </div>
-                    </div>
+                  
                     <!-- Residence -->
                     <div class="row mb-3">
                         <div class="col-md-6 form-floating">
@@ -800,6 +796,29 @@ document.getElementById('saveChangesBtn').addEventListener('click', function(e) 
     });
 });
 
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
 
+const username = document.getElementById('username');
+
+username.addEventListener('input', debounce(async function() {
+    const usernameValue = username.value;
+    const submit = document.getElementById('submitBtn');
+
+        const check = await fetch(`../controller/checkDuplicateController.php?username=${usernameValue}`);
+        const response = await check.json();
+        if (response.status === 'error') {
+            document.getElementById('usernameError').textContent = response.message;
+            submit.disabled = true;
+        } else {
+            document.getElementById('usernameError').textContent = '';
+            submit.disabled = false;
+        }
+}, 300));
     </script>
 </html>

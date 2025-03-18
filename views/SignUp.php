@@ -83,7 +83,7 @@ $loginSession = $_SESSION['session'] ?? null;
                           </div>
                       </div>
                         <div class="form-label-group">
-                       
+                        
                       </div>
                         <h4 class="h4">RESIDENCE:</h4>
                         <div class="row">
@@ -198,6 +198,17 @@ $loginSession = $_SESSION['session'] ?? null;
                           />
                           <label for="Contactnumber">Contact No: <i class="bi bi-telephone-plus"></i></label>
                         </div>
+                         <div class="form-floating mb-3">
+                          <input
+                            type="text"
+                            id="Email"
+                            name="Email"
+                            class="form-control"
+                            placeholder="Email"
+                            required
+                          />
+                          <label for="Email">Email: <i class="bi bi-envelope"></i></label>
+                        </div>
                       <div class="row">
                         <div class="col">
                           <span><b class="h2">Sex: </b></span>
@@ -291,6 +302,7 @@ $loginSession = $_SESSION['session'] ?? null;
                             required
                           />
                           <label for="username">Username:</label>
+                          <span class="text-danger" id="usernameError"></span>
                         </div>
                         
                         <div class="form-floating mb-3 position-relative">
@@ -486,8 +498,30 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+}
 
-// Remove or comment out any existing form submit handlers
+const username = document.getElementById('username');
+
+username.addEventListener('input', debounce(async function() {
+    const usernameValue = username.value;
+    const submit = document.getElementById('submitBtn');
+
+        const check = await fetch(`../controller/checkDuplicateController.php?username=${usernameValue}`);
+        const response = await check.json();
+        if (response.status === 'error') {
+            document.getElementById('usernameError').textContent = response.message;
+            submit.disabled = true;
+        } else {
+            document.getElementById('usernameError').textContent = '';
+            submit.disabled = false;
+        }
+}, 300));
     </script>
 </body>
 </html>
