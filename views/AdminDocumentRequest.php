@@ -2,10 +2,13 @@
 function getAllDocumentRequest(){
     include ('../databaseconn/connection.php');
     $conn = $GLOBALS['conn'];
-    $sql = "SELECT d.*,u.*, d.id as 'document_id' 
-    FROM document_requested d
-    JOIN user_info u
-    ON d.user_id = u.creds_id";
+    $sql = "SELECT d.*, u.*, d.id as document_id,
+            u.first_name as Firstname,
+            u.middle_name,
+            u.last_name as Lastname 
+            FROM document_requested d
+            JOIN user_info u
+            ON d.user_id = u.creds_id";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll();
@@ -58,7 +61,9 @@ function formatDocumentName($documentName) {
         </thead>
         <tbody>
             <?php foreach($documents as $document): ?>
-                <?php $fullname = $document['Firstname'] . " " . $document['middle_name'] . " " . $document['Lastname']; ?>
+                <?php $fullname = trim($document['first_name'] . ' ' . 
+                ($document['middle_name'] ? $document['middle_name'] . ' ' : '') . 
+                $document['last_name']); ?>
                 <tr>
                     <td><?php echo $fullname; ?></td>
                     <td><?php echo formatDocumentName($document['documents_requested']); ?></td>

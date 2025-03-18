@@ -26,29 +26,38 @@ function resizeImage($file, $max_width, $max_height) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include '../databaseconn/connection.php';
-    //need mag dagdag ng username at password sa add resident
     try {
-        $currentTime = date('Y-m-d H:i:s');
         $conn = $GLOBALS['conn'];
+        $user_creds_conn = $GLOBALS['User_conn'];
+        $currentTime = date('Y-m-d H:i:s');
+        $creds_id = null;
+
+        // Create user credentials if username and password are provided
+        if (!empty($_POST['username']) && !empty($_POST['password'])) {
+            $username = $_POST['username'];
+            $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            
+            $sql = "INSERT INTO user_creds (Username, Password, time_Created) VALUES (:username, :password, :time_Created)";
+            $stmt = $user_creds_conn->prepare($sql);
+            $stmt->execute([
+                'username' => $username,
+                'password' => $password,
+                'time_Created' => $currentTime
+            ]);
+            $creds_id = $user_creds_conn->lastInsertId();
+        }
+
+        // Insert resident information
         $firstname = $_POST['firstName'];
         $lastname = $_POST['lastName'];
         $middlename = $_POST['middleName'] ?? "";
-        $houseBLdgFloorno = $_POST['bldg'];
-        $street = $_POST['street'];
-        $from = $_POST['From'];
-        $to = $_POST['to'];
-        $dateofbirth = $_POST['date'];
-        $age = $_POST['Age'];
-        $placeofbirth = $_POST['placeofbirth'];
-        $contactnumber = $_POST['Contactnumber'];
-        $sex = $_POST['sex'];
-        $picture = isset($_FILES['profilePicture']['tmp_name']) ? base64_encode(resizeImage($_FILES['profilePicture']['tmp_name'], 250, 250)) : null;
-        $civilstatus = $_POST['Civilstatus'];
+        // ... existing code ...
 
-        $sql = "INSERT INTO user_info (first_name, middle_name, last_name, picture, `House/floor/bldgno.`, Street, `from`, `to`, date_of_birth, Age, place_of_birth, contact_number, gender, civil_status, time_Created) VALUES 
-        (:first_name, :middle_name, :last_name, :picture, :house_bldg_floorno, :street, :from, :to, :date_of_birth, :age, :place_of_birth, :contact_number, :gender, :civil_status, :time_created)";
+        $sql = "INSERT INTO user_info (first_name, middle_name, last_name, picture, creds_id, `House/floor/bldgno.`, Street, `from`, `to`, date_of_birth, Age, place_of_birth, contact_number, gender, civil_status, time_Created) 
+               VALUES (:first_name, :middle_name, :last_name, :picture, :creds_id, :house_bldg_floorno, :street, :from, :to, :date_of_birth, :age, :place_of_birth, :contact_number, :gender, :civil_status, :time_created)";
         
         $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':creds_id', $creds_id);
         $stmt->bindParam(':first_name', $firstname);
         $stmt->bindParam(':middle_name', $middlename);
         $stmt->bindParam(':last_name', $lastname);

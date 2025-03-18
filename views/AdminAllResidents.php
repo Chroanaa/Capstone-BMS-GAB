@@ -35,6 +35,8 @@ $residents = getAllResidents();
     <link rel="stylesheet" href="styles.css" />
     <!-- SweetAlert CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body>
   <div id="adminHeader"></div>
@@ -79,23 +81,26 @@ $residents = getAllResidents();
                     <td><?php echo $resident['gender'] ?></td>
                     <td><?php echo $resident['civil_status'] ?></td>
                     <td class="residents-table-action">
-                        <button class="btn btn-warning btn-sm edit-resident" data-toggle="modal" data-target="#editResidentModal" 
-                            data-id="<?php echo $resident['id']; ?>"
-                            data-firstname="<?php echo $resident['first_name']; ?>"
-                            data-middlename="<?php echo $resident['middle_name']; ?>"
-                            data-lastname="<?php echo $resident['last_name']; ?> "
-                            data-houseno="<?php echo $resident['House/floor/bldgno.']; ?>"
-                            data-street="<?php echo $resident['Street']; ?>"
-                            data-from="<?php echo $resident['from']; ?>"
-                            data-to="<?php echo $resident['to']; ?>"
-                            data-dob="<?php echo $resident['date_of_birth']; ?>"
-                            data-age="<?php echo $resident['Age']; ?>"
-                            data-pob="<?php echo $resident['place_of_birth']; ?>"
-                            data-contact="<?php echo $resident['contact_number']; ?>"
-                            data-gender="<?php echo $resident['gender']; ?>"
-                            data-civil="<?php echo $resident['civil_status']; ?>">
-                            <i class="bi bi-pencil"></i>
-                        </button>
+                    <button class="btn btn-warning btn-sm edit-resident" 
+                        data-toggle="modal" 
+                        data-target="#editResidentModal" 
+                        data-id="<?php echo htmlspecialchars($resident['id']); ?>"
+                        data-creds-id="<?php echo htmlspecialchars($resident['creds_id']); ?>"
+                        data-firstname="<?php echo htmlspecialchars(trim($resident['first_name'])); ?>"
+                        data-middlename="<?php echo htmlspecialchars(trim($resident['middle_name'])); ?>"
+                        data-lastname="<?php echo htmlspecialchars(trim($resident['last_name'])); ?>"
+                        data-houseno="<?php echo htmlspecialchars(trim($resident['House/floor/bldgno.'])); ?>"
+                        data-street="<?php echo htmlspecialchars(trim($resident['Street'])); ?>"
+                        data-from="<?php echo htmlspecialchars(trim($resident['from'])); ?>"
+                        data-to="<?php echo htmlspecialchars(trim($resident['to'])); ?>"
+                        data-dob="<?php echo htmlspecialchars(trim($resident['date_of_birth'])); ?>"
+                        data-age="<?php echo htmlspecialchars(trim($resident['Age'])); ?>"
+                        data-pob="<?php echo htmlspecialchars(trim($resident['place_of_birth'])); ?>"
+                        data-contact="<?php echo htmlspecialchars(trim($resident['contact_number'])); ?>"
+                        data-gender="<?php echo htmlspecialchars(trim($resident['gender'])); ?>"
+                        data-civil="<?php echo htmlspecialchars(trim($resident['civil_status'])); ?>">
+                        <i class="bi bi-pencil"></i>
+                    </button>
                         <a href="#" class="delete-link btn btn-danger btn-sm" data-id="<?php echo $resident['creds_id'] ?>">
                             <i class="bi bi-trash"></i>
                         </a>
@@ -164,6 +169,18 @@ $residents = getAllResidents();
                         <div class="col-md-4 form-floating">
                             <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last Name" required>
                             <label for="lastName">Last Name</label>
+                        </div>
+                    </div>
+                    <!-- Add after the profile picture section in the Add Resident Modal -->
+                    <div class="row mb-3">
+                        <div class="col-md-6 form-floating">
+                            <input type="text" id="username" name="username" class="form-control" placeholder="Username">
+                            <label for="username">Username (Optional)</label>
+                        </div>
+                        <div class="col-md-6 form-floating">
+                            <input type="password" id="password" name="password" class="form-control" placeholder="Password">
+                            <label for="password">Password (Optional)</label>
+                            <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3 toggle-password fs-5" style="cursor: pointer;"></i>
                         </div>
                     </div>
 
@@ -278,8 +295,11 @@ $residents = getAllResidents();
                 </button>
             </div>
             <div class="modal-body">
-                <form action="../controller/editResidentController.php" method="post">
+            <form id="editResidentForm" action="../controller/editResidentController.php" method="post">
                     <input type="hidden" id="edit_id" name="id">
+                    <input type="hidden" id="edit_creds_id" name="creds_id"> <!-- Add this line -->
+    
+
                     
                     <!-- Personal Information -->
                     <div class="row mb-3">
@@ -297,6 +317,18 @@ $residents = getAllResidents();
                         </div>
                     </div>
 
+                                        <!-- Add after personal information section in the Edit Resident Modal -->
+                    <div class="row mb-3">
+                        <div class="col-md-6 form-floating">
+                            <input type="text" id="edit_username" name="username" class="form-control" placeholder="Username">
+                            <label for="edit_username">Username (Optional)</label>
+                        </div>
+                        <div class="col-md-6 form-floating position-relative">
+                            <input type="password" id="edit_password" name="password" class="form-control" placeholder="Password">
+                            <label for="edit_password">Password (Optional)</label>
+                            <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3 toggle-password-edit fs-5" style="cursor: pointer;"></i>
+                        </div>
+                    </div>
                     <!-- Residence -->
                     <div class="row mb-3">
                         <div class="col-md-6 form-floating">
@@ -379,7 +411,7 @@ $residents = getAllResidents();
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-warning">Save Changes</button>
+                        <button type="button" class="btn btn-warning" id="saveChangesBtn">Save Changes</button>
                     </div>
                 </form>
             </div>
@@ -535,7 +567,10 @@ $('.edit-resident').on('click', function() {
     const btn = $(this);
     
     // Set values in form
+    $('#edit_username').val(btn.data('username'));
+    $('#edit_password').val('');
     $('#edit_id').val(btn.data('id'));
+    $('#edit_creds_id').val(btn.data('creds-id')); // Add this line
     $('#edit_firstName').val(btn.data('firstname'));
     $('#edit_middleName').val(btn.data('middlename'));
     $('#edit_lastName').val(btn.data('lastname'));
@@ -551,6 +586,21 @@ $('.edit-resident').on('click', function() {
     // Set radio buttons
     $(`input[name="sex"][value="${btn.data('gender')}"]`).prop('checked', true);
     $(`input[name="Civilstatus"][value="${btn.data('civil')}"]`).prop('checked', true);
+});
+
+document.querySelector('.toggle-password-edit').addEventListener('click', function() {
+    const passwordInput = document.getElementById('edit_password');
+    const icon = this;
+
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.classList.remove('bi-eye-slash');
+        icon.classList.add('bi-eye');
+    } else {
+        passwordInput.type = 'password';
+        icon.classList.remove('bi-eye');
+        icon.classList.add('bi-eye-slash');
+    }
 });
 
 // Add the age calculation for edit form
@@ -616,5 +666,140 @@ $('#edit_date').on('change', function() {
         const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?id=${id}`;
         window.history.pushState({ path: newUrl }, '', newUrl);
     }
+
+    // Add this to your existing $(document).ready function
+
+// Initialize Flatpickr for Add Resident Modal
+flatpickr("#from", {
+    maxDate: "today",
+    dateFormat: "Y-m-d",
+    onChange: function(selectedDates, dateStr) {
+        toPicker.set('minDate', dateStr);
+    }
+});
+
+const toPicker = flatpickr("#to", {
+    maxDate: "today",
+    dateFormat: "Y-m-d"
+});
+
+flatpickr("#date", {
+    maxDate: "today",
+    dateFormat: "Y-m-d",
+    onChange: function(selectedDates) {
+        if (selectedDates[0]) {
+            const today = new Date();
+            const birthDate = selectedDates[0];
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            if (age > 100) {
+                Swal.fire({
+                    title: 'Invalid Age',
+                    text: 'Please enter a valid date of birth',
+                    icon: 'error'
+                });
+                this.clear();
+                document.getElementById('Age').value = '';
+                return;
+            }
+            
+            document.getElementById('Age').value = age;
+        }
+    }
+});
+
+// Initialize Flatpickr for Edit Resident Modal
+flatpickr("#edit_from", {
+    maxDate: "today",
+    dateFormat: "Y-m-d",
+    onChange: function(selectedDates, dateStr) {
+        editToPicker.set('minDate', dateStr);
+    }
+});
+
+const editToPicker = flatpickr("#edit_to", {
+    maxDate: "today",
+    dateFormat: "Y-m-d"
+});
+
+flatpickr("#edit_date", {
+    maxDate: "today",
+    dateFormat: "Y-m-d",
+    onChange: function(selectedDates) {
+        if (selectedDates[0]) {
+            const today = new Date();
+            const birthDate = selectedDates[0];
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            if (age > 100) {
+                Swal.fire({
+                    title: 'Invalid Age',
+                    text: 'Please enter a valid date of birth',
+                    icon: 'error'
+                });
+                this.clear();
+                document.getElementById('edit_Age').value = '';
+                return;
+            }
+            
+            document.getElementById('edit_Age').value = age;
+        }
+    }
+});
+
+// Remove existing date change handlers since Flatpickr will handle them
+$('#date').off('change');
+$('#edit_date').off('change');
+
+
+// Add to your existing JavaScript in AdminAllResidents.php
+document.querySelector('.toggle-password').addEventListener('click', function() {
+    const passwordInput = document.getElementById('password');
+    const icon = this;
+
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.classList.remove('bi-eye-slash');
+        icon.classList.add('bi-eye');
+    } else {
+        passwordInput.type = 'password';
+        icon.classList.remove('bi-eye');
+        icon.classList.add('bi-eye-slash');
+    }
+});
+
+
+
+
+document.getElementById('saveChangesBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "Do you want to save these changes?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#ffc107',
+        cancelButtonColor: '#6c757d',
+        confirmButtonText: 'Yes, save changes',
+        cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('editResidentForm').submit();
+        }
+    });
+});
+
+
     </script>
 </html>

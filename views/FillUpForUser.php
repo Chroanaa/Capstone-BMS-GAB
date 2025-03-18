@@ -22,6 +22,9 @@ if($loginSession == null){
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css"
       rel="stylesheet"
     />
+    <!-- Add in the head section -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css" />
 </head>
@@ -130,32 +133,114 @@ if($loginSession == null){
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
-    <script type="module">
-   import { header } from "./Header.js";
-      header(<?= $loginSession?>);
-      const dateToday = document.querySelector(".dateToday");
-      dateToday.textContent = new Date().toLocaleDateString();
- 
-      const clear = document.querySelector(".clear");
-      const submit = document.getElementById("submitBtn");
-     
+<script type="module">
+    import { header } from "./Header.js";
+    header(<?= $loginSession?>);
+    
+    const dateToday = document.querySelector(".dateToday");
+    dateToday.textContent = new Date().toLocaleDateString();
 
-      const canvas = document.querySelector("canvas");
-      const ctx = canvas.getContext("2d");
-      const signaturePad = new SignaturePad(canvas, {
+    const clear = document.querySelector(".clear");
+    const canvas = document.querySelector("canvas");
+    const ctx = canvas.getContext("2d");
+    const signaturePad = new SignaturePad(canvas, {
         backgroundColor: "rgb(255, 255, 255)",
         penColor: "rgb(0, 0, 0)"
-      });
-      const signatureBox = document.querySelector(".signature-box");
-      signaturePad.onEnd = function () {
+    });
+    const signatureBox = document.querySelector(".signature-box");
+
+    signaturePad.onEnd = function () {
         signatureBox.innerHTML = "";
         signatureBox.appendChild(signaturePad.toDataURL());
-      };
-      clear.addEventListener("click", function (e) {
+    };
+
+    clear.addEventListener("click", function (e) {
         e.preventDefault();
         signaturePad.clear();
         signatureBox.innerHTML = "";
-      });
-    </script>
+    });
+
+    // Form submission handler
+    document.querySelector('form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        // Validate signature
+        if (signaturePad.isEmpty()) {
+            Swal.fire({
+                title: 'Signature Required',
+                text: 'Please provide your signature before submitting',
+                icon: 'warning',
+                confirmButtonColor: '#0d6efd'
+            });
+            return;
+        }
+
+        // Validate document selection
+        const documents = document.querySelectorAll('input[name="documents[]"]:checked');
+        if (documents.length === 0) {
+            Swal.fire({
+                title: 'Document Required',
+                text: 'Please select at least one document to request',
+                icon: 'warning',
+                confirmButtonColor: '#0d6efd'
+            });
+            return;
+        }
+
+        // Confirmation dialog
+        const confirmResult = await Swal.fire({
+            title: 'Confirm Information',
+            text: 'Are all the information correct?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, submit',
+            cancelButtonText: 'No, let me check',
+            confirmButtonColor: '#0d6efd',
+            cancelButtonColor: '#6c757d',
+            reverseButtons: true
+        });
+
+        if (confirmResult.isConfirmed) {
+            try {
+                // Show loading state
+                Swal.fire({
+                    title: 'Submitting...',
+                    html: 'Please wait while we process your request',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                // Submit the form
+                const formData = new FormData(this);
+                const response = await fetch(this.action, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Your request has been submitted successfully',
+                        icon: 'success',
+                        confirmButtonColor: '#0d6efd'
+                    }).then(() => {
+                        window.location.href = 'AccountDashboard.php';
+                    });
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'Something went wrong. Please try again.',
+                    icon: 'error',
+                    confirmButtonColor: '#dc3545'
+                });
+            }
+        }
+    });
+</script>
 </body>
 </html>

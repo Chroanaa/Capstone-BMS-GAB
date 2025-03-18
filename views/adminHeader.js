@@ -39,9 +39,9 @@ export function header() {
                           </ul>
                           <ul class="navbar-nav">
                               <li class="nav-item">
-                                  <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                  <a class="nav-link admin-logout-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                       <i class="bi bi-box-arrow-right"></i> Logout
-                                  </button>
+                                  </a>
                               </li>
                           </ul>
                       </div>

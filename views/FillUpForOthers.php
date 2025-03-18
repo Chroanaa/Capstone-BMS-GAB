@@ -24,8 +24,16 @@ if($loginSession == null){
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css"
       rel="stylesheet"
     />
+
+    <!-- Add to the head section of your PHP files -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css" />
+
+    <!-- Add to head section -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <header id="header"></header>
@@ -312,6 +320,136 @@ if($loginSession == null){
           preview.style.display = 'block';
         }
       });
+
+
+
+      // Add to your existing script section
+document.addEventListener('DOMContentLoaded', function() {
+    // Config for FROM date
+    flatpickr("#from", {
+        maxDate: "today",
+        dateFormat: "Y-m-d",
+        onChange: function(selectedDates, dateStr) {
+            // Update TO date min date when FROM changes
+            toPicker.set('minDate', dateStr);
+        }
+    });
+
+    // Config for TO date
+    const toPicker = flatpickr("#to", {
+        maxDate: "today",
+        dateFormat: "Y-m-d"
+    });
+
+    // Config for birthday/date of birth
+    flatpickr("#date", {
+        maxDate: "today",
+        dateFormat: "Y-m-d",
+        onChange: function(selectedDates) {
+            // Calculate age
+            const today = new Date();
+            const birthDate = selectedDates[0];
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            // Update age input
+            document.getElementById('Age').value = age;
+        }
+    });
+});
+
+
+
+/// Replace the existing form submission handler with this:
+
+document.querySelector('form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    // Validate signature
+    if (signaturePad.isEmpty()) {
+        Swal.fire({
+            title: 'Signature Required',
+            text: 'Please provide your signature before submitting',
+            icon: 'warning',
+            confirmButtonColor: '#0d6efd'
+        });
+        return;
+    }
+
+    // Validate document selection
+    const documents = document.querySelectorAll('input[name="documents[]"]:checked');
+    if (documents.length === 0) {
+        Swal.fire({
+            title: 'Document Required',
+            text: 'Please select at least one document to request',
+            icon: 'warning',
+            confirmButtonColor: '#0d6efd'
+        });
+        return;
+    }
+
+    // Confirmation dialog
+    const confirmResult = await Swal.fire({
+        title: 'Confirm Information',
+        text: 'Are all the information correct?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, submit',
+        cancelButtonText: 'No, let me check',
+        confirmButtonColor: '#0d6efd',
+        cancelButtonColor: '#6c757d',
+        reverseButtons: true
+    });
+
+    if (confirmResult.isConfirmed) {
+        try {
+            // Show loading state
+            Swal.fire({
+                title: 'Submitting...',
+                html: 'Please wait while we process your request',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            // Submit the form
+            const formData = new FormData(this);
+            const response = await fetch(this.action, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Your request has been submitted successfully',
+                    icon: 'success',
+                    confirmButtonColor: '#0d6efd'
+                }).then(() => {
+                    window.location.href = 'AccountDashboard.php';
+                });
+            } else {
+                throw new Error('Form submission failed');
+            }
+        } catch (error) {
+            Swal.fire({
+                title: 'Error!',
+                text: 'Something went wrong. Please try again.',
+                icon: 'error',
+                confirmButtonColor: '#dc3545'
+            });
+        }
+    }
+});
+
+// Remove existing onclick handler
+submit.onclick = null;
     </script>
+
 </body>
 </html>

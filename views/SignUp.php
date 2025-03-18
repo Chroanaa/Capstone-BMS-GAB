@@ -22,6 +22,12 @@ $loginSession = $_SESSION['session'] ?? null;
     />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css" />
+  <!-- Add to head section -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Add to the head section of your PHP files -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body>
     <header id = "header"></header>
@@ -408,6 +414,80 @@ $loginSession = $_SESSION['session'] ?? null;
           preview.style.display = 'block';
         }
       });
+
+
+      // Add to your existing script section
+document.addEventListener('DOMContentLoaded', function() {
+    // Config for FROM date
+    flatpickr("#from", {
+        maxDate: "today",
+        dateFormat: "Y-m-d",
+        onChange: function(selectedDates, dateStr) {
+            // Update TO date min date when FROM changes
+            toPicker.set('minDate', dateStr);
+        }
+    });
+
+    // Config for TO date
+    const toPicker = flatpickr("#to", {
+        maxDate: "today",
+        dateFormat: "Y-m-d"
+    });
+
+    // Config for birthday/date of birth
+    flatpickr("#date", {
+        maxDate: "today",
+        dateFormat: "Y-m-d",
+        onChange: function(selectedDates) {
+            // Calculate age
+            const today = new Date();
+            const birthDate = selectedDates[0];
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            
+            // Update age input
+            document.getElementById('Age').value = age;
+        }
+    });
+});
+
+
+// Replace your existing form submit handling with this:
+  document.querySelector('form').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    Swal.fire({
+        title: 'Confirm Information',
+        text: 'Are all the information correct?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, submit',
+        cancelButtonText: 'No, let me check',
+        confirmButtonColor: '#0d6efd',
+        cancelButtonColor: '#6c757d',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Show loading state
+            Swal.fire({
+                title: 'Submitting...',
+                html: 'Please wait while we process your registration',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            // Submit the form
+            this.submit();
+        }
+    });
+});
+
+// Remove or comment out any existing form submit handlers
     </script>
 </body>
 </html>
