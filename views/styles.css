@@ -1011,3 +1011,16 @@ body::before {
 .admin-logout-btn:hover{
   cursor: pointer;
 }
+
+
+.announcement-btn{
+  margin-left: auto;
+  width: 200px;
+  margin-bottom: 10px;
+  
+}
+
+.admin-container{
+  display: flex;
+  flex-direction: column;
+}

@@ -92,7 +92,12 @@ $age_data = getAllAges();
 <body id="adminDashboard">
     <div id="adminHeader"></div>
 
-     <div class="container mt-5">
+     <div class="container mt-5 admin-container">
+       
+                <button type="button" class="announcement-btn btn btn-primary" data-bs-toggle="modal" data-bs-target="#announcementModal">
+                Add Announcement
+            </button>
+        
         <div class="row">
             <div class="col-md-4">
                 <div class="card text-white pale-pink mb-3">
@@ -132,7 +137,40 @@ $age_data = getAllAges();
         </div>
     </div>
 
+
+
     <div class="card-error"></div>
+
+    <div class="modal fade" id="announcementModal" tabindex="-1" aria-labelledby="announcementModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="announcementModalLabel">New Announcement</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="announcementForm">
+                    <div class="mb-3">
+                        <label for="announcementTitle" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="announcementTitle" name="title" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="announcementAttachment" class="form-label">Attachment</label>
+                        <input type="file" class="form-control" id="announcementAttachment" name="attachment">
+                    </div>
+                    <div class="mb-3">
+                        <label for="announcementContent" class="form-label">Content</label>
+                        <textarea class="form-control" id="announcementContent" name="content" rows="4" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveAnnouncement">Save Announcement</button>
+            </div>
+        </div>
+    </div>
+</div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="adminHeader.js"></script>
@@ -186,6 +224,30 @@ $age_data = getAllAges();
                 }
             }
         });
+
+        document.getElementById('saveAnnouncement').addEventListener('click', function() {
+        const form = document.getElementById('announcementForm');
+        if (form.checkValidity()) {
+            // Handle form submission here
+            // You can use AJAX to send the form data to the server
+            console.log('Form is valid');
+            // Example: 
+            // const formData = new FormData(form);
+            // fetch('your-server-endpoint', {
+            //     method: 'POST',
+            //     body: formData
+            // }).then(response => response.json())
+            // .then(data => {
+            //     console.log(data);
+            //     // Handle success
+            // }).catch(error => {
+            //     console.error('Error:', error);
+            //     // Handle error
+            // });
+        } else {
+            form.reportValidity();
+        }
+    });
     </script>
 </body>
 </html>
