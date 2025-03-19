@@ -51,6 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $firstname = $_POST['firstName'];
         $lastname = $_POST['lastName'];
         $middlename = $_POST['middleName'] ?? "";
+        $email = $_POST['email'] ?? "";
         $houseBLdgFloorno = $_POST['houseBLdgFloorno'] ?? "";
         $street = $_POST['street'] ?? "";
         $from = $_POST['from'] ?? null;
@@ -67,8 +68,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         // ... existing code ...
 
-        $sql = "INSERT INTO user_info (first_name, middle_name, last_name, picture, creds_id, `House/floor/bldgno.`, Street, `from`, `to`, date_of_birth, Age, place_of_birth, contact_number, gender, civil_status, time_Created) 
-               VALUES (:first_name, :middle_name, :last_name, :picture, :creds_id, :house_bldg_floorno, :street, :from, :to, :date_of_birth, :age, :place_of_birth, :contact_number, :gender, :civil_status, :time_created)";
+        $sql = "INSERT INTO user_info (first_name, middle_name, last_name, picture, creds_id, `House/floor/bldgno.`, Street, `from`, `to`, date_of_birth, Age, place_of_birth, contact_number,`email`, gender, civil_status, time_Created) 
+               VALUES (:first_name, :middle_name, :last_name, :picture, :creds_id, :house_bldg_floorno, :street, :from, :to, :date_of_birth, :age, :place_of_birth, :contact_number,:email, :gender, :civil_status, :time_created)";
         
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':creds_id', $creds_id);
@@ -84,6 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':age', $age);
         $stmt->bindParam(':place_of_birth', $placeofbirth);
         $stmt->bindParam(':contact_number', $contactnumber);
+        $stmt->bindParam(':email', $email);
         $stmt->bindParam(':gender', $sex);
         $stmt->bindParam(':civil_status', $civilstatus);
         $stmt->bindParam(':time_created', $currentTime);

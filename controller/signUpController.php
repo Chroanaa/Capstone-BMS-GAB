@@ -31,6 +31,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     //User Creds
     $username = $_POST['username'];
     $password = $_POST['password'];
+    
     $hash_password = password_hash($password, PASSWORD_DEFAULT);
     $sql = "INSERT INTO user_creds (Username, Password, time_Created) VALUES (:username, :password, :time_Created)";
     $stmt = $user_creds_conn->prepare($sql);
@@ -60,10 +61,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $civilstatus = $_POST['Civilstatus'];
     $placeofbirth = $_POST['placeofbirth'];
     $contactnumber = $_POST['Contactnumber'];
+    $email = $_POST['Email'];
     $picture = isset($_FILES['user_picture']['tmp_name']) ? base64_encode( resizeImage($_FILES['user_picture']['tmp_name'],250,250)) : null;
    
-   $sql = "INSERT INTO `user_info`( `first_name`,`middle_name`,`last_name`,`picture`, `creds_id`, `House/floor/bldgno.`, `Street`, `from`, `to`, `date_of_birth`, `Age`, `place_of_birth`, `contact_number`, `gender`, `civil_status`, `time_Created`)
-    VALUES (:first_name,:middle_name,:last_name,:picture,:creds_id,:HouseBldgFloorno,:Street,:from,:to,:date_of_birth,:Age,:place_of_birth,:contact_number,:gender,:civil_status,:time_Created)";
+   $sql = "INSERT INTO `user_info`( `first_name`,`middle_name`,`last_name`,`picture`, `creds_id`, `House/floor/bldgno.`, `Street`, `from`, `to`, `date_of_birth`, `Age`, `place_of_birth`, `contact_number`,`email`, `gender`, `civil_status`, `time_Created`)
+    VALUES (:first_name,:middle_name,:last_name,:picture,:creds_id,:HouseBldgFloorno,:Street,:from,:to,:date_of_birth,:Age,:place_of_birth,:contact_number,:email,:gender,:civil_status,:time_Created)";
     $stmt = $conn->prepare($sql);
     $db = [
         'first_name' => $firstname,
@@ -79,6 +81,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         'Age' => $age,
         'place_of_birth' => $placeofbirth,
         'contact_number' => $contactnumber,
+        'email' => $email,
         'gender' => $gender,
         'civil_status' => $civilstatus,
         'time_Created' => date('Y-m-d H:i:s'),
@@ -89,4 +92,5 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Error: " . $e->getMessage();
   }
 }
+
 ?>
