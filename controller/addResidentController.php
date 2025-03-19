@@ -51,6 +51,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $firstname = $_POST['firstName'];
         $lastname = $_POST['lastName'];
         $middlename = $_POST['middleName'] ?? "";
+        $houseBLdgFloorno = $_POST['houseBLdgFloorno'] ?? "";
+        $street = $_POST['street'] ?? "";
+        $from = $_POST['from'] ?? null;
+        $to = $_POST['to'] ?? null;
+        $dateofbirth = $_POST['dateofbirth'] ?? null;
+        $age = $_POST['age'] ?? null;
+        $placeofbirth = $_POST['placeofbirth'] ?? "";
+        $contactnumber = $_POST['contactnumber'] ?? "";
+        $sex = $_POST['gender'] ?? "";
+        $civilstatus = $_POST['civilstatus'] ?? "";
+        $picture = null;
+        if (isset($_FILES['picture']) && $_FILES['picture']['error'] === UPLOAD_ERR_OK) {
+            $picture = resizeImage($_FILES['picture']['tmp_name'], 800, 600);
+        }
         // ... existing code ...
 
         $sql = "INSERT INTO user_info (first_name, middle_name, last_name, picture, creds_id, `House/floor/bldgno.`, Street, `from`, `to`, date_of_birth, Age, place_of_birth, contact_number, gender, civil_status, time_Created) 
