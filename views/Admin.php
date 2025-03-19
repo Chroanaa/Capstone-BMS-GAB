@@ -93,6 +93,7 @@ $age_data = getAllAges();
     <div id="adminHeader"></div>
 
      <div class="container mt-5">
+
         <div class="row">
             <div class="col-md-4">
                 <div class="card text-white pale-pink mb-3">
@@ -131,8 +132,55 @@ $age_data = getAllAges();
             </div>
         </div>
     </div>
+    <!-- Add Announcement Modal -->
+<div class="modal fade" id="addAnnouncementModal" tabindex="-1" role="dialog" aria-labelledby="addAnnouncementModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="addAnnouncementModalLabel">Add New Announcement</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="addAnnouncementForm" action="../controller/addAnnouncementController.php" method="POST" enctype="multipart/form-data">
+                    <!-- Title -->
+                    <div class="form-floating mb-3">
+                        <input type="text" id="title" name="title" class="form-control" placeholder="Title" required>
+                        <label for="title">Title</label>
+                    </div>
 
-    <div class="card-error"></div>
+                    <!-- Picture -->
+                    <div class="form-floating mb-3">
+                        <input type="file" id="picture" name="picture" class="form-control" accept="image/*" required>
+                        <label for="picture">Picture</label>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="form-floating mb-3">
+                        <textarea id="content" name="content" class="form-control" placeholder="Content" style="height: 150px;" required></textarea>
+                        <label for="content">Content</label>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Add Announcement</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Button to trigger the modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAnnouncementModal">
+    Add Announcement
+</button>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="adminHeader.js"></script>
@@ -187,5 +235,4 @@ $age_data = getAllAges();
             }
         });
     </script>
-</body>
-</html>
+

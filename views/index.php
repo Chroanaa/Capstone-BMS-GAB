@@ -46,6 +46,32 @@ $loginSession = $_SESSION['session'] ?? null;
           <img src="../images/baranggay.svg" alt ="barangay logo" width="100%" height="100%"/>
         </div>
       </div>
+      <div class="row">
+        <section class="announcement-section">
+          <h2 class="announcement-title">Announcements</h2>
+          <div class="announcement">
+            <div class="announcement-content">
+              <h3 class="announcement-header">COVID-19 Vaccination</h3>
+              <p class="announcement-text">
+                The Barangay 201, Zone 20 is now offering free COVID-19 vaccination for all residents. Please bring your valid ID and vaccination card. For more information, please contact us.
+              </p>
+            </div>
+            <div class="announcement-content">
+              <h3 class="announcement-header">Barangay Clearance</h3>
+              <p class="announcement-text">
+                Barangay Clearance is now available online. Please visit our website to apply for Barangay Clearance. For more information, please contact us.
+              </p>
+            </div>
+            <div class="announcement-content">
+              <h3 class="announcement-header">Barangay 201, Zone 20 Website</h3>
+              <p class="announcement-text">
+                The Barangay 201, Zone 20 website is now live. Please visit our website for the latest announcements, events, and services. For more information, please contact us.
+              </p>
+            </div>
+          </div>
+
+        </section>
+      </div>
     </div>
     <!-- Modal for Logging out please wag mo ibahin kupal --> 
     <?php include 'modals/modalLogout.html'?>
