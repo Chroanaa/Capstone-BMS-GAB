@@ -137,40 +137,7 @@ $age_data = getAllAges();
         </div>
     </div>
 
-
-
     <div class="card-error"></div>
-
-    <div class="modal fade" id="announcementModal" tabindex="-1" aria-labelledby="announcementModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="announcementModalLabel">New Announcement</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="announcementForm">
-                    <div class="mb-3">
-                        <label for="announcementTitle" class="form-label">Title</label>
-                        <input type="text" class="form-control" id="announcementTitle" name="title" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="announcementAttachment" class="form-label">Attachment</label>
-                        <input type="file" class="form-control" id="announcementAttachment" name="attachment">
-                    </div>
-                    <div class="mb-3">
-                        <label for="announcementContent" class="form-label">Content</label>
-                        <textarea class="form-control" id="announcementContent" name="content" rows="4" required></textarea>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveAnnouncement">Save Announcement</button>
-            </div>
-        </div>
-    </div>
-</div>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="adminHeader.js"></script>
@@ -249,5 +216,4 @@ $age_data = getAllAges();
         }
     });
     </script>
-</body>
-</html>
+

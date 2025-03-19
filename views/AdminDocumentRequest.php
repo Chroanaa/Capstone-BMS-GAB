@@ -80,10 +80,21 @@ function formatDocumentName($documentName) {
                                 <button type="submit" class="btn btn-danger btn-sm">Reject</button>
                             </form>
                         <?php else: ?>
-                            <form action="../controller/undoDocumentRequest.php" method="POST" class="d-inline">
+                           <?php if($document['status'] === 'Approved'): ?>
+                            <form action="../controller/undoOthersDocumentRequest.php" method="POST" class="d-inline">
                                 <input type="hidden" name="id" value="<?php echo $document['document_id']; ?>">
                                 <button type="submit" class="btn btn-warning btn-sm">Cancel</button>
+                                
                             </form>
+                        <button onclick="setResidentIdUrlId(<?php echo $document['id'] ?>)" data-toggle="modal" data-target="#issue-document" class="btn-primary btn btn-sm">
+                            Issue a document
+                        </button>
+                        <?php else: ?>
+                        <form action="../controller/undoOthersDocumentRequest.php" method="POST" class="d-inline">
+                                <input type="hidden" name="id" value="<?php echo $document['document_id']; ?>">
+                                <button type="submit" class="btn btn-warning btn-sm">Cancel</button>
+                        </form>
+                        <?php endif; ?>
                         <?php endif; ?>
 </td>
                 </tr>
@@ -110,14 +121,16 @@ function formatDocumentName($documentName) {
                             <form action="../controller/undoOthersDocumentRequest.php" method="POST" class="d-inline">
                                 <input type="hidden" name="id" value="<?php echo $other['document_id']; ?>">
                                 <button type="submit" class="btn btn-warning btn-sm">Cancel</button>
-                                <button type="submit" class="btn btn-primary btn-sm">Issue document</button>
-
+                                
                             </form>
+                        <button onclick="setOthersIdUrlId(<?php echo $other['user_requestor_id'] ?>)" data-toggle="modal" data-target="#issue-document" class="btn-primary btn btn-sm">
+                            Issue a document
+                        </button>
                         <?php else: ?>
                         <form action="../controller/undoOthersDocumentRequest.php" method="POST" class="d-inline">
                                 <input type="hidden" name="id" value="<?php echo $other['document_id']; ?>">
                                 <button type="submit" class="btn btn-warning btn-sm">Cancel</button>
-                            </form>
+                        </form>
                         <?php endif; ?>
                         <?php endif; ?>
                     </td>
@@ -125,6 +138,39 @@ function formatDocumentName($documentName) {
             <?php endforeach; ?>
         </tbody>
     </table>
+
+
+
+<!-- Issue document Modal -->
+     <div class="modal fade" id="issue-document" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">Issue a Document</h5>
+        <button type="button" class="close text-white print-close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <label for="document" class="form-label">Select Document:</label>
+        <select class="form-control" name="document" id="document">
+          <option value="1">Barangay Clearance</option>
+          <option value="2">Barangay ID</option>
+          <option value="3">Business Permit</option>
+          <option value="4">Barangay Certificate of Indigency</option>
+          <option value="5">First-Time Job Seeker</option>
+          <option value="6">Certificate of Live Birth</option>
+          <option value="7">Certificate of Guardianship</option>
+          <option value="8">Health Certificate</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Print</button>
+      </div>
+    </div>
+  </div>
+</div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -155,6 +201,10 @@ function formatDocumentName($documentName) {
                 document.querySelector('.card-error').innerHTML = "";
             }, 3000);
         }
+    function setUrlId(id){
+        const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?id=${id}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+    }
     </script>
   <script>
   $(document).ready(function() {
@@ -187,6 +237,14 @@ function formatDocumentName($documentName) {
     }
     
   );
+   function setResidentIdUrlId(id){
+        const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?resident_id=${id}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+   }
+   function setOthersIdUrlId(id){
+        const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?others_id=${id}`;
+        window.history.pushState({ path: newUrl }, '', newUrl);
+   }
 </script>
 </body>
 </html>
