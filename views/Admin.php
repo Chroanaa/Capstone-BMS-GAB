@@ -147,7 +147,7 @@ $age_data = getAllAges();
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="announcementForm">
+                <form id="announcementForm" method="POST" action="../controller/postAnnouncementController.php" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="announcementTitle" class="form-label">Title</label>
                         <input type="text" class="form-control" id="announcementTitle" name="title" required>
@@ -160,12 +160,12 @@ $age_data = getAllAges();
                         <label for="announcementContent" class="form-label">Content</label>
                         <textarea class="form-control" id="announcementContent" name="content" rows="4" required></textarea>
                     </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary" id="saveAnnouncement">Save Announcement</button>
+                    </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveAnnouncement">Save Announcement</button>
-            </div>
+            
         </div>
     </div>
 </div>
@@ -178,6 +178,14 @@ $age_data = getAllAges();
         header(false); // Pass false since the user is not logged in
         const params = new URLSearchParams(window.location?.search);
         const error = params.get('error');
+        const announcementParams = params.get('announcement');
+
+        // lagyan mo ng moodal each
+        if(announcementParams === 'success'){
+            
+        }else if(announcementParams === 'failed'){
+            
+        }
         if(error === 'wrongcreds'){
             document.querySelector('.card-error').innerHTML += `<div class="alert alert-danger mt-5" role="alert">
                 <h4 class="text-center"> Wrong credentials </h4>
@@ -222,30 +230,6 @@ $age_data = getAllAges();
                 }
             }
         });
-
-        document.getElementById('saveAnnouncement').addEventListener('click', function() {
-        const form = document.getElementById('announcementForm');
-        if (form.checkValidity()) {
-            // Handle form submission here
-            // You can use AJAX to send the form data to the server
-            console.log('Form is valid');
-            // Example: 
-            // const formData = new FormData(form);
-            // fetch('your-server-endpoint', {
-            //     method: 'POST',
-            //     body: formData
-            // }).then(response => response.json())
-            // .then(data => {
-            //     console.log(data);
-            //     // Handle success
-            // }).catch(error => {
-            //     console.error('Error:', error);
-            //     // Handle error
-            // });
-        } else {
-            form.reportValidity();
-        }
-    });
     </script>
 </body>
 </html>
