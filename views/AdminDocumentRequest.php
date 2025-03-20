@@ -17,10 +17,11 @@ function getAllDocumentRequest(){
 function getOthersDocumentRequest(){
     include ('../databaseconn/connection.php');
     $conn = $GLOBALS['conn'];
-    $sql = "SELECT d.*,u.*,d.id as 'document_id' 
+    $sql = "SELECT d.*,u.*,d.id as 'document_id',ui.first_name as 'requested_by_first_name',ui.middle_name as 'requested_by_middle_name',ui.last_name as 'requested_by_last_name'
     FROM document_requested_for_others d
     JOIN requested_for_others_info u
-    ON d.requestor_id = u.id";
+    ON d.requestor_id = u.id
+    JOIN user_info ui ON ui.creds_id = d.user_requestor_id";
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     $result = $stmt->fetchAll();
@@ -110,19 +111,23 @@ function formatDocumentName($documentName) {
             <?php endforeach; ?>
             <?php foreach($others as $other): ?>
                 <?php $fullname = $other['first_name'] . " " . $other['middle_name'] . " " . $other['last_name']; ?>
+                <?php $requested_by_fullname = $other['requested_by_first_name'] . " " . $other['requested_by_middle_name'] . " " . $other['requested_by_last_name']; ?>
+
+                
                 <tr>
                     <td><?php echo $fullname; ?></td>
                     <td><?php echo formatDocumentName($other['documents_requested']); ?></td>
                     <td><?php echo $other['purpose']; ?></td>
                     <td><?php echo $other['status']; ?></td>
                     <td>
-                    <button class="btn btn-info btn-sm view-btn" 
+                    <button class="btn btn-info btn-sm view-btn-others" 
                             data-fullname="<?= htmlspecialchars($fullname) ?>"
+                            data-requested-by="<?= htmlspecialchars($requested_by_fullname) ?>"
                             data-document="<?= htmlspecialchars(formatDocumentName($other['documents_requested'])) ?>"
                             data-purpose="<?= htmlspecialchars($other['purpose']) ?>"
                             data-status="<?= htmlspecialchars($other['status']) ?>"
                             data-toggle="modal" 
-                            data-target="#viewDocumentModal">
+                            data-target="#viewDocumentModalOthers">
                         View
                     </button>
                         <?php if($other['status'] === 'Pending'): ?>
@@ -222,6 +227,39 @@ function formatDocumentName($documentName) {
         </div>
     </div>
 </div>
+<div class="modal fade" id="viewDocumentModalOthers" tabindex="-1" role="dialog" aria-labelledby="viewDocumentModalOthers" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="viewDocumentModalLabel">Document Request Details</h5>
+                <button type="button" class="close text-white print-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <dl class="row">
+                    <dt class="col-sm-4">Requested For:</dt>
+                    <dd class="col-sm-8" id="viewRequestedOthers">-</dd>
+
+                    <dt class="col-sm-4">Requested By:</dt>
+                    <dd class="col-sm-8" id="viewRequestedBy">-</dd>
+
+                    <dt class="col-sm-4">Requested:</dt>
+                    <dd class="col-sm-8" id="viewDocumentOthers">-</dd>
+
+                    <dt class="col-sm-4">Purpose:</dt>
+                    <dd class="col-sm-8" id="viewPurposeOthers">-</dd>
+
+                    <dt class="col-sm-4">Status:</dt>
+                    <dd class="col-sm-8" id="viewStatusOthers">-</dd>
+                </dl>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -309,6 +347,19 @@ $(document).ready(function() {
         $('#viewDocument').text(document);
         $('#viewPurpose').text(purpose);
         $('#viewStatus').text(status);
+    });
+     $('.view-btn-others').on('click', function() {
+        const fullname = $(this).data('fullname');
+        const requestedBy = $(this).data('requested-by');
+        const document = $(this).data('document');
+        const purpose = $(this).data('purpose');
+        const status = $(this).data('status');
+
+        $('#viewRequestedOthers').text(fullname);
+        $('#viewRequestedBy').text(requestedBy);
+        $('#viewDocumentOthers').text(document);
+        $('#viewPurposeOthers').text(purpose);
+        $('#viewStatusOthers').text(status);
     });
 });
 </script>
