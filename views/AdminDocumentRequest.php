@@ -70,7 +70,16 @@ function formatDocumentName($documentName) {
                     <td><?php echo $document['purpose']; ?></td>
                     <td><?php echo $document['status']; ?></td>
                     <td>
-                        <?php if($document['status'] === 'Pending'): ?>
+                    <button class="btn btn-info btn-sm view-btn" 
+                            data-fullname="<?= htmlspecialchars($fullname) ?>"
+                            data-document="<?= htmlspecialchars(formatDocumentName($document['documents_requested'])) ?>"
+                            data-purpose="<?= htmlspecialchars($document['purpose']) ?>"
+                            data-status="<?= htmlspecialchars($document['status']) ?>"
+                            data-toggle="modal" 
+                            data-target="#viewDocumentModal">
+                        View
+                    </button>
+                    <?php if($document['status'] === 'Pending'): ?>
                             <form action="../controller/approveDocumentRequest.php" method="POST" class="d-inline">
                                 <input type="hidden" name="id" value="<?php echo $document['document_id']; ?>">
                                 <button type="submit" class="btn btn-success btn-sm">Approve</button>
@@ -107,6 +116,15 @@ function formatDocumentName($documentName) {
                     <td><?php echo $other['purpose']; ?></td>
                     <td><?php echo $other['status']; ?></td>
                     <td>
+                    <button class="btn btn-info btn-sm view-btn" 
+                            data-fullname="<?= htmlspecialchars($fullname) ?>"
+                            data-document="<?= htmlspecialchars(formatDocumentName($other['documents_requested'])) ?>"
+                            data-purpose="<?= htmlspecialchars($other['purpose']) ?>"
+                            data-status="<?= htmlspecialchars($other['status']) ?>"
+                            data-toggle="modal" 
+                            data-target="#viewDocumentModal">
+                        View
+                    </button>
                         <?php if($other['status'] === 'Pending'): ?>
                             <form action="../controller/approveOthersDocumentRequest.php" method="POST" class="d-inline">
                                 <input type="hidden" name="id" value="<?php echo $other['document_id']; ?>">
@@ -172,6 +190,38 @@ function formatDocumentName($documentName) {
   </div>
 </div>
   </div>
+
+  <!-- View Document Modal -->
+<div class="modal fade" id="viewDocumentModal" tabindex="-1" role="dialog" aria-labelledby="viewDocumentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="viewDocumentModalLabel">Document Request Details</h5>
+                <button type="button" class="close text-white print-close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <dl class="row">
+                    <dt class="col-sm-4">Full Name:</dt>
+                    <dd class="col-sm-8" id="viewFullname">-</dd>
+
+                    <dt class="col-sm-4">Requested:</dt>
+                    <dd class="col-sm-8" id="viewDocument">-</dd>
+
+                    <dt class="col-sm-4">Purpose:</dt>
+                    <dd class="col-sm-8" id="viewPurpose">-</dd>
+
+                    <dt class="col-sm-4">Status:</dt>
+                    <dd class="col-sm-8" id="viewStatus">-</dd>
+                </dl>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -245,6 +295,22 @@ function formatDocumentName($documentName) {
         const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?others_id=${id}`;
         window.history.pushState({ path: newUrl }, '', newUrl);
    }
+
+   // Add this to your existing script section
+$(document).ready(function() {
+    // Handle view button click
+    $('.view-btn').on('click', function() {
+        const fullname = $(this).data('fullname');
+        const document = $(this).data('document');
+        const purpose = $(this).data('purpose');
+        const status = $(this).data('status');
+
+        $('#viewFullname').text(fullname);
+        $('#viewDocument').text(document);
+        $('#viewPurpose').text(purpose);
+        $('#viewStatus').text(status);
+    });
+});
 </script>
 </body>
 </html>

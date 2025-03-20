@@ -88,6 +88,7 @@ $age_data = getAllAges();
     />
     <link rel="stylesheet" href="styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body id="adminDashboard">
     <div id="adminHeader"></div>
@@ -126,7 +127,7 @@ $age_data = getAllAges();
         </div>
 
         <div class="row mt-4">
-            <div class="col-md-12">
+            <div class="col-md-6 mx-auto">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Age distribution</h5>
@@ -174,34 +175,29 @@ $age_data = getAllAges();
     <script src="adminHeader.js"></script>
  
     <script type="module">
-        import { header } from './adminHeader.js';
-        header(false); // Pass false since the user is not logged in
-        const params = new URLSearchParams(window.location?.search);
-        const error = params.get('error');
-        const announcementParams = params.get('announcement');
+      import { header } from './adminHeader.js';
+    header(false);
+    const params = new URLSearchParams(window.location?.search);
+    const error = params.get('error');
+    const announcementParams = params.get('announcement');
 
-        // lagyan mo ng moodal each
-        if(announcementParams === 'success'){
-            
-        }else if(announcementParams === 'failed'){
-            
-        }
-        if(error === 'wrongcreds'){
-            document.querySelector('.card-error').innerHTML += `<div class="alert alert-danger mt-5" role="alert">
-                <h4 class="text-center"> Wrong credentials </h4>
-            </div>`;
-            setTimeout(() => {
-                document.querySelector('.card-error').innerHTML = "";
-            }, 3000);
-        }
-        if(error === "notLoggedIn"){
-            document.querySelector('.card-error').innerHTML += `<div class="alert alert-danger mt-5" role="alert">
-                <h4 class="text-center"> Must be logged In</h4>
-            </div>`;
-            setTimeout(() => {
-                document.querySelector('.card-error').innerHTML = "";
-            }, 3000);
-        }
+    if(announcementParams === 'success'){
+        Swal.fire({
+            title: 'Success!',
+            text: 'Announcement has been posted successfully',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        });
+    } else if(announcementParams === 'failed'){
+        Swal.fire({
+            title: 'Error!',
+            text: 'Failed to post announcement. Please try again.',
+            icon: 'error',
+            confirmButtonColor: '#d33',
+            confirmButtonText: 'OK'
+        });
+    }
     </script>
      <script>
         // Chart Configuration

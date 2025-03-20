@@ -957,7 +957,7 @@ body::before {
 
 .about-us-card-title {
     font-weight: 700;
-    font-size: 3rem;
+    font-size: 4.5rem;
     color: var(--primary-blue) !important;
 }
 .about-us-card{
@@ -966,8 +966,8 @@ body::before {
   padding: 1.5rem;
 }
 .about-us-card-text {
-    line-height: 1.8;
-    
+    line-height: 2.5;
+    font-size: 1.5rem;
 }
 
 .shadow {
@@ -1024,3 +1024,7 @@ body::before {
   display: flex;
   flex-direction: column;
 }
+
+.announcement-section{
+  color: var(--primary-yellow) !important;
+} 
