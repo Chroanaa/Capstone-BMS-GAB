@@ -1119,18 +1119,8 @@ body::before {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
-.card-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 1rem;
-}
 
-.card-text {
-  color: #6c757d;
-  font-size: 0.95rem;
-  line-height: 1.5;
-}
+
 
 .announcement-image {
   height: 200px;
