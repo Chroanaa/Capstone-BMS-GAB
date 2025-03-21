@@ -95,9 +95,6 @@ $age_data = getAllAges();
 
      <div class="container mt-5 admin-container">
        
-                <button type="button" class="announcement-btn btn btn-primary" data-bs-toggle="modal" data-bs-target="#announcementModal">
-                Add Announcement
-            </button>
         
         <div class="row">
             <div class="col-md-4">

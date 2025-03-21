@@ -23,12 +23,16 @@ function resizeImage($file, $max_width, $max_height) {
 
     return $data;
 }
+session_start();
+// ...existing resizeImage function...
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     include '../databaseconn/connection.php';
     $title = $_POST['title'];
     $content = $_POST['content'];
-    $picture = isset($_FILES['attachment']['tmp_name']) ? base64_encode( resizeImage($_FILES['attachment']['tmp_name'],250,250)) : null;
+    $picture = isset($_FILES['attachment']['tmp_name']) ? base64_encode(resizeImage($_FILES['attachment']['tmp_name'],250,250)) : null;
     $date = date('Y-m-d');
+    
     try {
         $conn = $GLOBALS['conn'];
         $sql = "INSERT INTO announcement_tbl (title, content, attachment, time_Created) VALUES (:title, :content, :attachment, :time_Created)";
@@ -40,9 +44,23 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             'time_Created' => $date,
         ];
         $stmt->execute($db);
-        header('Location: ../views/Admin.php?announcement=success');
+        
+        $_SESSION['alert'] = [
+            'type' => 'success',
+            'title' => 'Success!',
+            'message' => 'Announcement added successfully'
+        ];
+        header('Location: ../views/Announcement.php');
+        exit();
     } catch (PDOException $e) {
-        header('Location: ../views/Admin.php?announcement=failed');
+        error_log($e->getMessage());
+        $_SESSION['alert'] = [
+            'type' => 'error',
+            'title' => 'Error!',
+            'message' => 'Failed to add announcement'
+        ];
+        header('Location: ../views/Announcement.php');
+        exit();
     }
 }
 ?>

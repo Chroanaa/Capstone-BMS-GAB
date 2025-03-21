@@ -50,7 +50,8 @@ function formatDocumentName($documentName) {
   <div id="adminHeader"></div>
   <div class="residents-main-container">
     <h1 class="text-center h5 blue">Document Requests</h1>
-    <table id="documentRequestTable" class="table table-striped table-bordered">
+    <div class="table-responsive">
+        <table id="documentRequestTable" class="table table-striped table-bordered " style="width:100%">
         <thead>
             <tr>
                 <th>Fullname</th>
@@ -161,6 +162,7 @@ function formatDocumentName($documentName) {
             <?php endforeach; ?>
         </tbody>
     </table>
+                        </div>
 
 
 

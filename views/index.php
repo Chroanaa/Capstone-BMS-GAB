@@ -1,8 +1,17 @@
 <?php
 session_start();
+include '../databaseconn/connection.php';
 $loginSession = $_SESSION['session'] ?? null;
 
-
+try {
+  $stmt = $conn->prepare("SELECT * FROM announcement_tbl ORDER BY time_Created DESC LIMIT 3");
+  $stmt->execute();
+  $announcements = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch(PDOException $e) {
+  error_log($e->getMessage());
+  $announcements = [];
+}
+?>
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,30 +56,46 @@ $loginSession = $_SESSION['session'] ?? null;
         </div>
       </div>
       <div class="row">
-        <section class="announcement-section">
-          <h2 class="announcement-title">Announcements</h2>
-          <div class="announcement">
-            <div class="announcement-content">
-              <h3 class="announcement-header">COVID-19 Vaccination</h3>
-              <p class="announcement-text">
-                The Barangay 201, Zone 20 is now offering free COVID-19 vaccination for all residents. Please bring your valid ID and vaccination card. For more information, please contact us.
-              </p>
+      <section class="announcement-section mt-5">
+    <h2 class="announcement-title mb-4">Announcements</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <?php if (!empty($announcements)): ?>
+            <?php foreach($announcements as $announcement): ?>
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <?php if (!empty($announcement['attachment'])): ?>
+                            <img src="data:image/jpeg;base64,<?php echo $announcement['attachment']; ?>" 
+                                 class="card-img-top announcement-image" 
+                                 alt="Announcement image">
+                        <?php endif; ?>
+                        <div class="card-body">
+                            <h5 class="card-title"><?php echo htmlspecialchars($announcement['title']); ?></h5>
+                            <p class="card-text">
+                                <?php 
+                                $content = htmlspecialchars($announcement['content']);
+                                echo (strlen($content) > 200) ? substr($content, 0, 200) . '...' : $content;
+                                ?>
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent">
+                            <small class="text-muted">
+                                Posted on: <?php echo date('F j, Y', strtotime($announcement['time_Created'])); ?>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-text text-center">No announcements available.</p>
+                    </div>
+                </div>
             </div>
-            <div class="announcement-content">
-              <h3 class="announcement-header">Barangay Clearance</h3>
-              <p class="announcement-text">
-                Barangay Clearance is now available online. Please visit our website to apply for Barangay Clearance. For more information, please contact us.
-              </p>
-            </div>
-            <div class="announcement-content">
-              <h3 class="announcement-header">Barangay 201, Zone 20 Website</h3>
-              <p class="announcement-text">
-                The Barangay 201, Zone 20 website is now live. Please visit our website for the latest announcements, events, and services. For more information, please contact us.
-              </p>
-            </div>
-          </div>
-
-        </section>
+        <?php endif; ?>
+    </div>
+</section>
       </div>
     </div>
     <!-- Modal for Logging out please wag mo ibahin kupal --> 
