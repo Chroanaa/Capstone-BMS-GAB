@@ -3,6 +3,34 @@ session_start();
 include ('../databaseconn/connection.php');
 $conn = $GLOBALS['conn'];
 $requestor_id = $_SESSION['session'] ?? null;
+
+function resizeImage($file, $max_width, $max_height) {
+    list($width, $height) = getimagesize($file);
+    $ratio = $width / $height;
+
+    if ($max_width / $max_height > $ratio) {
+        $max_width = $max_height * $ratio;
+    } else {
+        $max_height = $max_width / $ratio;
+    }
+
+    $src = imagecreatefromstring(file_get_contents($file));
+    $dst = imagecreatetruecolor($max_width, $max_height);
+    imagecopyresampled($dst, $src, 0, 0, 0, 0, $max_width, $max_height, $width, $height);
+
+    ob_start();
+    imagejpeg($dst);
+    $data = ob_get_contents();
+    ob_end_clean();
+
+    imagedestroy($src);
+    imagedestroy($dst);
+
+    return $data;
+    //get the image
+    //eencode sa blob
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   try {
     // Check if documents are set, otherwise initialize as an empty array
@@ -22,17 +50,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $gender = $_POST['sex'];
     $civilstatus = $_POST['Civilstatus'];
     $purpose = $_POST['Purpose'];
+    $picture = isset($_FILES['profilePicture']['tmp_name']) ? base64_encode( resizeImage($_FILES['profilePicture']['tmp_name'],250,250)) : null;
 
-    $query = 'INSERT INTO `requested_for_others_info`(`first_name`,`middle_name`,`last_name`,`requestor_id`, `HouseBldgFloorno`, `Street`, `from`, `to`, `date_of_birth`, `Age`, `place_of_birth`, `contact_number`, `gender`, `civil_status`, `time_Created`) VALUES 
-    (:first_name,:middle_name,:last_name,:requestor_id, :HouseBldgFloorno, :Street, :from, :to, :date_of_birth, :Age, :place_of_birth, :contact_number, :gender, :civil_status, :time_Created)';
+    $query = 'INSERT INTO `requested_for_others_info`(`first_name`,`middle_name`,`last_name`,`picture`,`requestor_id`, `House/floor/bldgno.`, `Street`, `from`, `to`, `date_of_birth`, `Age`, `place_of_birth`, `contact_number`, `gender`, `civil_status`, `time_Created`) VALUES 
+    (:first_name,:middle_name,:last_name,:picture,:requestor_id, :House/floor/bldgno., :Street, :from, :to, :date_of_birth, :Age, :place_of_birth, :contact_number, :gender, :civil_status, :time_Created)';
 
     $stmt = $conn->prepare($query);
     $db_arr = [
         'first_name' => $firstname,
         'middle_name' => $middlename,
         'last_name' => $lastname,
+        'picture' => $picture,
         'requestor_id' => $requestor_id,
-        'HouseBldgFloorno' => $houseBLdgFloorno,
+        'House/floor/bldgno.' => $houseBLdgFloorno,
         'Street' => $street,
         'from' => $from,
         'to' => $to,

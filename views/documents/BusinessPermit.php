@@ -1,4 +1,31 @@
+<?php
 
+$resident_id = $_GET['resident_id'] ?? "";
+$others_id = $_GET['others_id'] ?? "";
+$information = "";
+function getResidentInfo($id){
+    include '../../databaseconn/connection.php';
+    $conn = $GLOBALS['conn'];
+    $stmt = $conn->prepare("SELECT * FROM user_info WHERE id = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    return $stmt->fetch();
+}
+function getOthersInfo($id){
+    include '../../databaseconn/connection.php';
+    $conn = $GLOBALS['conn'];
+    $stmt = $conn->prepare("SELECT * FROM requested_for_others_info WHERE requestor_id = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    return $stmt->fetch();
+}
+if($resident_id){
+    $information = getResidentInfo($resident_id);
+}
+if($others_id){
+   $information = getOthersInfo($others_id);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,14 +119,18 @@
                     </label>
 
                     <!--ADD THE ELEMENT TO AUTOMATE-->
-                    <div class="a4-body mt-3 d-flex px-2 fw-bold" style="gap: 5px;">
-                        <img src="data:image/gif;base64, <?php echo $resident_information['resident_picture']  ?>" class="img-fluid" style="width: 140px;" alt="">
+                   <div class="a4-body mt-3 d-flex px-2 fw-bold" style="gap: 5px;">
+                        <img src="data:image/gif;base64, <?php echo $information['picture']  ?>" class="img-fluid" style="width: 140px;" alt="">
                         <div class="a4-body-content d-flex flex-column justify-content-center align-items-start">
-                            <label>Name:</label>
-                            <label>Birthday: </label>
-                            <label>Gender:  </label>
-                            <label>Civil Status:</label>
-                          <label style="text-align: left;">Address:  </label>
+                            <?php
+                            $fullname = $information['first_name'] . " " . $information['middle_name'] . " " . $information['last_name'];
+                            $fulladdress = $information['House/floor/bldgno.'] . " " . $information['Street'];
+                            ?>
+                            <label>Name: <?php echo $fullname ?> </label>
+                            <label>Birthday: <?php echo $information["date_of_birth"] ?> </label>
+                            <label>Gender: <?php echo $information["gender"] ?></label>
+                            <label>Civil Status: <?php echo $information["civil_status"] ?></label>
+                            <label style="text-align: left;">Address: <?php echo $fulladdress ?>  </label>
                         </div>
                     </div>
 
@@ -111,7 +142,7 @@
                     <label style="text-align: left;" class="mx-2">
                         This is to certify that the business located at the specified address has been duly registered and authorized to operate within this Barangay. The business is in compliance with all the necessary regulations, ordinances, and requirements set forth by the local government.
                         
-                        This Barangay Certificate is issued upon request for <span style="text-decoration: underline; font-weight: bold;"></span>.
+                        This Barangay Certificate is issued upon request for  <?php echo $fullname ?> <span style="text-decoration: underline; font-weight: bold;"></span>.
                     </label>
                     
                     

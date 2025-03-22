@@ -1,4 +1,31 @@
+<?php
 
+$resident_id = $_GET['resident_id'] ?? "";
+$others_id = $_GET['others_id'] ?? "";
+$information = "";
+function getResidentInfo($id){
+    include '../../databaseconn/connection.php';
+    $conn = $GLOBALS['conn'];
+    $stmt = $conn->prepare("SELECT * FROM user_info WHERE id = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    return $stmt->fetch();
+}
+function getOthersInfo($id){
+    include '../../databaseconn/connection.php';
+    $conn = $GLOBALS['conn'];
+    $stmt = $conn->prepare("SELECT * FROM requested_for_others_info WHERE requestor_id = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    return $stmt->fetch();
+}
+if($resident_id){
+    $information = getResidentInfo($resident_id);
+}
+if($others_id){
+   $information = getOthersInfo($others_id);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,15 +101,19 @@
                     <label>BARANGAY</label>
                     <label>SINBANALI</label>    
                 </div>
-                <img src="data:image/jpeg;base64," class="img-fluid" style="width: 50px;" alt="">
+                <img src="data:image/jpeg;base64, " class="img-fluid" style="width: 50px;" alt="">
             </div>
             <div class="card-mid p-3 d-flex justify-content-start align-items-center" style="flex-grow: 1; gap: 5px;">
-                <img src="data:image/jpeg;base64, " class="img-fluid" style="width:200px; height: 150px;" alt="Sample Image">
+                <img src="data:image/jpeg;base64, <?php echo $information['picture'] ?> " class="img-fluid" style="width:200px; height: 150px;" alt="Sample Image">
                 <div class="card-info d-flex flex-column" style="font-size: .7rem;">
-                <label>Name: </label>
-                            <label>Birthday: </label>
-                            <label>Gender:  </label>
-                            <label>Civil Status: </label>
+                           <?php
+                            $fullname = $information['first_name'] . " " . $information['middle_name'] . " " . $information['last_name'];
+                            $fulladdress = $information['House/floor/bldgno.'] . " " . $information['Street'];
+                            ?>
+                            <label>Name: <?php echo $fullname ?> </label>
+                            <label>Birthday: <?php echo $information["date_of_birth"] ?> </label>
+                            <label>Gender: <?php echo $information["gender"] ?></label>
+                            <label>Civil Status: <?php echo $information["civil_status"] ?></label>
                     
                 </div>
             </div>

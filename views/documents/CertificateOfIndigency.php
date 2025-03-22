@@ -1,4 +1,31 @@
+<?php
 
+$resident_id = $_GET['resident_id'] ?? "";
+$others_id = $_GET['others_id'] ?? "";
+$information = "";
+function getResidentInfo($id){
+    include '../../databaseconn/connection.php';
+    $conn = $GLOBALS['conn'];
+    $stmt = $conn->prepare("SELECT * FROM user_info WHERE id = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    return $stmt->fetch();
+}
+function getOthersInfo($id){
+    include '../../databaseconn/connection.php';
+    $conn = $GLOBALS['conn'];
+    $stmt = $conn->prepare("SELECT * FROM requested_for_others_info WHERE requestor_id = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    return $stmt->fetch();
+}
+if($resident_id){
+    $information = getResidentInfo($resident_id);
+}
+if($others_id){
+   $information = getOthersInfo($others_id);
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -101,16 +128,14 @@
                     <label style="font-size: 1.8rem;"> BARANGAY INDIGENCY</label>
 
                     <!--ADD THE ELEMENT TO AUTOMATE-->
-                    <div class="a4-body mt-3 d-flex px-2 fw-bold" style="gap: 5px;">
-                        <!---ADD THE ELEMENT TO AUTOMATE-->
-                        <img src="data:image/gif;base64," class="img-fluid" style="width: 140px;" alt="">
+                     <div class="a4-body mt-3 d-flex px-2 fw-bold" style="gap: 5px;">
+                        <img src="data:image/gif;base64, <?php echo $information['picture']  ?>" class="img-fluid" style="width: 140px;" alt="">
                         <div class="a4-body-content d-flex flex-column justify-content-center align-items-start">
-                            <label>Name: </label>
+                            <label>Name:</label>
                             <label>Birthday: </label>
-                            <label>Gender: </label>
-                            <label>Civil Status: </label>
-                           
-                        <label style="text-align: left;">Address:  </label>
+                            <label>Gender:  </label>
+                            <label>Civil Status:</label>
+                          <label style="text-align: left;">Address:  </label>
                         </div>
                     </div>
 
@@ -129,7 +154,7 @@
                                             <!---ADD THE ELEMENT TO AUTOMATE-->
 <!-- #region -->
                     <label class="m-2">
-                        This Barangay Certificate is issued upon request for <span style="text-decoration: underline; font-weight: bold;"></span>.
+                        This Barangay Certificate is issued upon request for  <?php echo $fullname ?> <span style="text-decoration: underline; font-weight: bold;"></span>.
                     </label>
                     <label style="text-align: left; font-weight: bold;" class="mx-2">Given this day, <!--ADD THE ELEMENT TO AUTOMATE--> <span><?php echo date('m/d/Y') ?></span></label>
 

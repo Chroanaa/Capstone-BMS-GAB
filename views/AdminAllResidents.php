@@ -837,6 +837,19 @@ document.querySelector("#print").addEventListener("click", function(){
         case "4":
         window.location.href = `documents/CertificateOfIndigency.php?resident_id=${id}`;
             break;
+        case "5":
+            window.location.href = `documents/FirstTimeJobSeeker.php?resident_id=${id}`;
+            break;
+        case "6":
+            window.location.href = `documents/CertificateOfLiveBirth.php?resident_id=${id}`;
+            break;
+        case "7":
+            window.location.href = `documents/CertificateOfGuardianship.php?resident_id=${id}`;
+            break;
+        case "8":
+            window.location.href = `documents/HealthCertificate.php?resident_id=${id}`;
+            break;
+            
        
     }
 });

@@ -383,6 +383,18 @@ document.querySelector("#print").addEventListener("click", function(){
         case "4":
         window.location.href = `documents/CertificateOfIndigency.php?${id}`;
             break;
+        case "5":
+            window.location.href = `documents/FirstTimeJobSeeker.php?${id}`;
+            break;
+        case "6":
+            window.location.href = `documents/LiveBirth.php?${id}`;
+            break;
+        case "7":
+            window.location.href = `documents/Guardianship.php?${id}`;
+            break;
+        case "8":
+            window.location.href = `documents/HealthCertificate.php?${id}`;
+            break;
        
     }
 });
