@@ -98,25 +98,27 @@ if($loginSession == null){
                 </div>
               </div>
             </div>
-
-                    <div id="Signature" class="container tab-pane fade"><br>
-                      <h3 class="purpose">Certified true and Correct</h3>
-                      <div class="container mt-5">
-                        <div class="mb-4">
-                        <button type="button" class="clear btn btn-primary"><i class="bi bi-arrow-clockwise"></i></button>
-                          <canvas class="signature-canvas"></canvas>
-                          <div class="signature-box"></div>
-                          <div class="text-center">Signature </div>
-                          <div class="text-muted text-center">Applicant</div>
-                        </div>
-                        <div class="mb-3">
-                          <span class="h2">Date:</span>
-                          <p class="dateToday"></p>
-                          <button type="submit" name="submit" id="submitBtn" class="btn btn-primary button-main ms-auto">Submit <i class="bi bi-box-arrow-in-right"></i></button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+            
+            <div id="Signature" class="container tab-pane fade"><br>
+            <h3 class="purpose">Certified true and Correct</h3>
+            <div class="container mt-5">
+              <div class="mb-4">
+                <button type="button" class="clear btn btn-primary"><i class="bi bi-arrow-clockwise"></i></button>
+                <canvas class="signature-canvas"></canvas>
+                <div class="signature-box"></div>
+                <div class="text-center">Signature </div>
+                <div class="text-muted text-center">Applicant</div>
+              </div>
+              <div class="mb-3">
+                <span class="h2">Date:</span>
+                <p class="dateToday"></p>
+                <button type="submit" name="submit" id="submitBtn" class="btn btn-primary button-main ms-auto">Submit <i class="bi bi-box-arrow-in-right"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" name="signature" id="signature">
+                
                 </form>
               </div>
             </div>
@@ -162,8 +164,8 @@ if($loginSession == null){
 
     // Form submission handler
     document.querySelector('form').addEventListener('submit', async function(e) {
-        e.preventDefault();
-
+       
+e.preventDefault();
         // Validate signature
         if (signaturePad.isEmpty()) {
             Swal.fire({
@@ -186,7 +188,8 @@ if($loginSession == null){
             });
             return;
         }
-
+const signatureDataUrl = signaturePad.toDataURL();
+        document.getElementById('signature').value = signatureDataUrl;
         // Confirmation dialog
         const confirmResult = await Swal.fire({
             title: 'Confirm Information',
@@ -211,14 +214,15 @@ if($loginSession == null){
                         Swal.showLoading();
                     }
                 });
-
-                // Submit the form
-                const formData = new FormData(this);
+                 
+             const formData = new FormData(this);
                 const response = await fetch(this.action, {
                     method: 'POST',
                     body: formData
                 });
-
+                // Submit the form
+       
+        
                 if (response.ok) {
                     Swal.fire({
                         title: 'Success!',
@@ -234,7 +238,7 @@ if($loginSession == null){
             } catch (error) {
                 Swal.fire({
                     title: 'Error!',
-                    text: 'Something went wrong. Please try again.',
+                    text: error,
                     icon: 'error',
                     confirmButtonColor: '#dc3545'
                 });

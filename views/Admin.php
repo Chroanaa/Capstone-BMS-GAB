@@ -223,6 +223,16 @@ $age_data = getAllAges();
                 }
             }
         });
+        const emailParams = new URLSearchParams(window.location?.search).get('email');
+        if(emailParams === 'success'){
+            Swal.fire({
+                title: 'Success!',
+                text: 'Email has been sent successfully',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'OK'
+            });
+        }
     </script>
 </body>
 </html>

@@ -3,6 +3,7 @@
 $resident_id = $_GET['resident_id'] ?? "";
 $others_id = $_GET['others_id'] ?? "";
 $information = "";
+$email = "";
 function getResidentInfo($id){
     include '../../databaseconn/connection.php';
     $conn = $GLOBALS['conn'];
@@ -14,16 +15,27 @@ function getResidentInfo($id){
 function getOthersInfo($id){
     include '../../databaseconn/connection.php';
     $conn = $GLOBALS['conn'];
-    $stmt = $conn->prepare("SELECT * FROM requested_for_others_info WHERE requestor_id = :id");
+    $stmt = $conn->prepare("SELECT * FROM requested_for_others_info WHERE id = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+    return $stmt->fetch();
+}
+function getOthersEmailInfo($id){
+    include '../../databaseconn/connection.php';
+    $conn = $GLOBALS['conn'];
+    $stmt = $conn->prepare("SELECT email FROM user_info WHERE creds_id = :id");
     $stmt->bindParam(':id', $id);
     $stmt->execute();
     return $stmt->fetch();
 }
 if($resident_id){
     $information = getResidentInfo($resident_id);
+    $email = $information['email'];
 }
 if($others_id){
    $information = getOthersInfo($others_id);
+    $email = getOthersEmailInfo($information['requestor_id'])[0];
+
 }
 ?>
 <!DOCTYPE html>
@@ -65,6 +77,9 @@ if($others_id){
     </style>
 </head>
 <body>
+    <button class="btn btn-primary" onclick="notifyResident('<?php echo $email ?>')">
+        Notify the Resident
+    </button>
         <div class="a4-page bg-light" >
             <div class="a4-header d-flex justify-content-center align-items-start" style="gap: 5px;">
                 <img src="../../assets/img/sinbanali.png" class="img-fluid" style="width: 80px;">
@@ -173,7 +188,9 @@ if($others_id){
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script>
-            
+        const notifyResident = (email) => {
+            window.location.href = `../../controller/sendEmail.php?email=${email}`;
+        }
         </script>
 </body>
 </html>

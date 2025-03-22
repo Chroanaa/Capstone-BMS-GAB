@@ -77,6 +77,7 @@ function formatDocumentName($documentName) {
                             data-document="<?= htmlspecialchars(formatDocumentName($document['documents_requested'])) ?>"
                             data-purpose="<?= htmlspecialchars($document['purpose']) ?>"
                             data-status="<?= htmlspecialchars($document['status']) ?>"
+                            data-signature="<?= $document['signature'] ?>"
                             data-toggle="modal" 
                             data-target="#viewDocumentModal">
                         View
@@ -127,6 +128,7 @@ function formatDocumentName($documentName) {
                             data-document="<?= htmlspecialchars(formatDocumentName($other['documents_requested'])) ?>"
                             data-purpose="<?= htmlspecialchars($other['purpose']) ?>"
                             data-status="<?= htmlspecialchars($other['status']) ?>"
+                            data-signature="<?= $other['signature'] ?>"
                             data-toggle="modal" 
                             data-target="#viewDocumentModalOthers">
                         View
@@ -147,7 +149,7 @@ function formatDocumentName($documentName) {
                                 <button type="submit" class="btn btn-warning btn-sm">Cancel</button>
                                 
                             </form>
-                        <button onclick="setOthersIdUrlId(<?php echo $other['user_requestor_id'] ?>)" data-toggle="modal" data-target="#issue-document" class="btn-primary btn btn-sm">
+                        <button onclick="setOthersIdUrlId(<?php echo $other['id'] ?>)" data-toggle="modal" data-target="#issue-document" class="btn-primary btn btn-sm">
                             Issue a document
                         </button>
                         <?php else: ?>
@@ -221,6 +223,9 @@ function formatDocumentName($documentName) {
 
                     <dt class="col-sm-4">Status:</dt>
                     <dd class="col-sm-8" id="viewStatus">-</dd>
+
+                    <dt class="col-sm-4">Signature:</dt>
+                    <dd class="col-sm-8" id="viewSignature">-</dd>
                 </dl>
             </div>
             <div class="modal-footer">
@@ -254,6 +259,9 @@ function formatDocumentName($documentName) {
 
                     <dt class="col-sm-4">Status:</dt>
                     <dd class="col-sm-8" id="viewStatusOthers">-</dd>
+
+                    <dt class="col-sm-4">Signature:</dt>
+                    <img src="" alt="">
                 </dl>
             </div>
             <div class="modal-footer">
@@ -291,10 +299,6 @@ function formatDocumentName($documentName) {
                 document.querySelector('.card-error').innerHTML = "";
             }, 3000);
         }
-    function setUrlId(id){
-        const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?id=${id}`;
-        window.history.pushState({ path: newUrl }, '', newUrl);
-    }
     </script>
   <script>
   $(document).ready(function() {
@@ -344,11 +348,14 @@ $(document).ready(function() {
         const document = $(this).data('document');
         const purpose = $(this).data('purpose');
         const status = $(this).data('status');
+        const signature = $(this).data('signature');
 
         $('#viewFullname').text(fullname);
         $('#viewDocument').text(document);
         $('#viewPurpose').text(purpose);
         $('#viewStatus').text(status);
+        $('#viewSignature').src(signature);
+
     });
      $('.view-btn-others').on('click', function() {
         const fullname = $(this).data('fullname');
@@ -356,12 +363,14 @@ $(document).ready(function() {
         const document = $(this).data('document');
         const purpose = $(this).data('purpose');
         const status = $(this).data('status');
+        const signature = $(this).data('signature');
 
         $('#viewRequestedOthers').text(fullname);
         $('#viewRequestedBy').text(requestedBy);
         $('#viewDocumentOthers').text(document);
         $('#viewPurposeOthers').text(purpose);
         $('#viewStatusOthers').text(status);
+        $('#viewSignatureOthers').text(signature);
     });
 });
 document.querySelector("#print").addEventListener("click", function(){
