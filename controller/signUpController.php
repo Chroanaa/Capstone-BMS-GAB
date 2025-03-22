@@ -25,6 +25,8 @@ function resizeImage($file, $max_width, $max_height) {
     imagedestroy($dst);
 
     return $data;
+    //get the image
+    //eencode sa blob
 }
 if($_SERVER["REQUEST_METHOD"] == "POST") {
   try {
@@ -62,6 +64,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $placeofbirth = $_POST['placeofbirth'];
     $contactnumber = $_POST['Contactnumber'];
     $email = $_POST['Email'];
+    // converts the blob into base64 to save into db
     $picture = isset($_FILES['user_picture']['tmp_name']) ? base64_encode( resizeImage($_FILES['user_picture']['tmp_name'],250,250)) : null;
    
    $sql = "INSERT INTO `user_info`( `first_name`,`middle_name`,`last_name`,`picture`, `creds_id`, `House/floor/bldgno.`, `Street`, `from`, `to`, `date_of_birth`, `Age`, `place_of_birth`, `contact_number`,`email`, `gender`, `civil_status`, `time_Created`)

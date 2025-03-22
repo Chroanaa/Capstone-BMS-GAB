@@ -92,7 +92,7 @@ function formatDocumentName($documentName) {
                             </form>
                         <?php else: ?>
                            <?php if($document['status'] === 'Approved'): ?>
-                            <form action="../controller/undoOthersDocumentRequest.php" method="POST" class="d-inline">
+                            <form action="../controller/undoDocumentRequest.php" method="POST" class="d-inline">
                                 <input type="hidden" name="id" value="<?php echo $document['document_id']; ?>">
                                 <button type="submit" class="btn btn-warning btn-sm">Cancel</button>
                                 
@@ -101,7 +101,7 @@ function formatDocumentName($documentName) {
                             Issue a document
                         </button>
                         <?php else: ?>
-                        <form action="../controller/undoOthersDocumentRequest.php" method="POST" class="d-inline">
+                        <form action="../controller/undoDocumentRequest.php" method="POST" class="d-inline">
                                 <input type="hidden" name="id" value="<?php echo $document['document_id']; ?>">
                                 <button type="submit" class="btn btn-warning btn-sm">Cancel</button>
                         </form>
@@ -191,7 +191,7 @@ function formatDocumentName($documentName) {
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Print</button>
+        <button type="button" id = "print" class="btn btn-primary">Print</button>
       </div>
     </div>
   </div>
@@ -364,6 +364,30 @@ $(document).ready(function() {
         $('#viewStatusOthers').text(status);
     });
 });
+document.querySelector("#print").addEventListener("click", function(){
+    const selectedDocument = document.querySelector("#document").value;
+    const residentId = new URLSearchParams(window.location.search).get('resident_id');
+    const othersId = new URLSearchParams(window.location.search).get('others_id');
+    const id = residentId ? `resident_id=${residentId}` : `others_id=${othersId}`;
+    
+    switch(selectedDocument){
+        case "1":
+        window.location.href = `documents/BarangayClearance.php?${id}`; 
+            break;
+        case "2":
+            window.location.href = `documents/BarangayID.php?${id}`;
+            break;
+        case "3":
+            window.location.href = `documents/BusinessPermit.php?${id}`;
+            break;
+        case "4":
+        window.location.href = `documents/CertificateOfIndigency.php?${id}`;
+            break;
+       
+    }
+});
+
+  </script>
 </script>
 </body>
 </html>

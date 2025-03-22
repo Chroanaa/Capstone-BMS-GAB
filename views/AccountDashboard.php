@@ -1,7 +1,7 @@
 <?php
     session_start();
     if(!isset($_SESSION['session'])){
-        header('Location: /login');
+        header('Location: Login.php');
     }
     $loginSession = $_SESSION['session'];
     //get all document requested by the user

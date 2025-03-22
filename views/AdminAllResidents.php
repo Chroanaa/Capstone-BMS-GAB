@@ -137,7 +137,7 @@ $residents = getAllResidents();
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Print</button>
+        <button type="button" class="btn btn-primary" id = "print">Print</button>
       </div>
     </div>
   </div>
@@ -820,5 +820,25 @@ username.addEventListener('input', debounce(async function() {
             submit.disabled = false;
         }
 }, 300));
+document.querySelector("#print").addEventListener("click", function(){
+    const selectedDocument = document.querySelector("#document").value;
+    const id = new URLSearchParams(window.location.search).get("id");
+    
+    switch(selectedDocument){
+        case "1":
+        window.location.href = `documents/BarangayClearance.php?resident_id=${id}`; 
+            break;
+        case "2":
+            window.location.href = `documents/BarangayID.php?resident_id=${id}`;
+            break;
+        case "3":
+            window.location.href = `documents/BusinessPermit.php?resident_id=${id}`;
+            break;
+        case "4":
+        window.location.href = `documents/CertificateOfIndigency.php?resident_id=${id}`;
+            break;
+       
+    }
+});
     </script>
 </html>
