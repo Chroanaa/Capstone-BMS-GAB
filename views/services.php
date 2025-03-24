@@ -39,8 +39,8 @@ $loginSession = $_SESSION['session'] ?? null;
         </h1>
         <ul class="nav flex-column text-center mt-auto mb-5">
            <?php
-           $arr = ['Certificate of Indigency', 'Barangay Clearance', 'Business Permit', 
-           'First-Time Job Seeker', 'Barangay ID', 'Certificate of Late Live Birth', 'Certificate of Guardianship','Health Certificate','Certificate of Scholarship'];
+           $arr = ['Certificate of Indigency', 'Barangay Clearance', 'Certificate of Residency', 
+           'First-Time Job Seeker', 'Barangay ID','Certificate of Scholarship'];
             foreach($arr as $item){
               echo "<li class='service-item'>
               <a class='bg-light p-4 rounded-pill text-black text-decoration-none' href='forUserOrOthers.php'>$item</a>
