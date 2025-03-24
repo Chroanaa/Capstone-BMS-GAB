@@ -12,7 +12,7 @@ try {
   $announcements = [];
 }
 ?>
-?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>

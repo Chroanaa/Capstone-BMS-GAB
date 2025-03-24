@@ -5,7 +5,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     $conn = $GLOBALS['conn'];
     $id = $_POST['id'];
     try {
-        $query = 'UPDATE `document_requested` SET `status` = "Rejected", `time_Created` = `time_Created` WHERE `id` = :id';
+        $query = 'UPDATE `document_requested` SET `status` = "Rejected", `timestamp` = `timestamp` WHERE `id` = :id';
 
         $stmt = $conn->prepare($query);
         $stmt->execute(['id' => $id]);

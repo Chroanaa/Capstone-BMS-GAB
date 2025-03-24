@@ -7,7 +7,6 @@ function deleteResident($id){
     $credsConn = $GLOBALS['User_conn'];
     
     try {
-        $conn->beginTransaction();
         
         $stmt = $conn->prepare("DELETE FROM user_info WHERE creds_id = :id");
         $stmt->bindParam(':id', $id);
@@ -28,15 +27,16 @@ function deleteResident($id){
         $stmt4 = $credsConn->prepare("DELETE FROM user_creds WHERE id = :id");
         $stmt4->bindParam(':id', $id);
         $stmt4->execute();
-        
-        $conn->commit();
+
         
         header('Location: ../views/AdminAllResidents.php?status=success');
     } catch (Exception $e) {
-        $conn->rollBack();
+    
         header('Location: ../views/AdminAllResidents.php?status=error');
     }
 }
 
-deleteResident($id);
+if(isset($id)){
+    deleteResident($id);
+}
 ?>

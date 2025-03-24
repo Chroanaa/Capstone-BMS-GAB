@@ -101,7 +101,7 @@ $residents = getAllResidents();
                         data-civil="<?php echo htmlspecialchars(trim($resident['civil_status'])); ?>">
                         <i class="bi bi-pencil"></i>
                     </button>
-                        <a href="#" class="delete-link btn btn-danger btn-sm" data-id="<?php echo $resident['creds_id'] ?>">
+                        <a href="#" class="delete-link btn btn-danger btn-sm" onclick="deleteResident(<?php echo $resident['creds_id'] ?>)">
                             <i class="bi bi-trash"></i>
                         </a>
                         <button onclick="setUrlId(<?php echo $resident['id'] ?>)" data-toggle="modal" data-target="#issue-document" class="btn-primary btn btn-sm">
@@ -436,23 +436,7 @@ $residents = getAllResidents();
         });
         $('.dataTables_filter input').attr('placeholder', 'Search By Name...');
         // SweetAlert for delete confirmation
-        $('.delete-link').on('click', function(e) {
-            e.preventDefault();
-            const id = $(this).data('id');
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = `../controller/deleteResidentController.php?id=${id}`;
-                }
-            });
-        });
+       
 
         // SweetAlert for status messages
         const urlParams = new URLSearchParams(window.location.search);
@@ -516,8 +500,23 @@ $residents = getAllResidents();
                 confirmButtonText: 'OK'
             });
         }
-    });
 
+    });
+function deleteResident(id) {
+         Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = `../controller/deleteResidentController.php?id=${id}`;
+                }
+            });
+       }
 
     // Add to your existing script section
 $(document).ready(function() {
