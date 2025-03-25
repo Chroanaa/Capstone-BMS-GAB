@@ -88,7 +88,7 @@ if($others_id){
             <p class="bold">Date of Birth: <span class="underline"><?php echo $information['date_of_birth']; ?></span></p>
             <p class="bold">TIN: <span class="underline"></span></p>
             <p class="bold">SSS/GSIS NO: <span class="underline"></span></p>
-            <p class="bold">TEL No: <span class="underline"></span></p>
+            <p class="bold">TEL No: <span class="underline"><?php echo $information['contact_number']; ?></span></p>
             <p class="bold">Precinct No.: <span class="underline"></span></p>
             <p class="text-center">IN CASE OF EMERGENCY</p>
             <p>Please Notify:</p>
