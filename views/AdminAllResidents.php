@@ -52,7 +52,7 @@ $residents = getAllResidents();
         </button>
     </div>
     <table id="residentsTable" class="table table-striped table-bordered">
-        <thead>
+    <thead class="table-blue">
             <th>ID</th>
             <th>Fullname</th>
             <th>House No.</th>
@@ -129,14 +129,12 @@ $residents = getAllResidents();
       <div class="modal-body">
         <label for="document" class="form-label">Select Document:</label>
         <select class="form-control" name="document" id="document">
-          <option value="1">Barangay Clearance</option>
-          <option value="2">Barangay ID</option>
-          <option value="3">Business Permit</option>
-          <option value="4">Barangay Certificate of Indigency</option>
-          <option value="5">First-Time Job Seeker</option>
-          <option value="6">Certificate of Live Birth</option>
-          <option value="7">Certificate of Guardianship</option>
-          <option value="8">Health Certificate</option>
+            <option value="1">Barangay Clearance</option>
+            <option value="2">Barangay ID</option>
+            <option value="3">Certificate of Residency</option>
+            <option value="4">Certificate of Indigency</option>
+            <option value="5">First-Time Job Seeker</option>
+            <option value="6">Certificate of Scholarship</option>
         </select>
       </div>
       <div class="modal-footer">
@@ -827,33 +825,26 @@ document.querySelector("#print").addEventListener("click", function(){
     const selectedDocument = document.querySelector("#document").value;
     const id = new URLSearchParams(window.location.search).get("id");
     
+    // Match services array with corresponding document pages
     switch(selectedDocument){
-        case "1":
-        window.location.href = `documents/BarangayClearance.php?resident_id=${id}`; 
+        case "1": // Barangay Clearance
+            window.location.href = `documents/BarangayClearance.php?resident_id=${id}`; 
             break;
-        case "2":
+        case "2": // Barangay ID
             window.location.href = `documents/BarangayID.php?resident_id=${id}`;
             break;
-        case "3":
-            window.location.href = `documents/BusinessPermit.php?resident_id=${id}`;
+        case "3": // Certificate of Residency
+            window.location.href = `documents/CertificateOfResidency.php?resident_id=${id}`;
             break;
-        case "4":
-        window.location.href = `documents/CertificateOfIndigency.php?resident_id=${id}`;
+        case "4": // Certificate of Indigency
+            window.location.href = `documents/CertificateOfIndigency.php?resident_id=${id}`;
             break;
-        case "5":
+        case "5": // First-Time Job Seeker
             window.location.href = `documents/FirstTimeJobSeeker.php?resident_id=${id}`;
             break;
-        case "6":
-            window.location.href = `documents/CertificateOfLiveBirth.php?resident_id=${id}`;
+        case "6": // Certificate of Scholarship
+            window.location.href = `documents/CertificateOfScholarship.php?resident_id=${id}`;
             break;
-        case "7":
-            window.location.href = `documents/CertificateOfGuardianship.php?resident_id=${id}`;
-            break;
-        case "8":
-            window.location.href = `documents/HealthCertificate.php?resident_id=${id}`;
-            break;
-            
-       
     }
 });
     </script>

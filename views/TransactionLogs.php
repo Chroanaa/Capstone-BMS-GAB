@@ -39,10 +39,10 @@
 <body id="adminDashboard">
     <div id="adminHeader"></div>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Transaction Logs</h1>
-        <div class="table-responsive">
-            <table id="transactionLogsTable" class="table table-striped table-bordered">
-                <thead class="table-dark">
+    <h1 class="text-center mb-4 h5-yellow">Transaction Logs</h1>
+    <div class="table-responsive bg-white p-4 rounded shadow">
+        <table id="transactionLogsTable" class="table table-striped table-bordered">
+                <thead class="">
                     <tr>
                         <th>Id</th>
                         <th>Action</th>

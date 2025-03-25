@@ -1,0 +1,118 @@
+.header-page{
+    font-size: 0.7rem;
+}
+
+.header-email{
+    text-decoration: underline;
+}
+
+.barangay-clearance-demography{
+    display: flex;
+    flex-direction: column;
+}
+
+.fixed-underline {
+    display: inline-block;
+    width: 400px; /* Adjust the width as needed */
+    border-bottom: 2px solid black;
+    text-decoration: none;
+}
+
+.fixed-underline-date{
+    display: inline-block;
+    width: 50px; /* Adjust the width as needed */
+    border-bottom: 2px solid black;
+    text-decoration: none;
+}
+.barangay-clearance-res{
+    display: flex;
+    height: 75px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+.barangay-clearance-res label{
+    display: flex;
+    gap: 10px;
+}
+.inside-res{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.barangay-clearance-demography input[type="checkbox"] {
+    -webkit-appearance: none; /* Remove default styling for WebKit browsers */
+    -moz-appearance: none; /* Remove default styling for Mozilla browsers */
+    appearance: none; /* Remove default styling */
+    border: 3px solid orange; /* Change the border color and width as needed */
+    width: 25px; /* Adjust the width as needed */
+    height: 30px; /* Adjust the height as needed */
+    background-color: white; /* Set background color */
+    cursor: pointer; /* Change cursor to pointer */
+}
+
+.barangay-clearance-demography input[type="checkbox"]:checked {
+    background-color: orange; /* Change background color when checked */
+}
+
+.barangay-clearance-signatures{
+    display: flex;
+}
+
+.footer{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
+.inside-div-footer{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.chairman-name{
+    color: rgb(129, 12, 129);
+    font-weight: 700;
+}
+.chairman-title{
+    font-size: 1rem;
+    font-weight: 700;
+}
+.chairman-qoute{
+    font-size: 1.5rem;
+    color: rgb(6, 6, 82);
+}
+.officals-h5{
+    font-weight: bold;
+    font-size: 0.5rem;
+}
+.officials{
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.official{
+font-size: 0.4rem;
+margin: 10px;
+max-width: 90px;
+max-height: 30px;
+}
+.official-name{
+    font-weight: 900 !important;
+    font-weight: bold !important;
+    font-size: 0.8;
+}
+
+.divider {
+    width: 100%;
+    border: 2px black solid;
+}
+.official-title{
+    font-style: italic;
+    opacity: 0.9;
+}

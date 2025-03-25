@@ -55,8 +55,8 @@ function formatDocumentName($documentName) {
   <div class="residents-main-container">
     <h1 class="text-center h5 blue">Document Requests</h1>
     <div class="table-responsive">
-        <table id="documentRequestTable" class="table table-striped table-bordered " style="width:100%">
-        <thead>
+    <table id="documentRequestTable" class="table table-striped table-bordered" style="width:100%">
+        <thead class="table-header">
             <tr>
                 <th>Fullname</th>
                 <th>Document Requested</th>
@@ -185,14 +185,12 @@ function formatDocumentName($documentName) {
       <div class="modal-body">
         <label for="document" class="form-label">Select Document:</label>
         <select class="form-control" name="document" id="document">
-          <option value="1">Barangay Clearance</option>
-          <option value="2">Barangay ID</option>
-          <option value="3">Business Permit</option>
-          <option value="4">Barangay Certificate of Indigency</option>
-          <option value="5">First-Time Job Seeker</option>
-          <option value="6">Certificate of Live Birth</option>
-          <option value="7">Certificate of Guardianship</option>
-          <option value="8">Health Certificate</option>
+            <option value="1">Barangay Clearance</option>
+            <option value="2">Barangay ID</option>
+            <option value="3">Certificate of Residency</option>
+            <option value="4">Certificate of Indigency</option>
+            <option value="5">First-Time Job Seeker</option>
+            <option value="6">Certificate of Scholarship</option>
         </select>
       </div>
       <div class="modal-footer">
@@ -384,31 +382,24 @@ document.querySelector("#print").addEventListener("click", function(){
     const id = residentId ? `resident_id=${residentId}` : `others_id=${othersId}`;
     
     switch(selectedDocument){
-        case "1":
-        window.location.href = `documents/BarangayClearance.php?${id}`; 
+        case "1": // Barangay Clearance
+            window.location.href = `documents/BarangayClearance.php?${id}`; 
             break;
-        case "2":
+        case "2": // Barangay ID
             window.location.href = `documents/BarangayID.php?${id}`;
             break;
-        case "3":
-            window.location.href = `documents/BusinessPermit.php?${id}`;
+        case "3": // Certificate of Residency
+            window.location.href = `documents/CertificateOfResidency.php?${id}`;
             break;
-        case "4":
-        window.location.href = `documents/CertificateOfIndigency.php?${id}`;
+        case "4": // Certificate of Indigency
+            window.location.href = `documents/CertificateOfIndigency.php?${id}`;
             break;
-        case "5":
+        case "5": // First-Time Job Seeker
             window.location.href = `documents/FirstTimeJobSeeker.php?${id}`;
             break;
-        case "6":
-            window.location.href = `documents/LiveBirth.php?${id}`;
+        case "6": // Certificate of Scholarship
+            window.location.href = `documents/CertificateOfScholarship.php?${id}`;
             break;
-        case "7":
-            window.location.href = `documents/Guardianship.php?${id}`;
-            break;
-        case "8":
-            window.location.href = `documents/HealthCertificate.php?${id}`;
-            break;
-       
     }
 });
 

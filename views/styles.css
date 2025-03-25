@@ -883,7 +883,7 @@ body::before {
 .residents-main-container{
   margin-top: 200px;
   margin: 200px auto 0 auto;
-  width: 80%;
+  width: 70%;
   background-color: white;
   padding: 20px;
   border-radius: 20px;
@@ -1021,21 +1021,6 @@ body::before {
 }
 
 
-@media (max-width: 991px) {
-  .navbar-nav-unique{
-    display: flex !important;
-    flex-direction: column !important;
-  }
-  #adminDashboard{
-    padding-top: 15%;
-  }
-  .about-us-container{
-  margin-top: 20% !important;
-}
-.announcement-title{
-  display: none;
-}
-}
  
     .content-preview {
         display: -webkit-box;
@@ -1141,3 +1126,107 @@ body::before {
       margin-bottom: 1rem;
   }
 }
+
+.h5-yellow{
+  font-size: 3rem;
+  color: var(--primary-yellow);
+  font-weight: 700;
+}
+
+.body-padding{
+  padding-top: 5%;
+}
+
+.officials-title{
+  color: var(--primary-blue);
+  font-size: 1.5rem;
+}
+
+.officials-name{
+  font-size: 1.5rem;
+  margin-left: 15px;
+}
+
+.officials-body{
+  width: 50%;
+  margin: 0 auto;
+}
+
+
+@media (max-width: 991px) {
+  .navbar-nav-unique{
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  #adminDashboard{
+    padding-top: 15%;
+  }
+  .about-us-container{
+  margin-top: 20% !important;
+}
+.announcement-title{
+  display: none;
+}
+.officials-body{
+  width: 100%;
+}
+}
+
+
+/* Table styling */
+.table > thead {
+    background-color: #1c6ea4;
+    color: white;
+}
+
+#transactionLogsTable thead th {
+    background-color: #1c6ea4;
+    color: white;
+    border-color: #1c6ea4;
+}
+
+.table-dark {
+    --bs-table-bg: #1c6ea4;
+    --bs-table-striped-bg: #1c6ea4;
+    --bs-table-striped-color: white;
+    --bs-table-active-bg: #1c6ea4;
+    --bs-table-active-color: white;
+    --bs-table-hover-bg: #1c6ea4;
+    --bs-table-hover-color: white;
+}
+
+/* Table Header Styling */
+.table-header {
+  background-color: var(--primary-blue) !important;
+}
+
+.table-header th {
+  color: white !important;
+  font-weight: 500;
+}
+
+/* DataTables specific overrides */
+.dataTables_wrapper .dataTables_scrollHead table thead {
+  background-color: var(--primary-blue);
+}
+
+#documentRequestTable thead th {
+  background-color: var(--primary-blue);
+  color: white;
+  border-color: var(--primary-blue);
+}
+
+/* Table Header Styling */
+.table-blue {
+  background-color: var(--primary-blue);
+}
+
+.header-page{
+  display: flex !important;
+} 
+
+.header-line {
+  font-size: 0.7rem !important;
+}
+
+

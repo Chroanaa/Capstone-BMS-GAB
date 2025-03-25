@@ -36,11 +36,11 @@ $households = getHouseholds();
     <link rel="stylesheet" href="styles.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 </head>
-<body>
+<body class="body-padding">
     <div id="adminHeader"></div>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Household Information</h1>
-        <div class="table-responsive">
+        <h1 class="text-center mb-4 h5-yellow">Household Information</h1>
+        <div class="table-responsive bg-white p-4 rounded shadow">
             <table id="householdTable" class="table table-striped table-bordered">
                 <thead class="table-dark">
                     <tr>
@@ -71,8 +71,10 @@ $households = getHouseholds();
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="adminHeader.js"></script>
 <script type="module">
     import { header } from './adminHeader.js';
     header(false); // Pass false since the user is not logged in

@@ -29,30 +29,37 @@ $loginSession = $_SESSION['session'] ?? null;
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body class="body-padding">
+    <?php include 'modals/modalLogout.html';?>
     <div id="header"></div>
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">SK Officials</h1>
-        <div class="card shadow">
+    <div class="container mt-5 ">
+        <h1 class="text-center mb-4 h5-yellow">SK Officials</h1>
+        <div class="card shadow officials-body">
             <div class="card-body">
                 <ul class="list-group">
-                    <li class="list-group-item"><strong>SK Chairman:</strong> Rubenich Reyes</li>
-                    <li class="list-group-item"><strong>SK Councilor:</strong> April Mae Amac</li>
-                    <li class="list-group-item"><strong>SK Councilor:</strong> Divine Love Agraviador</li>
-                    <li class="list-group-item"><strong>SK Councilor:</strong> John Michael Miclat</li>
-                    <li class="list-group-item"><strong>SK Councilor:</strong> Christian Felix</li>
-                    <li class="list-group-item"><strong>SK Councilor:</strong> Mar Louise Doring</li>
-                    <li class="list-group-item"><strong>SK Councilor:</strong> Keithlyn Castañeda</li>
-                    <li class="list-group-item"><strong>SK Councilor:</strong> Mary Rose Gallamos</li>
+                    <li class="list-group-item"><strong class="officials-title">SK Chairman:</strong> <span class="officials-name">Rubenich Reyes</span></li>
+                    <li class="list-group-item"><strong class="officials-title">SK Councilor:</strong> <span class="officials-name"> April Mae Amac</span></li>
+                    <li class="list-group-item"><strong class="officials-title">SK Councilor:</strong> <span class="officials-name"> Divine Love Agraviador</span></li>
+                    <li class="list-group-item"><strong class="officials-title">SK Councilor:</strong> <span class="officials-name"> John Michael Miclat</span></li>
+                    <li class="list-group-item"><strong class="officials-title">SK Councilor:</strong> <span class="officials-name"> Christian Felix</span></li>
+                    <li class="list-group-item"><strong class="officials-title">SK Councilor:</strong> <span class="officials-name"> Mar Louise Doring</span></li>
+                    <li class="list-group-item"><strong class="officials-title">SK Councilor:</strong> <span class="officials-name"> Keithlyn Castañeda</span></li>
+                    <li class="list-group-item"><strong class="officials-title">SK Councilor:</strong> <span class="officials-name"> Mary Rose Gallamos</span></li>
                 </ul>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="module">
-      import { header } from "./header.js";
+  <!-- Bootstrap JS and dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS and dependencies -->   
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="module" >
+      import {header} from './header.js';
       header(<?= $loginSession?>);
+          
+      
     </script>
 </body>
 </html>

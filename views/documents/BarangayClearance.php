@@ -1,9 +1,10 @@
 <?php
-
 $resident_id = $_GET['resident_id'] ?? "";
 $others_id = $_GET['others_id'] ?? "";
 $information = "";
 $email = "";
+$created_at = "";
+
 function getResidentInfo($id){
     include '../../databaseconn/connection.php';
     $conn = $GLOBALS['conn'];
@@ -12,6 +13,7 @@ function getResidentInfo($id){
     $stmt->execute();
     return $stmt->fetch();
 }
+
 function getOthersInfo($id){
     include '../../databaseconn/connection.php';
     $conn = $GLOBALS['conn'];
@@ -20,6 +22,7 @@ function getOthersInfo($id){
     $stmt->execute();
     return $stmt->fetch();
 }
+
 function getOthersEmailInfo($id){
     include '../../databaseconn/connection.php';
     $conn = $GLOBALS['conn'];
@@ -28,23 +31,33 @@ function getOthersEmailInfo($id){
     $stmt->execute();
     return $stmt->fetch();
 }
+
 if($resident_id){
     $information = getResidentInfo($resident_id);
     $email = $information['email'];
+    $created_at = $information['time_Created'];
 }
-if($others_id){
-   $information = getOthersInfo($others_id);
-    $email = getOthersEmailInfo($information['requestor_id'])[0];
 
+if($others_id){
+    $information = getOthersInfo($others_id);
+    $email = getOthersEmailInfo($information['requestor_id'])[0];
+    $created_at = $information['time_Created'];
 }
+
+// Format the creation date
+$creationDate = date('jS', strtotime($created_at));
+$creationMonth = date('F', strtotime($created_at));
+$creationYear = date('Y', strtotime($created_at));
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A4 Template</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">    <style>
+    <title>Barangay Clearance</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="stylesheet" href="BarangayClearance.css" />
+    <style>
         @page {
             size: A4;
             margin: 0;
@@ -52,17 +65,19 @@ if($others_id){
 
         body {
             margin: 0;
-            padding: 0;
-            font-family: Arial, Helvetica, sans-serif;
+            padding: 20px;
+            
         }
 
         .a4-page {
             width: 210mm;
             height: 297mm;
             margin: 0 auto;
-            padding: 10mm;
+            padding: 20mm;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.8rem;
+            font-weight: 600
         }
 
         @media print {
@@ -75,122 +90,156 @@ if($others_id){
             }
         }
     </style>
+    <link rel="stylesheet" href="../BarangayClearance.css" />
 </head>
 <body>
     <button class="btn btn-primary" onclick="notifyResident('<?php echo $email ?>')">
         Notify the Resident
     </button>
-        <div class="a4-page bg-light" >
-            <div class="a4-header d-flex justify-content-center align-items-start" style="gap: 5px;">
-                <img src="../../assets/img/sinbanali.png" class="img-fluid" style="width: 80px;">
-                    <div class="a4-title d-flex justify-content-center align-items-center flex-column text-secondary">
-                        <label style="font-size: 1rem;">REPUBLIC OF THE PHILIPPINES</label>
-                        <label style="font-size: 0,9rem;">CITY OF BACOOR</label>
-                        <label style="font-size: 1.1rem;">BARANGAY</label>
-                        <label style="font-size: 1.1rem;">SINBANALI</label>
-                        <label style="font-size: 0.7rem;">(046) 431-2569</label>
-                        <label style="font-size: 0.7rem;">barangaysinbanali2023@gmail.com</label>
-
-                    </div>
-                <img src="../../assets/img/logo-125.png" class="img-fluid" style="width: 80px;">
+    <button class="btn btn-primary">
+        Print
+    </button>
+    <div class="a4-page bg-light">
+        <div class="header-page d-flex justify-content-between align-items-center">
+            <div class="baranggay-logo-container">
+                <img src="../images/baranggay_logo.png" width="100px" height="100px" />
             </div>
-
-            <div class="a4-main d-flex mt-4" style="gap: 10px;">
-            <div class="a4-aside-content py-3 d-flex flex-column justify-content-evenly align-items-center" style="min-width: 200px; width: 400px; height: 800px; border: 2px solid rgb(13, 13, 159); border-radius: 20px;">
-                    <label style="font-size: 0.8rem; font-weight: bold;" class="text-secondary">CARIDAD J. SANCHEZ</label>
-                    <label style="font-size: 0.8rem; font-weight: bold;" class="text-warning">PUNONG BARANGAY</label>
-                    
-                    
-                    <label style="font-size: 0.8rem; font-weight: bold;" class="mt-2 text-secondary">Nieves M. Dela Cruz</label>                   
-                    <label style="font-size: 0.8rem; font-weight: bold;" class="mt-2 text-secondary">Ronald F. Marquez</label>
-                    <label style="font-size: 0.8rem; font-weight: bold;" class="mt-2 text-secondary">Angeline Rose D. Sanchez</label>
-                    <label style="font-size: 0.8rem; font-weight: bold;" class="mt-2 text-secondary">Ervin G. Ignacio</label>
-                    <label style="font-size: 0.8rem; font-weight: bold;" class="mt-2 text-secondary">Cesar R. Concepcion</label>
-                    <label style="font-size: 0.8rem; font-weight: bold;" class="mt-2 text-secondary">Lolita E. Marquez</label>
-                    <label style="font-size: 0.8rem; font-weight: bold;" class="mt-2 text-secondary">Leo J. Ignacio</label>
-
-                    <label style="font-size: 0.8rem; font-weight: bold; text-transform: uppercase;" class="text-secondary mt-4">Arthur B. Castor</label>
-                    <label style="font-size: 0.8rem; font-weight: bold;" class="text-warning">Treasurer</label>
-
-                    <label style="font-size: 0.8rem; font-weight: bold; text-transform: uppercase;" class="text-secondary mt-4">Juanise Rainel I. Ignacio</label>
-                    <label style="font-size: 0.8rem; font-weight: bold;" class="text-warning">SK Chairperson</label>
-
-                    <label style="font-size: 0.8rem; font-weight: bold; text-transform: uppercase;" class="text-secondary mt-4">John Paul T. Grande</label>
-                    <label style="font-size: 0.8rem; font-weight: bold;" class="text-warning">Secretary</label>
-
-
-                    <img src="../../assets/img/service.png" class="img-fluid mt-3" style="width: 150px;" alt="">
-                
-                    
-
-
-
-                </div>
-
-                <div class="a4-main-content text-secondary text-center py-3"style="flex-grow: 1;">
-                    <label style="font-size: 1.8rem;">OFFICE OF PUNONG BARANGAY</label>
-                    <label style="font-size: 1.8rem;"> BARANGAY CLEARANCE</label>
-
-                    <!--ADD THE ELEMENT TO AUTOMATE-->
-                    <div class="a4-body mt-3 d-flex px-2 fw-bold" style="gap: 5px;">
-                        <img src="data:image/gif;base64, <?php echo $information['picture']  ?>" class="img-fluid" style="width: 140px;" alt="">
-                        <div class="a4-body-content d-flex flex-column justify-content-center align-items-start">
-                            <?php
-                            $fullname = $information['first_name'] . " " . $information['middle_name'] . " " . $information['last_name'];
-                            $fulladdress = $information['House/floor/bldgno.'] . " " . $information['Street'];
-                            ?>
-                            <label>Name: <?php echo $fullname ?> </label>
-                            <label>Birthday: <?php echo $information["date_of_birth"] ?> </label>
-                            <label>Gender: <?php echo $information["gender"] ?></label>
-                            <label>Civil Status: <?php echo $information["civil_status"] ?></label>
-                            <label style="text-align: left;">Address: <?php echo $fulladdress ?>  </label>
-                        </div>
-                    </div>
-
-                    <div class="px-2 fw-bold mt-2">
-                        
-                    </div>
-                    <hr>
-                    
-                    <label style="text-align: left;" class="mx-2">
-                        This is to certify that the above-mentioned individual is a bona fide resident / voter of this barangay.
-                         According to the records kept in this office, the individual has no pending cases. 
-                         The resident is known to me to possess GOOD MORAL CHARACTER and is a law-abiding citizen of this community. 
-                         This Barangay Certificate is issued upon request for 
-
-
-                    </label>
-                    
-                    <label class="m-2">
-                        This Barangay Certificate is issued upon request for  <?php echo $fullname ?> <span style="text-decoration: underline; font-weight: bold;"></span>.
-                    </label>
-                    <label style="text-align: left; font-weight: bold;" class="mx-2">Given this day, <!--ADD THE ELEMENT TO AUTOMATE--> <span><?php echo date('m/d/Y') ?></span></label>
-
-                    <div class="sign mt-3 d-flex justify-content-between align-items-center">
-                        <div class="left-sign d-flex flex-column justify-content-end align-items-center " style="flex: 1;">
-
-                            <label>____________________</label>
-                            <label>RESIDENT SIGNATURE</label>
-                            <span style="font-size: 0.5rem;" class="border px-3 py-5">
-                                RIGHT THUMB
-                            </span>
-                        </div>
-                        <div class="right-sign" style="flex: 1;">
-                            <img src="../../assets/img/sign-caridad.png" class="img-fluid" style="width: 200px;" alt="">
-                            <img src="../../assets/img/sign-danica.png" class="img-fluid mt-3" style="width: 200px;" alt="">
-
-                        </div>
-                    </div>
-                    
-                </div>
+            <div class="text-center">
+                <div class="header-line" style="font-size: 0.8rem;">REPUBLIC OF THE PHILIPPINES</div>
+                <div class="header-line" style="font-size: 0.8rem; font-weight: 700;">OFFICE OF THE SANGGUNIANG BARANGAY</div>
+                <div class="header-line" style="font-size: 0.8rem;">BARANGAY 201, ZONE 20</div>
+                <div class="header-line" style="font-size: 0.8rem;">PASAY CITY, METRO MANILA</div>
+                <div class="header-line" style="font-size: 0.8rem;">TEL NO. 02-8770622</div>
+                <div class="header-line header-email" style="font-size: 0.8rem; font-weight: bold;">EMAIL: barangay201zone20pasaycity@gmail.com</div>
+                <div class="header-line" style="font-size: 1.5rem; font-weight: bold; margin-top: 10px;">BARANGAY CLEARANCE</div>
+            </div>
+            <div class="baranggay-logo-container">
+                <img src="../images/baranggay_logo.png" width="100px" height="100px" />
             </div>
         </div>
+        <div class="mt-4 barangay-clearance-demography">
+            <label>To Whom It May Concern:</label>
+            <label style="text-indent: 3rem;">This is to certify that the person whose name, signature and thumb marks appear hereon has requested for a BARANGAY CLEARANCE from this office and the result(s) is/are listed below:</label>
+            <label>NAME: <span class="fixed-underline"><?php echo $information['first_name'] . " " . $information['middle_name'] . " " . $information['last_name']; ?></span></label>
+            <label>ADDRESS: <span class="fixed-underline"><?php echo $information['House/floor/bldgno.'] . " " . $information['Street']; ?></span></label>
+            <div class="barangay-clearance-res">
+                <div class="perma-res">
+                    <label>Permanent Res. <input type="checkbox" /></label>
+                </div>
+                <div class="inside-res">
+                    <label>Temporary Res.</label>
+                    <div class="temporary-container">
+                    <div>
+                        <label><input type="checkbox" />Renter</label>
+                    </div>
+                    <div >
+                        <label><input type="checkbox" />Transients </label>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <label>DATE OF BIRTH: <span class="fixed-underline"><?php echo $information['date_of_birth']; ?></span></label>
+            <label>PLACE OF BIRTH: <span class="fixed-underline"><?php echo $information['place_of_birth']; ?></span></label>
+            <label>CITIZENSHIP: <span class="fixed-underline">FILIPINO</span></label>
+            <label>REMARKS: <span class="fixed-underline">NO RECORD ON FILE</span></label>
+            <label>PURPOSE: <span class="fixed-underline">LOCAL EMPLOYMENT REQUIREMENT</span></label>
+            <label>VALID FOR: <span class="fixed-underline">THREE MONTHS (3) FROM DATE OF ISSUE</span></label>
+        </div>
+        <div class="mt-4 d-flex justify-content-between">
+            <div class="text-center">
+                <img src="data:image/gif;base64, <?php echo $information['picture']; ?>" class="img-fluid" style="border: 1px solid black; display: inline-block; width: 100px; height: 100px;" alt="">
+                <label>Picture</label>
+            </div>
+            <div class="text-center">
+                <span style="border: 1px solid black; display: inline-block; width: 100px; height: 100px;"></span>
+                <label>Left Thumbmark</label><br>
+            </div>
+            <div class="text-center">
+                <span style="border: 1px solid black; display: inline-block; width: 100px; height: 100px;"></span>
+                <label>Right Thumbmark</label><br>
+            </div>
+            <div class="barangay-clearance-signature">
+            <div class="text-center">
+                <span style="border: 1px solid black; display: inline-block; width: 200px;"></span>
+                <label>Signature over Printed Name</label><br>
+            </div>
+            <div class="text-center">
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <script>
+                <label>CTC No.</label>
+                <span style="border: 1px solid black; display: inline-block; width:100px;"></span>
+            </div>
+            <div class="text-center">
+                <label>Issued At</label>
+                <span style="border: 1px solid black; display: inline-block; width:100px;"></span>
+            </div>
+            <div class="text-center">
+                <label>Issued On</label>
+                <span style="border: 1px solid black; display: inline-block; width:100px;"></span>
+            </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
+            <p>Given this <span class="fixed-underline-date"><?php echo $creationDate; ?></span> day of <span class="fixed-underline-date"><?php echo $creationMonth; ?></span> <span class="fixed-underline-date"><?php echo $creationYear; ?></span> at the office of the Barangay Chairman, Kalayaan Village, Balagbag, Pasay City.</p>
+        </div>
+        <div class="footer">
+            <img src="../../images/chairman.jpg" alt="Barangay Chairman" width="150px" height="150px">
+            <div class="inside-div-footer">
+                <h5 class="chairman-name">HON. JAIME B. BONTILAO</h5>
+                <p class="chairman-title">Barangay Chairman</p>
+                <p class="chairman-qoute">"Pagbabago . . . tungo"</p>
+            </div>
+        </div>
+       
+        <div class="officials">
+            
+        <p class="officals-h5">Barangay Officials:</p>
+            <div class="official">
+                <label class="official-name" class="official-name">RODOLFO ALEXI L. LOBO</label>
+                <p class="official-title">Chairman Committee on Peace & Order and Public Safety</p>
+            </div>
+            <div class="official">
+                <label class="official-name">EUTIQUIA L. CORRAL</label>
+                <p class="official-title">Chairman Committee on Social Service & Health</p>
+            </div>
+            <div class="official">
+                <label class="official-name" style="font-weight:bolder;">ANTONIA P. CERDIN</label>
+                <p class="official-title">Chairman Committee on Clean & Green Sanitation</p>
+            </div>
+            <div class="official">
+                <label class="official-name">LORETO C. CASANO</label>
+                <p class="official-title">Chairman Committee on Education & Sports</p>
+            </div>
+            <div class="official">
+                <label class="official-name">LEOPOLDO A. SALECIDO</label>
+                <p class="official-title">Chairman Committee on Infrastructure & Urban</p>
+            </div>
+            <div class="official">
+                <label class="official-name">ALFREDO G. ABARICO JR.</label>
+                <p class="official-title">Chairman Committee on Appropriation</p>
+            </div>
+            <div class="official">
+                <label class="official-name">RODOLFO V. BAGAN</label>
+                <p class="official-title">Chairman Committee on Trade & Industry</p>
+            </div>
+            <div class="official">
+                <label class="official-name">VERA MARIE L. SORA</label>
+                <p class="official-title">Barangay Secretary</p>
+            </div>
+            <div class="official">
+                <label class="official-name">JOANNA M. CUI</label>
+                <p class="official-title">Barangay Treasurer</p>
+            </div>
+        </div>
+        <div class="divider"></div>
+        <div class="note">
+            <p><span style="color:red;">NOTE:</span> NOT VALID IF THERE ARE ERASURES, WITHOUT PHOTO, THUMBMARK AND DRY SEAL</p>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
         const notifyResident = (email) => {
             window.location.href = `../../controller/sendEmail.php?email=${email}`;
         }
-        </script>
+    </script>
 </body>
 </html>

@@ -50,7 +50,7 @@ $announcements = $stmt->fetchAll();
     
     <div class="residents-main-container">
         <div class="d-flex justify-content-between align-items-center mb-3">
-            <h1 class="h5 blue announcement-title">Announcements</h1>
+            <h1 class="h5 blue">Announcements</h1>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal">
                 <i class="bi bi-plus-circle"></i> Add Announcement
             </button>
