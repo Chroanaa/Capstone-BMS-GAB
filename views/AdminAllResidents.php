@@ -1,4 +1,8 @@
 <?php
+ session_start();
+    if(!isset($_SESSION['admin'])){
+        header('Location: AdminLogin.php?error=notLoggedIn');
+    }
 function getAllResidents(){
     include '../databaseconn/connection.php';
     $conn = $GLOBALS['conn'];

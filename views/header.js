@@ -1,5 +1,5 @@
 export function header(isLoggedIn) {
-  const currentPath = window.location.pathname.split('/').pop();
+  const currentPath = window.location.pathname.split("/").pop();
 
   document.querySelector("#header").innerHTML = `
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -17,27 +17,28 @@ export function header(isLoggedIn) {
       <div class="collapse navbar-collapse " id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item header-nav-item">
-            <a class="nav-link ${currentPath === 'index.php' ? 'active' : ''}" href="./index.php"
+            <a class="nav-link ${
+              currentPath === "index.php" ? "active" : ""
+            }" href="./index.php"
               >Home <i class="bi bi-house-fill"></i
             ></a>
           </li>
           <li class="nav-item header-nav-item">
-            <a class="nav-link ${currentPath === 'services.php' ? 'active' : ''}" href="./services.php"
+            <a class="nav-link ${
+              currentPath === "services.php" ? "active" : ""
+            }" href="./services.php"
               >Service <i class="bi bi-person-fill"></i
             ></a>
           </li>
           <li class="nav-item header-nav-item">
-            <a class="nav-link" href="#"
-              >Household <i class="bi bi-house-door-fill"></i
-            ></a>
-          </li>
-          <li class="nav-item header-nav-item">
-            <a class="nav-link" href="#"
+            <a class="nav-link" href="Officials.php"
               >Officials <i class="bi bi-person-badge"></i
             ></a>
           </li>
           <li class="nav-item header-nav-item">
-            <a class="nav-link ${currentPath === 'AboutUs.php' ? 'active' : ''}" href="./AboutUs.php"
+            <a class="nav-link ${
+              currentPath === "AboutUs.php" ? "active" : ""
+            }" href="./AboutUs.php"
               >About&nbspUs<i class="bi bi-person-lines-fill"></i
             ></a>
           </li>
@@ -53,7 +54,9 @@ export function header(isLoggedIn) {
                 </button>
 
               <div class="dropdown-menu dropdown-pop-up" aria-labelledby="dropdownMenuButton">
-                <button onclick="window.location.href='accountDashboard.php'" class="btn account-btn ${currentPath === 'accountDashboard.php' ? 'active' : ''}">
+                <button onclick="window.location.href='accountDashboard.php'" class="btn account-btn ${
+                  currentPath === "accountDashboard.php" ? "active" : ""
+                }">
                   Account
                 </button>
                 <button type="button" id = "dashboard" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -64,7 +67,9 @@ export function header(isLoggedIn) {
             </li>
             `
                : `
-               <li class='nav-item ${currentPath === 'Login.php' ? 'active' : ''}'>
+               <li class='nav-item ${
+                 currentPath === "Login.php" ? "active" : ""
+               }'>
                 <a class='nav-link' href='Login.php'>
                   Login <i class='bi bi-person-plus-fill'></i>
                 </a>
@@ -73,7 +78,6 @@ export function header(isLoggedIn) {
         </ul>
       </div>
     </nav>
-`
-console.log(currentPath)
-};
-
+`;
+  console.log(currentPath);
+}

@@ -33,7 +33,7 @@ export function header() {
                                   ? "active"
                                   : ""
                               }">
-                                  <a class="nav-link admin-nav-link" href="TransactionLogs.php"><i class="bi bi-clock-history"></i> Transaction Logs</a>
+                                  <a class="nav-link admin-nav-link" href="TransactionLogs.php"><i class="bi bi-clock-history"></i> Audit Logs</a>
                               </li>
                               <li class="nav-item ${
                                 currentPath === "Announcement.php"
@@ -41,6 +41,11 @@ export function header() {
                                   : ""
                               }">
                                   <a class="nav-link admin-nav-link" href="Announcement.php"><i class="bi bi-megaphone"></i> Announcement</a>
+                              </li>
+                               <li class="nav-item ${
+                                 currentPath === "Household.php" ? "active" : ""
+                               }">
+                                  <a class="nav-link admin-nav-link" href="Household.php"><i class="bi bi-house"></i> Household</a>
                               </li>
                           </ul>
                           <ul class="navbar-nav">

@@ -2,7 +2,6 @@
 session_start();
 include '../databaseconn/connection.php';
 $loginSession = $_SESSION['session'] ?? null;
-
 try {
   $stmt = $conn->prepare("SELECT * FROM announcement_tbl ORDER BY time_Created DESC LIMIT 3");
   $stmt->execute();
