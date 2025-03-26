@@ -61,7 +61,7 @@ if($others_id){
     <div class="id-card">
         <div class="id-card-inner-container">
         <div class="barangay-id-header">
-            <img src="../images/baranggay_logo.png" alt="">
+            <img src="../../images/baranggay.png" alt="">
             <div class="barangay-id-center">
                 <p>Office of the Sangguniang Barangay</p>
                 <p>Brgy. 201 Zone 20</p>

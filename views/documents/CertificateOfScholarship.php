@@ -77,7 +77,7 @@ if($others_id){
         }
 
         .header-page img {
-            width: 80px;
+            width: 100px;
         }
 
         .header-page .barangay-logo {
@@ -142,7 +142,7 @@ if($others_id){
     <div class="a4-page bg-light">
         <div class="header-page d-flex justify-content-between align-items-center">
             <div class="baranggay-logo-container">
-                <img src="../images/baranggay_logo.png" width="100px" height="100px" />
+                <img src="../../images/baranggay.png" width="100px" height="100px" />
             </div>
             <div class="text-center">
                 <div class="header-line" style="font-size: 0.8rem;">REPUBLIC OF THE PHILIPPINES</div>

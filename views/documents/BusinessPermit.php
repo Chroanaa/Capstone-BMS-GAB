@@ -85,7 +85,7 @@ if($others_id){
     </button>
         <div class="a4-page bg-light" >
             <div class="a4-header d-flex justify-content-center align-items-start" style="gap: 5px;">
-                <img src="../../assets/img/sinbanali.png" class="img-fluid" style="width: 80px;">
+                <img src="../../images/baranggay.png" class="img-fluid" style="width: 80px;">
                     <div class="a4-title d-flex justify-content-center align-items-center flex-column text-secondary">
                         <label style="font-size: 1rem;">REPUBLIC OF THE PHILIPPINES</label>
                         <label style="font-size: 0,9rem;">CITY OF BACOOR</label>
