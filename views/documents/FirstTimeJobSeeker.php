@@ -59,10 +59,10 @@ $age = $birthDate->diff($today)->y;
     </style>
 </head>
 <body>
-    <button class="btn btn-primary" onclick="notifyResident('<?php echo $email ?>')">
+    <button class="btn btn-primary" id = "notify" onclick="notifyResident('<?php echo $email ?>')">
         Notify the Resident
     </button>
-    <button class="btn btn-secondary" onclick="window.print()">
+    <button class="btn btn-secondary" id = "print" onclick="printDocument()">
         Print
     </button>
     <div class="a4-page bg-light">
@@ -166,6 +166,13 @@ $age = $birthDate->diff($today)->y;
         const notifyResident = (email) => {
             window.location.href = `../../controller/sendEmail.php?email=${email}`;
         }
+        function printDocument(){
+    document.getElementById('notify').style.display = 'none';
+           document.getElementById('print').style.display = 'none';
+            window.print();
+            document.getElementById('notify').style.display = 'flex';
+            document.getElementById('print').style.display = 'flex';
+   }
     </script>
 </body>
 </html>

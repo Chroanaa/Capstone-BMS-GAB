@@ -49,10 +49,10 @@ if($others_id){
     <link rel="stylesheet" href="../CertificateOfResidency.css" />
 </head>
 <body>
-    <button class="btn btn-primary" onclick="notifyResident('<?php echo $email ?>')">
+    <button class="btn btn-primary" id = "notify" onclick="notifyResident('<?php echo $email ?>')">
         Notify the Resident
     </button>
-    <button class="btn btn-secondary" onclick="window.print()">
+    <button class="btn btn-secondary" id = "print" onclick="printDocument()">
         Print
     </button>
     <div class="a4-page bg-light">
@@ -113,7 +113,7 @@ if($others_id){
 
 
                 <div class="footer">
-                    <p style="margin-top: 30%; color: green; font=size: 1.5rem; font-weight: bold; font-style: italic;">HON. JAIME B. BONTILAO</p>
+                    <p style="margin-top: 30%; color: green; font-size: 1.5rem; font-weight: bold; font-style: italic;">HON. JAIME B. BONTILAO</p>
                     <p style=" font-weight: bold; font-style: italic;">Barangay Chairman</p>
                     <p class="note" style="margin-top: 50%; color: black;"><span style="color: red;">NOTE:</span> NOT VALID WITHOUT OFFICIAL BARANGAY SEAL</p>
                 </div>
@@ -127,6 +127,13 @@ if($others_id){
         const notifyResident = (email) => {
             window.location.href = `../../controller/sendEmail.php?email=${email}`;
         }
+       function printDocument(){
+    document.getElementById('notify').style.display = 'none';
+           document.getElementById('print').style.display = 'none';
+            window.print();
+            document.getElementById('notify').style.display = 'flex';
+            document.getElementById('print').style.display = 'flex';
+   }
     </script>
 </body>
 </html>
