@@ -34,39 +34,35 @@ if($loginSession){
           <div class="col-sm-7 col-md-7 col-lg-5 mx-auto mt-5">
             <div class="card card-signin my-5">
               <div class="card-body">
-                <h1 class="card-title text-center h5">LOGIN <i class="bi bi-person-circle"></i></h1>
-                <form action="../controller/loginController.php" method="post">
+                <h1 class="card-title text-center h5">Reset Password <i class="bi bi-person-circle"></i></h1>
+                <form action="../controller/resetPasswordController.php" method="post">
                     <div class="form-floating mb-3">
                       <input
                         type="text"
-                        id="username"
+                        id="password"
                         class="form-control"
-                        name="username"
-                        placeholder="Username"
+                        name="password"
+                        placeholder="password"
                         required
                       />
-                      <label for="username">Username</label>
+                      <label for="username">New password</label>
                     </div>
                     <div class="form-floating mb-3 position-relative">
                       <input
                         type="password"
-                        id="password"
-                        name="password"
+                        id="confirm"
+                        name="confirm"
                         class="form-control"
                         placeholder="Password"
                         required
                       />
-                      <label for="password">Password</label>
+                      <label for="password">Confirm password</label>
                       <i
                         class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3 toggle-password fs-5"
                         style="cursor: pointer;"
                       ></i>
                     </div>
-                    <a href="ForgotPassword.php" class="d-block mb-3 text-center login-link">forgot password</a>
-
-                    <a href="SignUp.php" class="d-block mb-3 text-center login-link">Don't have an account? Sign up here</a>
-                    <div class="login-btn-container">
-                      <button class="btn btn-primary btn-block text-uppercase button-main login-btn btn-lg" type="submit">Login <i class="bi bi-box-arrow-in-right"></i></button>
+                      <button class="btn btn-primary btn-block text-uppercase button-main login-btn btn-lg" type="submit">Submit <i class="bi bi-box-arrow-in-right"></i></button>
                     </div>
                   </form>
 
@@ -81,29 +77,25 @@ if($loginSession){
   <script type="module">
     import {header} from './header.js';
     header();
-    const params = new URLSearchParams(window.location?.search);
-    const error = params.get('error');
-    if(error === 'wrongcreds'){
-      document.querySelector('.card-error').innerHTML += `<div class="alert alert-danger mt-5" role="alert">
-       <h4 class = "text-center"> Wrong credentials </h4>
+    const password = document.getElementById('password');
+    const confirm = document.getElementById('confirm');
+    const form = document.querySelector('form');
+    form.addEventListener('submit', (e) => {
+      if(password.value !== confirm.value){
+        e.preventDefault();
+        document.querySelector('.card-error').innerHTML += `<div class="alert alert-danger mt-5" role="alert">
+        <h4 class = "text-center"> Passwords do not match </h4>
     </div>`
     setTimeout(() => {
       document.querySelector('.card-error').innerHTML = ""
     }, 3000);
-    }
-    if(error === "notLoggedIn"){
-      document.querySelector('.card-error').innerHTML += `<div class="alert alert-danger mt-5" role="alert">
-       <h4 class = "text-center"> Must be logged In</h4>
-    </div>`
-    setTimeout(() => {
-      document.querySelector('.card-error').innerHTML = ""
-    }, 3000);
-    }
+      }
+    })
     
   </script>
   <script>
   document.querySelector('.toggle-password').addEventListener('click', function () {
-    const passwordInput = document.getElementById('password');
+    const passwordInput = document.getElementById('confirm');
     const icon = this;
 
     // Toggle the password field type

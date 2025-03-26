@@ -208,6 +208,7 @@ $loginSession = $_SESSION['session'] ?? null;
                             required
                           />
                           <label for="Email">Email: <i class="bi bi-envelope"></i></label>
+                          <span class="text-danger" id="emailError"></span>
                         </div>
                       <div class="row">
                         <div class="col">
@@ -507,6 +508,7 @@ function debounce(func, wait) {
 }
 
 const username = document.getElementById('username');
+const email = document.getElementById('Email');
 
 username.addEventListener('input', debounce(async function() {
     const usernameValue = username.value;
@@ -522,6 +524,22 @@ username.addEventListener('input', debounce(async function() {
             submit.disabled = false;
         }
 }, 300));
+
+email.addEventListener('input', debounce(async function() {
+    const emailValue = email.value;
+    const submit = document.getElementById('submitBtn');
+
+        const check = await fetch(`../controller/checkEmailDuplicate.php?email=${emailValue}`);
+        const response = await check.json();
+        if (response.status === 'error') {
+            document.getElementById('emailError').textContent = response.message;
+            submit.disabled = true;
+        } else {
+            document.getElementById('emailError').textContent = '';
+            submit.disabled = false;
+        }
+}, 300));
+
     </script>
 </body>
 </html>

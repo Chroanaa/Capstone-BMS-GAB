@@ -11,7 +11,7 @@ if($loginSession){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Forgot password</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -34,39 +34,22 @@ if($loginSession){
           <div class="col-sm-7 col-md-7 col-lg-5 mx-auto mt-5">
             <div class="card card-signin my-5">
               <div class="card-body">
-                <h1 class="card-title text-center h5">LOGIN <i class="bi bi-person-circle"></i></h1>
-                <form action="../controller/loginController.php" method="post">
+                <h1 class="card-title text-center h5">Forgot password</h1>
+                <form action="../controller/findEmailController.php" method="post">
                     <div class="form-floating mb-3">
                       <input
                         type="text"
-                        id="username"
+                        id="email"
                         class="form-control"
-                        name="username"
-                        placeholder="Username"
+                        name="email"
+                        placeholder="Email"
                         required
                       />
-                      <label for="username">Username</label>
+                      <label for="username">Email:</label>
                     </div>
-                    <div class="form-floating mb-3 position-relative">
-                      <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        class="form-control"
-                        placeholder="Password"
-                        required
-                      />
-                      <label for="password">Password</label>
-                      <i
-                        class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3 toggle-password fs-5"
-                        style="cursor: pointer;"
-                      ></i>
-                    </div>
-                    <a href="ForgotPassword.php" class="d-block mb-3 text-center login-link">forgot password</a>
-
-                    <a href="SignUp.php" class="d-block mb-3 text-center login-link">Don't have an account? Sign up here</a>
+                   
                     <div class="login-btn-container">
-                      <button class="btn btn-primary btn-block text-uppercase button-main login-btn btn-lg" type="submit">Login <i class="bi bi-box-arrow-in-right"></i></button>
+                      <button class="btn btn-primary btn-block text-uppercase button-main login-btn btn-lg" type="submit">Submit <i class="bi bi-box-arrow-in-right"></i></button>
                     </div>
                   </form>
 
@@ -82,10 +65,10 @@ if($loginSession){
     import {header} from './header.js';
     header();
     const params = new URLSearchParams(window.location?.search);
-    const error = params.get('error');
-    if(error === 'wrongcreds'){
+    const error = params.get('email');
+    if(error === 'notfound'){
       document.querySelector('.card-error').innerHTML += `<div class="alert alert-danger mt-5" role="alert">
-       <h4 class = "text-center"> Wrong credentials </h4>
+       <h4 class = "text-center"> No email was found registered </h4>
     </div>`
     setTimeout(() => {
       document.querySelector('.card-error').innerHTML = ""
