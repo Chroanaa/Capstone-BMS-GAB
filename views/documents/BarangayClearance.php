@@ -96,7 +96,7 @@ $creationYear = date('Y', strtotime($created_at));
     <button class="btn btn-primary" onclick="notifyResident('<?php echo $email ?>')">
         Notify the Resident
     </button>
-    <button class="btn btn-primary">
+    <button class="btn btn-secondary" onclick="window.print()">
         Print
     </button>
     <div class="a4-page bg-light">

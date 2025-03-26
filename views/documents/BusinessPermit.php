@@ -80,6 +80,9 @@ if($others_id){
     <button class="btn btn-primary" onclick="notifyResident('<?php echo $email ?>')">
         Notify the Resident
     </button>
+    <button class="btn btn-secondary" onclick="window.print()">
+        Print
+    </button>
         <div class="a4-page bg-light" >
             <div class="a4-header d-flex justify-content-center align-items-start" style="gap: 5px;">
                 <img src="../../assets/img/sinbanali.png" class="img-fluid" style="width: 80px;">

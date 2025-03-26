@@ -55,6 +55,9 @@ if($others_id){
     <button class="btn btn-primary" onclick="notifyResident('<?php echo $email ?>')">
         Notify the Resident
     </button>
+    <button class="btn btn-secondary" onclick="window.print()">
+        Print
+    </button>
     <div class="id-card">
         <div class="id-card-inner-container">
         <div class="barangay-id-header">

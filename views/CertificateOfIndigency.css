@@ -1,0 +1,102 @@
+@page {
+    size: A4;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.a4-page {
+    width: 210mm;
+    height: 297mm;
+    margin: 0 auto;
+    padding: 20mm;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.header-page {
+    text-align: center;
+    font-size: 0.8rem;
+}
+
+.header-page img {
+    width: 80px;
+}
+
+.header-page .barangay-logo {
+    width: 100px;
+    height: 100px;
+}
+
+.title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+    color: blue;
+    width: 200px;
+    margin: 25px auto;
+}
+
+.content {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.content label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.sign {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sign .left-sign,
+.sign .right-sign {
+    text-align: center;
+    flex: 1;
+}
+
+.sign .left-sign label,
+.sign .right-sign label {
+    display: block;
+}
+
+.footer {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    margin-top: 30%;
+    margin-left: auto;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+    font-weight: bold;
+}
+
+.footer p {
+    margin: 0;
+}
+
+.footer .note {
+    color: red;
+    font-weight: bold;
+}
+
+.content {
+    padding-left: 20px; /* Indents the whole content */
+}
+
+.content label {
+    display: block; /* Makes each label appear on a new line */
+    text-indent: 30px; /* Indents the first line of text */
+    margin-bottom: 10px; /* Adds spacing between labels */
+}
