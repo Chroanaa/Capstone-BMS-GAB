@@ -21,7 +21,7 @@ try {
     $mail->addAddress($email);     
     $mail->isHTML(true);                                 
     $mail->Subject = 'NOTIFICATION';
-    $mail->Body    = 'This is to inform you that your request has been approved.';
+    $mail->Body    = 'This is to inform you that your requested document is ready to be picked up.';
     $mail->send();
     header("Location: ../views/Admin.php?email=success");
 } catch (Exception $e) {
