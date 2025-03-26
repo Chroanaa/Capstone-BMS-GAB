@@ -203,35 +203,31 @@ if($loginSession == null){
                         <input type="checkbox" class="form-check-input" name="documents[]" id="Barangay_clearance" value="Barangay_clearance">
                         <label class="form-check-label" for="Barangay_clearance">Barangay clearance</label>
                       </div>
-                      <div class="form-check fill-up-label">
-                        <input type="checkbox" class="form-check-input" name="documents[]" id="Certificate_of_indigency" value="Certificate_of_indigency">
-                        <label class="form-check-label" for="Certificate_of_indigency">Certificate of indigency</label>
-                      </div>
-                      <div class="form-check fill-up-label">
-                        <input type="checkbox" class="form-check-input" name="documents[]" id="Barangay_id" value="Barangay_id">
-                        <label class="form-check-label" for="Barangay_id">Barangay Id</label>
-                      </div>
-                      <div class="form-check fill-up-label">
-                        <input type="checkbox" class="form-check-input" name="documents[]" id="Certifiacte_of_ownership" value="Certifiacte_of_ownership">
-                        <label class="form-check-label" for="Certifiacte_of_ownership">Certificate of ownership</label>
-                      </div>
-                      <div class="form-check fill-up-label">
-                        <input type="checkbox" class="form-check-input" name="documents[]" id="Certifiacte_of_livebirth" value="Certifiacte_of_livebirth">
-                        <label class="form-check-label" for="Certifiacte_of_livebirth">Certificate of Live birth</label>
-                      </div>
-                      <div class="form-check fill-up-label">
-                        <input type="checkbox" class="form-check-input" name="documents[]" id="Certifiacte_of_Guardianship" value="Certifiacte_of_Guardianship">
-                        <label class="form-check-label" for="Certifiacte_of_Guardianship">Certificate of Guardianship</label>
-                      </div>
-                      <div class="form-check fill-up-label">
-                        <input type="checkbox" class="form-check-input" name="documents[]" id="Health_certificate" value="Health_certificate">
-                        <label class="form-check-label" for="Health_certificate">Health Certificate</label>
-                      </div>
-                      <div class="form-check fill-up-label">
-                        <input type="checkbox" class="form-check-input" name="documents[]" id="FirstTime_Job_Seeker" value="FirstTime_Job_Seeker">
-                        <label class="form-check-label" for="FirstTime_Job_Seeker">First-Time Job Seeker</label>
-                      </div>
-                    </div>
+                      <div class="form-label-group mb-3 fill-label-group">
+                <div class="form-check fill-up-label">
+                  <input type="checkbox" name="documents[]" id="Certificate_of_indigency" value="Certificate_of_indigency" class="form-check-input">
+                  <label for="Certificate_of_indigency" class="form-check-label">Certificate of indigency</label>
+                </div>
+                <div class="form-check fill-up-label">
+                  <input type="checkbox" name="documents[]" id="Certificate_of_indigency" value="Certificate_of_residency" class="form-check-input">
+                  <label for="Certificate_of_indigency" class="form-check-label">Certificate of Residency</label>
+                </div>
+                <div class="form-check fill-up-label">
+                  <input type="checkbox" name="documents[]" id="Barangay_id" value="Barangay_id" class="form-check-input">
+                  <label for="Barangay_id" class="form-check-label">Barangay Id</label>
+                </div>
+              
+                <div class="form-check fill-up-label">
+                  <input type="checkbox" name="documents[]" id="FirstTime_Job_Seeker" value="FirstTime_Job_Seeker" class="form-check-input">
+                  <label for="FirstTime_Job_Seeker" class="form-check-label">First-Time Job Seeker</label>
+                </div>
+                <div class="form-check fill-up-label">
+                  <input type="checkbox" name="documents[]" id="Certificate_of_scholarship" value="Certificate_of_scholarship" class="form-check-input">
+                  <label for="Certificate_of_scholarship" class="form-check-label">Certificate of scholarship</label>
+                </div>
+              </div>
+            </div>
+            
 
                     <div id="menu2" class="container tab-pane fade"><br>
                       <h3 class="purpose">Certified true and Correct</h3>
