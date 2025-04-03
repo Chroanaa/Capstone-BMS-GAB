@@ -149,7 +149,7 @@ $civil_status_stats = getCivilStatusStatistics();
      <div class="container mt-5 admin-container">
        
         
-        <div class="row">
+               <div class="row justify-content-center">
             <div class="col-md-4">
                 <div class="card text-white pale-pink mb-3">
                     <div class="card-body dashboard-card">
@@ -159,7 +159,7 @@ $civil_status_stats = getCivilStatusStatistics();
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card text-whitemb-3 light-cyan">
+                <div class="card text-white mb-3 light-cyan">
                     <div class="card-body dashboard-card">
                         <h5 class="card-title">Pending Document Request</h5>
                         <p class="card-text display-4"><?php echo $doc_query ?></p>

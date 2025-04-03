@@ -27,13 +27,10 @@ function resizeImage($file, $max_width, $max_height) {
     imagedestroy($dst);
 
     return $data;
-    //get the image
-    //eencode sa blob
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   try {
-    // Check if documents are set, otherwise initialize as an empty array
     $documents = isset($_POST['documents']) ? $_POST['documents'] : [];
     
     $firstname = $_POST['firstName'];
@@ -52,8 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $purpose = $_POST['Purpose'];
     $picture = isset($_FILES['profilePicture']['tmp_name']) ? base64_encode( resizeImage($_FILES['profilePicture']['tmp_name'],250,250)) : null;
 
-    $query = 'INSERT INTO `requested_for_others_info`(`first_name`,`middle_name`,`last_name`,`picture`,`requestor_id`, `House/floor/bldgno.`, `Street`, `from`, `to`, `date_of_birth`, `Age`, `place_of_birth`, `contact_number`, `gender`, `civil_status`, `time_Created`) VALUES 
-    (:first_name,:middle_name,:last_name,:picture,:requestor_id, :House/floor/bldgno., :Street, :from, :to, :date_of_birth, :Age, :place_of_birth, :contact_number, :gender, :civil_status, :time_Created)';
+    $query = 'INSERT INTO `requested_for_others_info`(`first_name`,`middle_name`,`last_name`,`picture`,`requestor_id`, `House/floor/bldgno.`, `street`, `from`, `to`, `date_of_birth`, `age`, `place_of_birth`, `contact_number`, `gender`, `civil_status`, `time_created`) VALUES 
+    (:first_name,:middle_name,:last_name,:picture,:requestor_id, :house_bldg_floor_no, :street, :from, :to, :date_of_birth, :age, :place_of_birth, :contact_number, :gender, :civil_status, :time_created)';
 
     $stmt = $conn->prepare($query);
     $db_arr = [
@@ -62,17 +59,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'last_name' => $lastname,
         'picture' => $picture,
         'requestor_id' => $requestor_id,
-        'House/floor/bldgno.' => $houseBLdgFloorno,
-        'Street' => $street,
+        'house_bldg_floor_no' => $houseBLdgFloorno, // Updated key
+        'street' => $street,
         'from' => $from,
         'to' => $to,
         'date_of_birth' => $dateofbirth,
-        'Age' => $age,
+        'age' => $age, // Updated key
         'place_of_birth' => $placeofbirth,
         'contact_number' => $contactnumber,
         'gender' => $gender,
         'civil_status' => $civilstatus,
-        'time_Created' => date('Y-m-d H:i:s'),
+        'time_created' => date('Y-m-d H:i:s'), // Updated key
     ];
     $stmt->execute($db_arr);
 
@@ -91,7 +88,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           'purpose' => $purpose
         ];
         $doc_stmt->execute($db_arr);
-        header('Location: ../views/AccountDashboard.php');
       }
     }
 
