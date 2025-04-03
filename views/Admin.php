@@ -102,6 +102,25 @@ function getGenderStatistics() {
 $avg_residency_time = getAverageResidencyTime();
 $gender_stats = getGenderStatistics();
 
+function getCivilStatusStatistics() {
+    include '../databaseconn/connection.php';
+    try {
+        $conn = $GLOBALS['conn'];
+        $stmt = $conn->prepare("
+            SELECT civil_status, COUNT(*) AS count 
+            FROM user_info 
+            GROUP BY civil_status
+        ");
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result;
+    } catch (PDOException $e) {
+        return [];
+    }
+}
+
+
+$civil_status_stats = getCivilStatusStatistics();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -174,6 +193,14 @@ $gender_stats = getGenderStatistics();
                     </div>
                 </div>
             </div>
+            <div class="col-md-6 mx-auto">
+            <div class="card text-white mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Civil Status Distribution</h5>
+                    <canvas id="civilStatusChart" style="max-width: 300px; max-height: 300px; margin: 0 auto;"></canvas>
+                </div>
+            </div>
+        </div>
         </div>
         
     </div>
@@ -292,6 +319,39 @@ $gender_stats = getGenderStatistics();
                     data: genderCounts,
                     backgroundColor: ['#FF6384', '#36A2EB'], // Blue for Male, Red for Female
                     borderColor: ['#FF6384', '#36A2EB'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+
+        const civilStatusData = <?php echo json_encode($civil_status_stats); ?>;
+        const civilStatusLabels = civilStatusData.map(data => data.civil_status);
+        const civilStatusCounts = civilStatusData.map(data => data.count);
+
+        const civilStatusCtx = document.getElementById('civilStatusChart').getContext('2d');
+        new Chart(civilStatusCtx, {
+            type: 'pie',
+            data: {
+                labels: civilStatusLabels,
+                datasets: [{
+                    label: 'Civil Status Distribution',
+                    data: civilStatusCounts,
+                    backgroundColor: [
+                        '#FF6384', // Red for Single
+                        '#36A2EB', // Blue for Married
+                        '#FFCE56', // Yellow for Separated
+                        '#4BC0C0'  // Teal for Widow
+                    ],
+                    borderColor: [
+                        '#FF6384',
+                        '#36A2EB',
+                        '#FFCE56',
+                        '#4BC0C0'
+                    ],
                     borderWidth: 1
                 }]
             },
