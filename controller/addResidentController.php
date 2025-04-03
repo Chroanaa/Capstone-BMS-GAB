@@ -54,19 +54,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST['email'] ?? "";
         $houseBLdgFloorno = $_POST['houseBLdgFloorno'] ?? "";
         $street = $_POST['street'] ?? "";
-        $from = $_POST['from'] ?? null;
+        $from = $_POST['From'] ?? null;
         $to = $_POST['to'] ?? null;
         $dateofbirth = $_POST['dateofbirth'] ?? null;
-        $age = $_POST['age'] ?? null;
+        $age = $_POST['Age'] ?? null;
         $placeofbirth = $_POST['placeofbirth'] ?? "";
         $contactnumber = $_POST['contactnumber'] ?? "";
         $sex = $_POST['gender'] ?? "";
         $civilstatus = $_POST['civilstatus'] ?? "";
         $picture = null;
-        if (isset($_FILES['picture']) && $_FILES['picture']['error'] === UPLOAD_ERR_OK) {
-            $picture = resizeImage($_FILES['picture']['tmp_name'], 800, 600);
+        if (isset($_FILES['profilePicture']) && $_FILES['profilePicture']['error'] === UPLOAD_ERR_OK) {
+            $picture = resizeImage($_FILES['profilePicture']['tmp_name'], 800, 600);
         }
-        // ... existing code ...
+
 
         $sql = "INSERT INTO user_info (first_name, middle_name, last_name, picture, creds_id, `House/floor/bldgno.`, Street, `from`, `to`, date_of_birth, Age, place_of_birth, contact_number,`email`, gender, civil_status, time_Created) 
                VALUES (:first_name, :middle_name, :last_name, :picture, :creds_id, :house_bldg_floorno, :street, :from, :to, :date_of_birth, :age, :place_of_birth, :contact_number,:email, :gender, :civil_status, :time_created)";

@@ -33,7 +33,11 @@ function getOthersDocumentRequest(){
 }
 $others = getOthersDocumentRequest();
 $documents = getAllDocumentRequest();
-
+if (empty($result)) {
+    echo "No results found.";
+} else {
+    print_r($result);
+}
 function formatDocumentName($documentName) {
     return ucwords(str_replace('_', ' ', $documentName));
 }
