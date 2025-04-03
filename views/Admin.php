@@ -68,6 +68,40 @@ function getAllAges(){
 $resident_count = getAllResidents()[0];
 $doc_query = getAllCountOfDocumentRequest()[0] + getAllOthersCountOfDocumentRequest()[0];
 $age_data = getAllAges();
+
+
+function getAverageResidencyTime() {
+    include '../databaseconn/connection.php';
+    try {
+        $conn = $GLOBALS['conn'];
+        $stmt = $conn->prepare("
+            SELECT AVG(DATEDIFF(IFNULL(`to`, CURDATE()), `from`)) AS avg_residency 
+            FROM user_info
+        ");
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return round($result['avg_residency'], 2); // Round to 2 decimal places
+    } catch (PDOException $e) {
+        return "No data";
+    }
+}
+
+function getGenderStatistics() {
+    include '../databaseconn/connection.php';
+    try {
+        $conn = $GLOBALS['conn'];
+        $stmt = $conn->prepare("SELECT gender, COUNT(*) AS count FROM user_info GROUP BY gender");
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result;
+    } catch (PDOException $e) {
+        return [];
+    }
+}
+
+$avg_residency_time = getAverageResidencyTime();
+$gender_stats = getGenderStatistics();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -114,10 +148,10 @@ $age_data = getAllAges();
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card text-white pale-yellow mb-3">
-                    <div class="card-body dashboard-card">
-                        <h5 class="card-title">Test</h5>
-                        <p class="card-text display-4">$5,000</p>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Average Residency Time</h5>
+                        <p class="card-text display-4"><?php echo $avg_residency_time; ?> Days</p>
                     </div>
                 </div>
             </div>
@@ -132,7 +166,16 @@ $age_data = getAllAges();
                     </div>
                 </div>
             </div>
+            <div class="col-md-6 mx-auto">
+            <div class="card text-white mb-3">
+                <div class="card-body">
+                        <h5 class="card-title">Gender Distribution</h5>
+                        <canvas id="genderChart" style="max-width: 300px; max-height: 300px; margin: 0 auto;"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
+        
     </div>
 
     <div class="card-error"></div>
@@ -233,6 +276,29 @@ $age_data = getAllAges();
                 confirmButtonText: 'OK'
             });
         }
+
+
+        const genderData = <?php echo json_encode($gender_stats); ?>;
+        const genderLabels = genderData.map(data => data.gender);
+        const genderCounts = genderData.map(data => data.count);
+
+        const genderCtx = document.getElementById('genderChart').getContext('2d');
+        new Chart(genderCtx, {
+            type: 'pie',
+            data: {
+                labels: genderLabels,
+                datasets: [{
+                    label: 'Gender Distribution',
+                    data: genderCounts,
+                    backgroundColor: ['#FF6384', '#36A2EB'], // Blue for Male, Red for Female
+                    borderColor: ['#FF6384', '#36A2EB'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
     </script>
 </body>
 </html>
