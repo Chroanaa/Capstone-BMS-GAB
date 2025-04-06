@@ -9,18 +9,11 @@
 
 
 body {
-  background-image: 
-    linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0)), 
-    url("../images/077f90d5-20de-46c6-8ca7-5b85a10992a9.jpg");
+  background-color:#01183a;
   font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
   margin: 0;
   padding: 0;
   height: 100vh;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
 }
 
 
@@ -1153,24 +1146,6 @@ body::before {
 }
 
 
-@media (max-width: 991px) {
-  .navbar-nav-unique{
-    display: flex !important;
-    flex-direction: column !important;
-  }
-  #adminDashboard{
-    padding-top: 15%;
-  }
-  .about-us-container{
-  margin-top: 20% !important;
-}
-.announcement-title{
-  display: none;
-}
-.officials-body{
-  width: 100%;
-}
-}
 
 
 /* Table styling */
@@ -1230,3 +1205,37 @@ body::before {
 }
 
 
+.border-yellow{
+  border: 2px solid yellow;
+}
+
+.shadow-yellow{
+  box-shadow: 3px 3px 3px 3px yellow ;
+}
+
+.account-dashboard-title{
+  margin-top: 7%;
+}
+
+@media (max-width: 991px) {
+  .navbar-nav-unique{
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  #adminDashboard{
+    padding-top: 15%;
+  }
+  .about-us-container{
+  margin-top: 20% !important;
+}
+.announcement-title{
+  display: none;
+}
+.officials-body{
+  width: 100%;
+}
+
+.account-dashboard-title{
+  margin-top: 20%;
+}
+}

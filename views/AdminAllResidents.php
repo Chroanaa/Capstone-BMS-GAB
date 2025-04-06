@@ -44,8 +44,8 @@ $residents = getAllResidents();
 </head>
 <body>
   <div id="adminHeader"></div>
-  <div class="residents-main-container">
-  <div class="d-flex justify-content-between align-items-center mb-3">
+  <div class="residents-main-container shadow-yellow">
+  <div class="d-flex justify-content-between align-items-center mb-3 ">
         <h1 class="h5 blue">Residents</h1>
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addResidentModal">
             <i class="bi bi-person-plus"></i> Add Resident

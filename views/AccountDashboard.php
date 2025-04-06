@@ -65,9 +65,10 @@
 </head>
 <body>
     <div id="header"> </div> 
-    <div class="guardianship-certificate-main-container">
-        <div class="container guardianship-certificate-form rounded-3">
-            <h2 class="text-center">Account Dashboard</h2>
+    <h2 class="text-center h5-yellow account-dashboard-title">Account Dashboard</h2>
+    <div class="guardianship-certificate-main-container ">
+        <div class="container guardianship-certificate-form rounded-3 shadow-yellow mb-5">
+            
             <h3 class="text-center">Your requested Documents</h3>
             <div class="table-responsive">
                 <table id="requestedDocsTable" class="table table-striped table-bordered dt-responsive nowrap">
@@ -98,7 +99,7 @@
         </div>
 
         <!-- Second table modification -->
-        <div class="container mt-1 guardianship-certificate-form rounded-3">
+        <div class="container mt-1 guardianship-certificate-form rounded-3 shadow-yellow">
             <h3 class="text-center">Your requested Documents for others</h3>
             <div class="table-responsive">
                 <table id="requestedDocsOthersTable" class="table table-striped table-bordered dt-responsive nowrap">

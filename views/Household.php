@@ -38,9 +38,9 @@ $households = getHouseholds();
 </head>
 <body class="body-padding">
     <div id="adminHeader"></div>
-    <div class="container mt-5">
+    <div class="container mt-5 ">
         <h1 class="text-center mb-4 h5-yellow">Household Information</h1>
-        <div class="table-responsive bg-white p-4 rounded shadow">
+        <div class="table-responsive bg-white p-4 rounded shadow-yellow">
             <table id="householdTable" class="table table-striped table-bordered">
                 <thead class="table-dark">
                     <tr>

@@ -151,15 +151,15 @@ $civil_status_stats = getCivilStatusStatistics();
         
                <div class="row justify-content-center">
             <div class="col-md-4">
-                <div class="card text-white pale-pink mb-3">
-                    <div class="card-body dashboard-card">
+                <div class="card text-white pale-pink mb-3 shadow-yellow">
+                    <div class="card-body dashboard-card ">
                         <h5 class="card-title">Registered Residents</h5>
                         <p class="card-text display-4"><?php echo $resident_count ?> </p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card text-white mb-3 light-cyan">
+                <div class="card text-white mb-3 light-cyan shadow-yellow">
                     <div class="card-body dashboard-card">
                         <h5 class="card-title">Pending Document Request</h5>
                         <p class="card-text display-4"><?php echo $doc_query ?></p>
@@ -167,7 +167,7 @@ $civil_status_stats = getCivilStatusStatistics();
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card mb-3">
+                <div class="card mb-3 shadow-yellow">
                     <div class="card-body">
                         <h5 class="card-title">Average Residency Time</h5>
                         <p class="card-text display-4"><?php echo $avg_residency_time; ?> Days</p>
@@ -178,7 +178,7 @@ $civil_status_stats = getCivilStatusStatistics();
 
         <div class="row mt-4">
             <div class="col-md-6 mx-auto">
-                <div class="card">
+                <div class="card shadow-yellow">
                     <div class="card-body">
                         <h5 class="card-title">Age distribution</h5>
                         <canvas id="revenueChart"></canvas>
@@ -186,7 +186,7 @@ $civil_status_stats = getCivilStatusStatistics();
                 </div>
             </div>
             <div class="col-md-6 mx-auto">
-            <div class="card text-white mb-3">
+            <div class="card text-white mb-3 shadow-yellow">
                 <div class="card-body">
                         <h5 class="card-title">Gender Distribution</h5>
                         <canvas id="genderChart" style="max-width: 300px; max-height: 300px; margin: 0 auto;"></canvas>
@@ -194,7 +194,7 @@ $civil_status_stats = getCivilStatusStatistics();
                 </div>
             </div>
             <div class="col-md-6 mx-auto">
-            <div class="card text-white mb-3">
+            <div class="card text-white mb-3 shadow-yellow">
                 <div class="card-body">
                     <h5 class="card-title">Civil Status Distribution</h5>
                     <canvas id="civilStatusChart" style="max-width: 300px; max-height: 300px; margin: 0 auto;"></canvas>

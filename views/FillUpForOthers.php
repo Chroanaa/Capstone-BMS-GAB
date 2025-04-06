@@ -41,7 +41,7 @@ if($loginSession == null){
     <div class="container">
         <div class="row">
           <div class="col-sm-7 col-md-7 col-lg-5 mx-auto mt-5">
-            <div class="card card-signin my-5">
+            <div class="card card-signin my-5 shadow-yellow">
               <div class="card-body">
                 <h5 class="card-title text-center h5">Fill up <i class="bi bi-pencil-square"></i></h5>
                 <ul class="nav nav-tabs" role="tablist">

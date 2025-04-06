@@ -28,18 +28,18 @@ if($loginSession == null){
   </head>
   <body>
     <header id="header"></header>
-    <div class="container card-container">
+    <div class="container card-container ">
       <div class="row">
         <div class="col-sm-7 col-md-7 col-lg-5 mx-auto mt-5">
-          <div class="card card-signin my-5">
-            <div class="card-body card-body-for-user-or-others">
+          <div class="card card-signin my-5 shadow-yellow">
+            <div class="card-body card-body-for-user-or-others ">
               <h3
                 class="card-title text-center"
                 
               >
                 Is it for you or for others?
               </h3>
-              <div class="form-label-group for-user-or-others-radio-div">
+              <div class="form-label-group for-user-or-others-radio-div ">
                 <input type="radio" name="choose" value="user" id="user" class="form-check-input"/>
                 <label for="user"><h4>For Me</h4></label>
               </div>

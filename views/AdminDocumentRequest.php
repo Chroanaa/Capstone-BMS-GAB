@@ -56,7 +56,7 @@ function formatDocumentName($documentName) {
 </head>
 <body>
   <div id="adminHeader"></div>
-  <div class="residents-main-container">
+  <div class="residents-main-container shadow-yellow">
     <h1 class="text-center h5 blue">Document Requests</h1>
     <div class="table-responsive">
     <table id="documentRequestTable" class="table table-striped table-bordered" style="width:100%">

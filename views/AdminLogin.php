@@ -36,7 +36,6 @@ if($adminSession){
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f8f9fa;
         }
         .login-container {
             background-color: #fff;

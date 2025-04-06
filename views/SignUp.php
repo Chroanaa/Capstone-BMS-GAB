@@ -36,7 +36,7 @@ $loginSession = $_SESSION['session'] ?? null;
     <div class="container">
         <div class="row">
           <div class="col-sm-7 col-md-7 col-lg-5 mx-auto mt-5">
-            <div class="card card-signin my-5">
+            <div class="card card-signin my-5 shadow-yellow">
               <div class="card-body">
                 <h1 class="card-title text-center h5">REGISTER <i class="bi bi-person-plus-fill"></i></h1>
                 <form action="../controller/signUpController.php" method="post" enctype="multipart/form-data">
@@ -285,6 +285,45 @@ $loginSession = $_SESSION['session'] ?? null;
                           </div>
                         </div>
                       </div>
+
+                    <!-- Type of ID -->
+                    <div class="form-floating mb-3 mt-3">
+                                        <select id="typeOfId" name="typeOfId" class="form-select" required>
+                                            <option value="" disabled selected>Select Type of ID</option>
+                                            <option value="Passport">Passport</option>
+                                            <option value="Driver's License">Driver's License</option>
+                                            <option value="National ID">National ID</option>
+                                            <option value="Voter's ID">Voter's ID</option>
+                                        </select>
+                                        <label for="typeOfId">Type of ID</label>
+                                    </div>
+
+                                    <!-- Vehicle Ownership -->
+                                    <div class="mb-3">
+                                        <span><b class="h2">Do you own a vehicle?</b></span>
+                                        <div class="form-check">
+                                            <input type="radio" id="vehicleYes" name="vehicle" value="Yes" class="form-check-input" required />
+                                            <label class="form-check-label" for="vehicleYes">Yes</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="radio" id="vehicleNo" name="vehicle" value="No" class="form-check-input" required />
+                                            <label class="form-check-label" for="vehicleNo">No</label>
+                                        </div>
+                                    </div>
+
+                                    <!-- How Many Vehicles -->
+                                    <div class="form-floating mb-3">
+                                        <input type="number" id="howManyVehicles" name="howManyVehicles" class="form-control" placeholder="How Many Vehicles" min="0" disabled />
+                                        <label for="howManyVehicles">How Many Vehicles</label>
+                                    </div>
+
+                                    <!-- How Many Floors -->
+                                    <div class="form-floating mb-3">
+                                        <input type="number" id="houseFloors" name="houseFloors" class="form-control" placeholder="How Many Floors" min="0" required />
+                                        <label for="houseFloors">House Floors</label>
+                                    </div>
+
+
                       <div class="mb-3">
                           <label for="profilePicture" class="form-label">Picture:</label>
                           <input class="form-control" type="file" id="profilePicture" name="user_picture" accept="image/*" required>
@@ -540,6 +579,26 @@ email.addEventListener('input', debounce(async function() {
         }
 }, 300));
 
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    const vehicleYes = document.getElementById('vehicleYes');
+    const vehicleNo = document.getElementById('vehicleNo');
+    const howManyVehicles = document.getElementById('howManyVehicles');
+
+    vehicleYes.addEventListener('change', function () {
+        if (vehicleYes.checked) {
+            howManyVehicles.disabled = false;
+        }
+    });
+
+    vehicleNo.addEventListener('change', function () {
+        if (vehicleNo.checked) {
+            howManyVehicles.disabled = true;
+            howManyVehicles.value = ''; // Clear the value when disabled
+        }
+    });
+});
     </script>
 </body>
 </html>

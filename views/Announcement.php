@@ -48,7 +48,7 @@ $announcements = $stmt->fetchAll();
 <body id="adminDashboard">
     <div id="adminHeader"></div>
     
-    <div class="residents-main-container">
+    <div class="residents-main-container shadow-yellow">
         <div class="d-flex justify-content-between align-items-center mb-3">
             <h1 class="h5 blue">Announcements</h1>
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal">

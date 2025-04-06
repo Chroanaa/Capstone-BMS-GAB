@@ -29,10 +29,10 @@ if($loginSession){
 
 <body>
    <div id="header"></div>
-  <div class="container mt-5">
+  <div class="container mt-5 ">
         <div class="row">
-          <div class="col-sm-7 col-md-7 col-lg-5 mx-auto mt-5">
-            <div class="card card-signin my-5">
+          <div class="col-sm-7 col-md-7 col-lg-5 mx-auto mt-5 ">
+            <div class="card card-signin my-5 shadow-yellow">
               <div class="card-body">
                 <h1 class="card-title text-center h5">LOGIN <i class="bi bi-person-circle"></i></h1>
                 <form action="../controller/loginController.php" method="post">

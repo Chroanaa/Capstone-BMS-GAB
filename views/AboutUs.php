@@ -32,7 +32,7 @@ $loginSession = $_SESSION['session'] ?? null;
     <div class="row justify-content-center">
         <!-- Vision Section -->
         <div class="col-md-6 mb-4">
-            <div class="about-us-card h-100 shadow">
+            <div class="about-us-card h-100 shadow-yellow">
                 <div class="about-us-card-body">
                     <h2 class="about-us-card-title text-center text-primary mb-4">VISION</h2>
                     <p class="about-us-card-text lead text-center">
@@ -46,7 +46,7 @@ $loginSession = $_SESSION['session'] ?? null;
 
         <!-- Mission Section -->
         <div class="col-md-6 mb-4">
-            <div class="about-us-card h-100 shadow">
+            <div class="about-us-card h-100 shadow-yellow">
                 <div class="about-us-card-body">
                     <h2 class="about-us-card-title text-center text-primary mb-4">MISSION</h2>
                     <p class="about-us-card-text lead text-center">

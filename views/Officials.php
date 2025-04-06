@@ -34,7 +34,7 @@ $loginSession = $_SESSION['session'] ?? null;
     <div id="header"></div>
     <div class="container mt-5 ">
         <h1 class="text-center mb-4 h5-yellow">SK Officials</h1>
-        <div class="card shadow officials-body">
+        <div class="card officials-body shadow-yellow">
             <div class="card-body">
                 <ul class="list-group">
                     <li class="list-group-item"><strong class="officials-title">SK Chairman:</strong> <span class="officials-name">Rubenich Reyes</span></li>

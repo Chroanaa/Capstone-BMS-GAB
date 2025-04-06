@@ -30,26 +30,31 @@ $loginSession = $_SESSION['session'] ?? null;
 
     </header>
     <div class="header">
-      <div class="" style="margin-top: 5rem">
-        <h1
-          class="text-center mt-3 text-white title"
-          style="margin-bottom: 3rem"
-        >
-          OUR SERVICES
+    <div class="" style="margin-top: 5rem">
+        <h1 class="text-center mt-3 text-yellow title" style="margin-bottom: 3rem">
+            OUR SERVICES
         </h1>
         <ul class="nav flex-column text-center mt-auto mb-5">
-           <?php
-           $arr = ['Certificate of Indigency', 'Barangay Clearance', 'Certificate of Residency', 
-           'First-Time Job Seeker', 'Barangay ID','Certificate of Scholarship'];
-            foreach($arr as $item){
-              echo "<li class='service-item'>
-              <a class='bg-light p-4 rounded-pill text-black text-decoration-none' href='forUserOrOthers.php'>$item</a>
-            </li>";
+            <?php
+            $services = [
+                'Certificate of Indigency' => 'bi-file-earmark-text',
+                'Barangay Clearance' => 'bi-file-earmark-check',
+                'Certificate of Residency' => 'bi-house-door',
+                'First-Time Job Seeker' => 'bi-briefcase',
+                'Barangay ID' => 'bi-person-badge',
+                'Certificate of Scholarship' => 'bi-award'
+            ];
+            foreach ($services as $service => $icon) {
+                echo "<li class='service-item'>
+                        <a class='bg-light p-4 rounded-pill text-black text-decoration-none shadow-yellow d-flex align-items-center justify-content-center' href='forUserOrOthers.php'>
+                            <i class='bi $icon me-2'></i> $service
+                        </a>
+                      </li>";
             }
-           ?>
+            ?>
         </ul>
-      </div>
     </div>
+</div>
 
 
 

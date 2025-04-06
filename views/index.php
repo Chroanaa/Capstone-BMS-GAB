@@ -61,7 +61,7 @@ try {
         <?php if (!empty($announcements)): ?>
             <?php foreach($announcements as $announcement): ?>
                 <div class="col">
-                    <div class="card h-100 shadow-sm">
+                    <div class="card h-100 shadow-yellow">
                         <?php if (!empty($announcement['attachment'])): ?>
                             <img src="data:image/jpeg;base64,<?php echo $announcement['attachment']; ?>" 
                                  class="card-img-top announcement-image" 
