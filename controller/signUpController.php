@@ -64,11 +64,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $placeofbirth = $_POST['placeofbirth'];
     $contactnumber = $_POST['Contactnumber'];
     $email = $_POST['Email'];
-    // converts the blob into base64 to save into db
+    $typeOfId = $_POST['typeOfId'];
+    $id = isset($_FILES['id']['tmp_name']) ? base64_encode( resizeImage($_FILES['id']['tmp_name'],250,250)) : null;
+    $do_you_own_a_vehicle = $_POST['vehicle'];  
+    $vehicle_count = $_POST['noOfVehicales'];
+    $house_floor = $_POST['houseFloors'];
     $picture = isset($_FILES['user_picture']['tmp_name']) ? base64_encode( resizeImage($_FILES['user_picture']['tmp_name'],250,250)) : null;
    
-   $sql = "INSERT INTO `user_info`( `first_name`,`middle_name`,`last_name`,`picture`, `creds_id`, `House/floor/bldgno.`, `Street`, `from`, `to`, `date_of_birth`, `Age`, `place_of_birth`, `contact_number`,`email`, `gender`, `civil_status`, `time_Created`)
-    VALUES (:first_name,:middle_name,:last_name,:picture,:creds_id,:HouseBldgFloorno,:Street,:from,:to,:date_of_birth,:Age,:place_of_birth,:contact_number,:email,:gender,:civil_status,:time_Created)";
+   $sql = "INSERT INTO `user_info`( `first_name`,`middle_name`,`last_name`,`picture`, `creds_id`, `House/floor/bldgno.`, `Street`, `from`, `to`, `date_of_birth`, `Age`, `place_of_birth`, `contact_number`,`email`,
+    `gender`, `civil_status`,`type_of_id`,`id_picture`,`own_vehicle`,`vehicle_count`,`floor_count`, `time_Created`)
+    VALUES (:first_name,:middle_name,:last_name,:picture,:creds_id,:HouseBldgFloorno,:Street,:from,:to,:date_of_birth,:Age,
+    :place_of_birth,:contact_number,:email,:gender,:civil_status,:type_of_id,:id_picture,:own_vehicle,:vehicle_count,:floor_count,:time_Created)";
     $stmt = $conn->prepare($sql);
     $db = [
         'first_name' => $firstname,
@@ -87,6 +93,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         'email' => $email,
         'gender' => $gender,
         'civil_status' => $civilstatus,
+        'type_of_id' => $typeOfId,
+        'id_picture' => $id,
+        'own_vehicle' => $do_you_own_a_vehicle,
+        'vehicle_count' => $vehicle_count,
+        'floor_count' => $house_floor,
+        
         'time_Created' => date('Y-m-d H:i:s'),
     ];
     $stmt->execute($db);

@@ -294,10 +294,14 @@ $loginSession = $_SESSION['session'] ?? null;
                                             <option value="Driver's License">Driver's License</option>
                                             <option value="National ID">National ID</option>
                                             <option value="Voter's ID">Voter's ID</option>
+                                            <option value="School ID">School ID</option>
                                         </select>
                                         <label for="typeOfId">Type of ID</label>
                                     </div>
-
+                                    <div class="mb-3">
+                          <label for="id" class="form-label">Upload ID picture:</label>
+                          <input class="form-control" type="file" id="id" name="id" accept="image/*" required>
+                        </div>
                                     <!-- Vehicle Ownership -->
                                     <div class="mb-3">
                                         <span><b class="h2">Do you own a vehicle?</b></span>
@@ -315,6 +319,7 @@ $loginSession = $_SESSION['session'] ?? null;
                                     <div class="form-floating mb-3">
                                         <input type="number" id="howManyVehicles" name="howManyVehicles" class="form-control" placeholder="How Many Vehicles" min="0" disabled />
                                         <label for="howManyVehicles">How Many Vehicles</label>
+                                        <input type="hidden" id="noOfVehicales" name="noOfVehicales"  />
                                     </div>
 
                                     <!-- How Many Floors -->
@@ -585,6 +590,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const vehicleYes = document.getElementById('vehicleYes');
     const vehicleNo = document.getElementById('vehicleNo');
     const howManyVehicles = document.getElementById('howManyVehicles');
+    howManyVehicles.addEventListener('input', function () {
+        const noOfVehicles = howManyVehicles.value;
+        document.getElementById('noOfVehicales').value = noOfVehicles || 0;
+    });
 
     vehicleYes.addEventListener('change', function () {
         if (vehicleYes.checked) {
