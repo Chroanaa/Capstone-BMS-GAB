@@ -86,25 +86,27 @@ $residents = getAllResidents();
                     <td><?php echo $resident['civil_status'] ?></td>
                     <td class="residents-table-action">
                     <button class="btn btn-warning btn-sm edit-resident" 
-                        data-toggle="modal" 
-                        data-target="#editResidentModal" 
-                        data-id="<?php echo htmlspecialchars($resident['id']); ?>"
-                        data-creds-id="<?php echo htmlspecialchars($resident['creds_id']); ?>"
-                        data-firstname="<?php echo htmlspecialchars(trim($resident['first_name'])); ?>"
-                        data-middlename="<?php echo htmlspecialchars(trim($resident['middle_name'])); ?>"
-                        data-lastname="<?php echo htmlspecialchars(trim($resident['last_name'])); ?>"
-                        data-houseno="<?php echo htmlspecialchars(trim($resident['House/floor/bldgno.'])); ?>"
-                        data-street="<?php echo htmlspecialchars(trim($resident['Street'])); ?>"
-                        data-from="<?php echo htmlspecialchars(trim($resident['from'])); ?>"
-                        data-to="<?php echo htmlspecialchars(trim($resident['to'])); ?>"
-                        data-dob="<?php echo htmlspecialchars(trim($resident['date_of_birth'])); ?>"
-                        data-age="<?php echo htmlspecialchars(trim($resident['Age'])); ?>"
-                        data-pob="<?php echo htmlspecialchars(trim($resident['place_of_birth'])); ?>"
-                        data-contact="<?php echo htmlspecialchars(trim($resident['contact_number'])); ?>"
-                        data-gender="<?php echo htmlspecialchars(trim($resident['gender'])); ?>"
-                        data-civil="<?php echo htmlspecialchars(trim($resident['civil_status'])); ?>">
-                        <i class="bi bi-pencil"></i>
-                    </button>
+                    data-toggle="modal" 
+                    data-target="#editResidentModal" 
+                    data-id="<?php echo htmlspecialchars($resident['id']); ?>"
+                    data-creds-id="<?php echo htmlspecialchars($resident['creds_id']); ?>"
+                    data-firstname="<?php echo htmlspecialchars(trim($resident['first_name'])); ?>"
+                    data-middlename="<?php echo htmlspecialchars(trim($resident['middle_name'])); ?>"
+                    data-lastname="<?php echo htmlspecialchars(trim($resident['last_name'])); ?>"
+                    data-houseno="<?php echo htmlspecialchars(trim($resident['House/floor/bldgno.'])); ?>"
+                    data-street="<?php echo htmlspecialchars(trim($resident['Street'])); ?>"
+                    data-from="<?php echo htmlspecialchars(trim($resident['from'])); ?>"
+                    data-to="<?php echo htmlspecialchars(trim($resident['to'])); ?>"
+                    data-dob="<?php echo htmlspecialchars(trim($resident['date_of_birth'])); ?>"
+                    data-age="<?php echo htmlspecialchars(trim($resident['Age'])); ?>"
+                    data-pob="<?php echo htmlspecialchars(trim($resident['place_of_birth'])); ?>"
+                    data-contact="<?php echo htmlspecialchars(trim($resident['contact_number'])); ?>"
+                    data-gender="<?php echo htmlspecialchars(trim($resident['gender'])); ?>"
+                    data-civil="<?php echo htmlspecialchars(trim($resident['civil_status'])); ?>"
+                    data-picture="data:image/jpeg;base64,<?php echo base64_encode($resident['picture']); ?>"
+                    data-id-image="data:image/jpeg;base64,<?php echo base64_encode($resident['id_picture']); ?>">
+                    <i class="bi bi-pencil"></i>
+                </button>
                         <a href="#" class="delete-link btn btn-danger btn-sm" onclick="deleteResident(<?php echo $resident['creds_id'] ?>)">
                             <i class="bi bi-trash"></i>
                         </a>
@@ -173,23 +175,8 @@ $residents = getAllResidents();
                             <label for="lastName">Last Name</label>
                         </div>
                     </div>
-                    <!-- Add after the profile picture section in the Add Resident Modal -->
-                    <div class="row mb-3">
-                        <div class="col-md-6 form-floating">
-                            <input type="text" id="username" name="username" class="form-control" placeholder="Username">
-                            <label for="username">Username (Optional)</label>
-                            <span class="text-danger" id="usernameError"></span>
-
-                        </div>
-                        <div class="col-md-6 form-floating">
-                            <input type="password" id="password" name="password" class="form-control" placeholder="Password">
-                            <label for="password">Password (Optional)</label>
-                            <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3 toggle-password fs-5" style="cursor: pointer;"></i>
-                        </div>
-                    </div>
 
                     <!-- Residence -->
-                    <h6 class="mb-3">Residence</h6>
                     <div class="row mb-3">
                         <div class="col-md-6 form-floating">
                             <input type="text" id="bldg" name="bldg" class="form-control" placeholder="House/Bldg/Floor no." required>
@@ -202,89 +189,144 @@ $residents = getAllResidents();
                     </div>
 
                     <!-- Residency Period -->
-                    <h6 class="mb-3">Residency Period</h6>
                     <div class="row mb-3">
                         <div class="col-md-6 form-floating">
-                            <input type="date" id="from" name="From" class="form-control" required>
+                            <input type="date" id="from" name="From" class="form-control" placeholder="From" required>
                             <label for="from">From</label>
                         </div>
                         <div class="col-md-6 form-floating">
-                            <input type="date" id="to" name="to" class="form-control" required>
+                            <input type="date" id="to" name="to" class="form-control" placeholder="To" required>
                             <label for="to">To</label>
                         </div>
                     </div>
 
-                    <!-- Personal Details -->
+                    <!-- Date of Birth -->
                     <div class="row mb-3">
                         <div class="col-md-6 form-floating">
-                            <input type="date" id="date" name="date" class="form-control" required>
+                            <input type="date" id="date" name="date" class="form-control" placeholder="Date of Birth" required>
                             <label for="date">Date of Birth</label>
                         </div>
                         <div class="col-md-6 form-floating">
-                            <input type="text" id="Age" name="Age" class="form-control" readonly>
+                            <input type="text" id="Age" name="Age" class="form-control" placeholder="Age" readonly>
                             <label for="Age">Age</label>
                         </div>
                     </div>
 
+                    <!-- Place of Birth -->
                     <div class="form-floating mb-3">
-                        <input type="text" id="placeofbirth" name="placeofbirth" class="form-control" placeholder="Place of birth" required>
-                        <label for="placeofbirth">Place of birth</label>
+                        <input type="text" id="placeofbirth" name="placeofbirth" class="form-control" placeholder="Place of Birth" required>
+                        <label for="placeofbirth">Place of Birth</label>
                     </div>
 
+                    <!-- Contact Number -->
                     <div class="form-floating mb-3">
-                        <input type="text" id="Contactnumber" name="Contactnumber" class="form-control" placeholder="Contact number" required>
-                        <label for="Contactnumber">Contact number</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" id="Email" name="Email" class="form-control" placeholder="Email" required>
-                        <label for="Contactnumber">Email</label>
+                        <input type="text" id="Contactnumber" name="Contactnumber" class="form-control" placeholder="Contact Number" required>
+                        <label for="Contactnumber">Contact Number</label>
                     </div>
 
-                    <!-- Sex and Civil Status -->
+                    <!-- Email -->
+                    <div class="form-floating mb-3">
+                        <input type="email" id="Email" name="Email" class="form-control" placeholder="Email" required>
+                        <label for="Email">Email</label>
+                        <span class="text-danger" id="emailError"></span>
+                    </div>
+
+                    <!-- Gender -->
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="mb-2"><b>Sex</b></label>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="Male" name="sex" value="Male" required>
+                                <input type="radio" id="Male" name="sex" value="Male" class="form-check-input" required>
                                 <label class="form-check-label" for="Male">Male</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="Female" name="sex" value="Female">
+                                <input type="radio" id="Female" name="sex" value="Female" class="form-check-input" required>
                                 <label class="form-check-label" for="Female">Female</label>
                             </div>
                         </div>
+
+                        <!-- Civil Status -->
                         <div class="col-md-6">
                             <label class="mb-2"><b>Civil Status</b></label>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="Single" name="Civilstatus" value="Single" required>
+                                <input type="radio" id="Single" name="Civilstatus" value="Single" class="form-check-input" required>
                                 <label class="form-check-label" for="Single">Single</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="Married" name="Civilstatus" value="Married">
+                                <input type="radio" id="Married" name="Civilstatus" value="Married" class="form-check-input" required>
                                 <label class="form-check-label" for="Married">Married</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="Separated" name="Civilstatus" value="Separated">
-                                <label class="form-check-label" for="Separated">Separated</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="radio" class="form-check-input" id="Widow" name="Civilstatus" value="Widow">
+                                <input type="radio" id="Widow" name="Civilstatus" value="Widow" class="form-check-input" required>
                                 <label class="form-check-label" for="Widow">Widow</label>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Type of ID -->
+                    <div class="form-floating mb-3">
+                        <select id="typeOfId" name="typeOfId" class="form-select" required>
+                            <option value="" disabled selected>Select Type of ID</option>
+                            <option value="Passport">Passport</option>
+                            <option value="Driver's License">Driver's License</option>
+                            <option value="National ID">National ID</option>
+                            <option value="Voter's ID">Voter's ID</option>
+                        </select>
+                        <label for="typeOfId">Type of ID</label>
+                    </div>
+
+                    <!-- Upload ID Picture -->
+                    <div class="mb-3">
+                        <label for="id" class="form-label">Upload ID Picture:</label>
+                        <input class="form-control" type="file" id="id" name="id" accept="image/*" required>
+                    </div>
+
+                    <!-- Vehicle Ownership -->
+                    <div class="mb-3">
+                        <label><b>Do you own a vehicle?</b></label>
+                        <div class="form-check">
+                            <input type="radio" id="vehicleYes" name="vehicle" value="Yes" class="form-check-input" required>
+                            <label class="form-check-label" for="vehicleYes">Yes</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" id="vehicleNo" name="vehicle" value="No" class="form-check-input" required>
+                            <label class="form-check-label" for="vehicleNo">No</label>
+                        </div>
+                    </div>
+
+                    <!-- How Many Vehicles -->
+                    <div class="form-floating mb-3">
+                        <input type="number" id="howManyVehicles" name="howManyVehicles" class="form-control" placeholder="How Many Vehicles" min="0" disabled>
+                        <label for="howManyVehicles">How Many Vehicles</label>
+                        <input type="hidden" id="noOfVehicales" name="noOfVehicales">
+                    </div>
+
                     <!-- Profile Picture -->
                     <div class="mb-3">
-                        <label for="profilePicture" class="form-label">Profile Picture</label>
-                        <input type="file" class="form-control" id="profilePicture" name="profilePicture" accept="image/*" required>
+                        <label for="profilePicture" class="form-label">Profile Picture:</label>
+                        <input class="form-control" type="file" id="profilePicture" name="user_picture" accept="image/*" required>
                     </div>
                     <div class="mb-3">
-                        <img id="profilePicturePreview" src="#" alt="Profile Picture Preview" class="img-fluid" style="display: none; max-width: 200px;">
+                        <img id="profilePicturePreview" src="#" alt="Profile Picture Preview" class="img-fluid" style="display: none; max-width: 100%; height: auto;">
+                    </div>
+
+                    <!-- Username -->
+                    <div class="form-floating mb-3">
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
+                        <label for="username">Username</label>
+                        <span class="text-danger" id="usernameError"></span>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="form-floating mb-3 position-relative">
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                        <label for="password">Password</label>
+                        <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3 toggle-password fs-5" style="cursor: pointer;"></i>
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" id = "submitBtn">Add Resident</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="submitBtn">Add Resident</button>
                     </div>
                 </form>
             </div>
@@ -292,7 +334,7 @@ $residents = getAllResidents();
     </div>
 </div>
 
-<!-- Edit Resident Modal -->
+<<!-- Edit Resident Modal -->
 <div class="modal fade" id="editResidentModal" tabindex="-1" role="dialog" aria-labelledby="editResidentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
@@ -303,12 +345,10 @@ $residents = getAllResidents();
                 </button>
             </div>
             <div class="modal-body">
-            <form id="editResidentForm" action="../controller/editResidentController.php" method="post">
+                <form id="editResidentForm" action="../controller/editResidentController.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" id="edit_id" name="id">
-                    <input type="hidden" id="edit_creds_id" name="creds_id"> <!-- Add this line -->
-    
+                    <input type="hidden" id="edit_creds_id" name="creds_id">
 
-                    
                     <!-- Personal Information -->
                     <div class="row mb-3">
                         <div class="col-md-4 form-floating">
@@ -325,8 +365,6 @@ $residents = getAllResidents();
                         </div>
                     </div>
 
-                                        <!-- Add after personal information section in the Edit Resident Modal -->
-                  
                     <!-- Residence -->
                     <div class="row mb-3">
                         <div class="col-md-6 form-floating">
@@ -351,65 +389,108 @@ $residents = getAllResidents();
                         </div>
                     </div>
 
-                    <!-- Personal Details -->
+                    <!-- Date of Birth -->
                     <div class="row mb-3">
                         <div class="col-md-6 form-floating">
                             <input type="date" id="edit_date" name="date" class="form-control" required>
                             <label for="edit_date">Date of Birth</label>
                         </div>
                         <div class="col-md-6 form-floating">
-                            <input type="text" id="edit_Age" name="Age" class="form-control" readonly>
+                            <input type="text" id="edit_Age" name="Age" class="form-control" placeholder="Age" readonly>
                             <label for="edit_Age">Age</label>
                         </div>
                     </div>
 
+                    <!-- Place of Birth -->
                     <div class="form-floating mb-3">
-                        <input type="text" id="edit_placeofbirth" name="placeofbirth" class="form-control" placeholder="Place of birth" required>
-                        <label for="edit_placeofbirth">Place of birth</label>
+                        <input type="text" id="edit_placeofbirth" name="placeofbirth" class="form-control" placeholder="Place of Birth" required>
+                        <label for="edit_placeofbirth">Place of Birth</label>
                     </div>
 
+                    <!-- Contact Number -->
                     <div class="form-floating mb-3">
-                        <input type="text" id="edit_Contactnumber" name="Contactnumber" class="form-control" placeholder="Contact number" required>
-                        <label for="edit_Contactnumber">Contact number</label>
+                        <input type="text" id="edit_Contactnumber" name="Contactnumber" class="form-control" placeholder="Contact Number" required>
+                        <label for="edit_Contactnumber">Contact Number</label>
                     </div>
 
-                    <!-- Sex and Civil Status -->
+                    <!-- Gender -->
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <label class="mb-2"><b>Sex</b></label>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="edit_Male" name="sex" value="Male" required>
+                                <input type="radio" id="edit_Male" name="sex" value="Male" class="form-check-input" required>
                                 <label class="form-check-label" for="edit_Male">Male</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="edit_Female" name="sex" value="Female">
+                                <input type="radio" id="edit_Female" name="sex" value="Female" class="form-check-input" required>
                                 <label class="form-check-label" for="edit_Female">Female</label>
                             </div>
                         </div>
+
+                        <!-- Civil Status -->
                         <div class="col-md-6">
                             <label class="mb-2"><b>Civil Status</b></label>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="edit_Single" name="Civilstatus" value="Single" required>
+                                <input type="radio" id="edit_Single" name="Civilstatus" value="Single" class="form-check-input" required>
                                 <label class="form-check-label" for="edit_Single">Single</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="edit_Married" name="Civilstatus" value="Married">
+                                <input type="radio" id="edit_Married" name="Civilstatus" value="Married" class="form-check-input" required>
                                 <label class="form-check-label" for="edit_Married">Married</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" class="form-check-input" id="edit_Separated" name="Civilstatus" value="Separated">
-                                <label class="form-check-label" for="edit_Separated">Separated</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="radio" class="form-check-input" id="edit_Widow" name="Civilstatus" value="Widow">
+                                <input type="radio" id="edit_Widow" name="Civilstatus" value="Widow" class="form-check-input" required>
                                 <label class="form-check-label" for="edit_Widow">Widow</label>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Type of ID -->
+                    <div class="form-floating mb-3">
+                        <select id="edit_typeOfId" name="typeOfId" class="form-select" required>
+                            <option value="" disabled>Select Type of ID</option>
+                            <option value="Passport">Passport</option>
+                            <option value="Driver's License">Driver's License</option>
+                            <option value="National ID">National ID</option>
+                            <option value="Voter's ID">Voter's ID</option>
+                        </select>
+                        <label for="edit_typeOfId">Type of ID</label>
+                    </div>
+                    <!-- Profile Picture -->
+                    <div class="mb-3">
+                        <label for="edit_profilePicture" class="form-label">Profile Picture:</label>
+                        <input class="form-control" type="file" id="edit_profilePicture" name="profilePicture" accept="image/*">
+                        <img id="editProfilePicturePreview" src="#" alt="Profile Picture Preview" class="img-fluid mt-2" style="max-height: 200px; display: none;">
+                    </div>
+
+                    <!-- ID Picture -->
+                    <div class="mb-3">
+                        <label for="edit_idPicture" class="form-label">ID Picture:</label>
+                        <input class="form-control" type="file" id="edit_idPicture" name="idPicture" accept="image/*">
+                        <img id="editIdPicturePreview" src="#" alt="ID Picture Preview" class="img-fluid mt-2" style="max-height: 200px; display: none;">
+                    </div>
+                    <!-- Vehicle Ownership -->
+                    <div class="mb-3">
+                        <label><b>Do you own a vehicle?</b></label>
+                        <div class="form-check">
+                            <input type="radio" id="edit_vehicleYes" name="vehicle" value="Yes" class="form-check-input" required>
+                            <label class="form-check-label" for="edit_vehicleYes">Yes</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" id="edit_vehicleNo" name="vehicle" value="No" class="form-check-input" required>
+                            <label class="form-check-label" for="edit_vehicleNo">No</label>
+                        </div>
+                    </div>
+
+                    <!-- How Many Vehicles -->
+                    <div class="form-floating mb-3">
+                        <input type="number" id="edit_howManyVehicles" name="howManyVehicles" class="form-control" placeholder="How Many Vehicles" min="0" disabled>
+                        <label for="edit_howManyVehicles">How Many Vehicles</label>
+                    </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-warning" id="saveChangesBtn">Save Changes</button>
+                        <button type="submit" class="btn btn-warning" id="saveChangesBtn">Save Changes</button>
                     </div>
                 </form>
             </div>
@@ -562,12 +643,10 @@ $(document).ready(function() {
 // Add this to your existing $(document).ready function
 $('.edit-resident').on('click', function() {
     const btn = $(this);
-    
+
     // Set values in form
-    $('#edit_username').val(btn.data('username'));
-    $('#edit_password').val('');
     $('#edit_id').val(btn.data('id'));
-    $('#edit_creds_id').val(btn.data('creds-id')); // Add this line
+    $('#edit_creds_id').val(btn.data('creds-id'));
     $('#edit_firstName').val(btn.data('firstname'));
     $('#edit_middleName').val(btn.data('middlename'));
     $('#edit_lastName').val(btn.data('lastname'));
@@ -579,10 +658,31 @@ $('.edit-resident').on('click', function() {
     $('#edit_Age').val(btn.data('age'));
     $('#edit_placeofbirth').val(btn.data('pob'));
     $('#edit_Contactnumber').val(btn.data('contact'));
-    
+
     // Set radio buttons
     $(`input[name="sex"][value="${btn.data('gender')}"]`).prop('checked', true);
     $(`input[name="Civilstatus"][value="${btn.data('civil')}"]`).prop('checked', true);
+
+    // Render existing ID image
+    const idImageSrc = btn.data('id-image'); // Ensure this data attribute is set in the button
+    const $idImagePreview = $('#editIdImagePreview');
+    if (idImageSrc) {
+        $idImagePreview.attr('src', idImageSrc).show();
+    } else {
+        $idImagePreview.hide();
+    }
+});
+
+// Handle new ID image upload
+$('#edit_id').on('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            $('#editIdImagePreview').attr('src', e.target.result).show();
+        };
+        reader.readAsDataURL(file);
+    }
 });
 
 document.querySelector('.toggle-password-edit').addEventListener('click', function() {
@@ -845,6 +945,89 @@ document.querySelector("#print").addEventListener("click", function(){
         case "6": // Certificate of Scholarship
             window.location.href = `documents/CertificateOfScholarship.php?resident_id=${id}`;
             break;
+    }
+});
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    // Add Resident Modal
+    const vehicleYes = document.getElementById('vehicleYes');
+    const vehicleNo = document.getElementById('vehicleNo');
+    const howManyVehicles = document.getElementById('howManyVehicles');
+
+    vehicleYes.addEventListener('change', function () {
+        howManyVehicles.disabled = !vehicleYes.checked;
+    });
+
+    vehicleNo.addEventListener('change', function () {
+        if (vehicleNo.checked) {
+            howManyVehicles.disabled = true;
+            howManyVehicles.value = ''; // Clear the value when disabled
+        }
+    });
+
+    // Edit Resident Modal
+    const editVehicleYes = document.getElementById('edit_vehicleYes');
+    const editVehicleNo = document.getElementById('edit_vehicleNo');
+    const editHowManyVehicles = document.getElementById('edit_howManyVehicles');
+
+    editVehicleYes.addEventListener('change', function () {
+        editHowManyVehicles.disabled = !editVehicleYes.checked;
+    });
+
+    editVehicleNo.addEventListener('change', function () {
+        if (editVehicleNo.checked) {
+            editHowManyVehicles.disabled = true;
+            editHowManyVehicles.value = ''; // Clear the value when disabled
+        }
+    });
+});
+
+
+// Handle profile picture preview
+$('#edit_profilePicture').on('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            $('#editProfilePicturePreview').attr('src', e.target.result).show();
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// Handle ID picture preview
+$('#edit_idPicture').on('change', function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            $('#editIdPicturePreview').attr('src', e.target.result).show();
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// Populate existing images in the edit modal
+$('.edit-resident').on('click', function() {
+    const btn = $(this);
+
+    // Set profile picture
+    const profilePictureSrc = btn.data('picture');
+    const $profilePicturePreview = $('#editProfilePicturePreview');
+    if (profilePictureSrc) {
+        $profilePicturePreview.attr('src', profilePictureSrc).show();
+    } else {
+        $profilePicturePreview.hide();
+    }
+
+    // Set ID picture
+    const idPictureSrc = btn.data('id-image');
+    const $idPicturePreview = $('#editIdPicturePreview');
+    if (idPictureSrc) {
+        $idPicturePreview.attr('src', idPictureSrc).show();
+    } else {
+        $idPicturePreview.hide();
     }
 });
     </script>

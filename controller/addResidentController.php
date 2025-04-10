@@ -51,32 +51,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $firstname = $_POST['firstName'];
         $lastname = $_POST['lastName'];
         $middlename = $_POST['middleName'] ?? "";
-        $email = $_POST['email'] ?? "";
-        $houseBLdgFloorno = $_POST['houseBLdgFloorno'] ?? "";
+        $email = $_POST['Email'] ?? "";
+        $houseBLdgFloorno = $_POST['bldg'] ?? "";
         $street = $_POST['street'] ?? "";
         $from = $_POST['From'] ?? null;
         $to = $_POST['to'] ?? null;
-        $dateofbirth = $_POST['dateofbirth'] ?? null;
+        $dateofbirth = $_POST['date'] ?? null;
         $age = $_POST['Age'] ?? null;
         $placeofbirth = $_POST['placeofbirth'] ?? "";
-        $contactnumber = $_POST['contactnumber'] ?? "";
-        $sex = $_POST['gender'] ?? "";
-        $civilstatus = $_POST['civilstatus'] ?? "";
-        $picture = null;
-        if (isset($_FILES['profilePicture']) && $_FILES['profilePicture']['error'] === UPLOAD_ERR_OK) {
-            $picture = resizeImage($_FILES['profilePicture']['tmp_name'], 800, 600);
+        $contactnumber = $_POST['Contactnumber'] ?? "";
+        $sex = $_POST['sex'] ?? "";
+        $civilstatus = $_POST['Civilstatus'] ?? "";
+        $typeOfId = $_POST['typeOfId'] ?? "";
+        $vehicle = $_POST['vehicle'] ?? "No";
+        $howManyVehicles = $_POST['howManyVehicles'] ?? 0;
+
+        // Handle profile picture upload
+        $profilePicture = null;
+        if (isset($_FILES['user_picture']) && $_FILES['user_picture']['error'] === UPLOAD_ERR_OK) {
+            $profilePicture = resizeImage($_FILES['user_picture']['tmp_name'], 800, 600);
         }
 
+        // Handle ID picture upload
+        $idPicture = null;
+        if (isset($_FILES['id']) && $_FILES['id']['error'] === UPLOAD_ERR_OK) {
+            $idPicture = file_get_contents($_FILES['id']['tmp_name']);
+        }
 
-        $sql = "INSERT INTO user_info (first_name, middle_name, last_name, picture, creds_id, `House/floor/bldgno.`, Street, `from`, `to`, date_of_birth, Age, place_of_birth, contact_number,`email`, gender, civil_status, time_Created) 
-               VALUES (:first_name, :middle_name, :last_name, :picture, :creds_id, :house_bldg_floorno, :street, :from, :to, :date_of_birth, :age, :place_of_birth, :contact_number,:email, :gender, :civil_status, :time_created)";
+        $sql = "INSERT INTO user_info (
+                    first_name, middle_name, last_name, picture, creds_id, 
+                    `House/floor/bldgno.`, Street, `from`, `to`, date_of_birth, Age, 
+                    place_of_birth, contact_number, `email`, gender, civil_status, 
+                    type_of_id, id_picture, own_vehicle, vehicle_count, time_Created
+                ) 
+                VALUES (
+                    :first_name, :middle_name, :last_name, :picture, :creds_id, 
+                    :house_bldg_floorno, :street, :from, :to, :date_of_birth, :age, 
+                    :place_of_birth, :contact_number, :email, :gender, :civil_status, 
+                    :type_of_id, :id_picture, :own_vehicle, :vehicle_count, :time_created
+                )";
         
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':creds_id', $creds_id);
         $stmt->bindParam(':first_name', $firstname);
         $stmt->bindParam(':middle_name', $middlename);
         $stmt->bindParam(':last_name', $lastname);
-        $stmt->bindParam(':picture', $picture);
+        $stmt->bindParam(':picture', $profilePicture, PDO::PARAM_LOB);
         $stmt->bindParam(':house_bldg_floorno', $houseBLdgFloorno);
         $stmt->bindParam(':street', $street);
         $stmt->bindParam(':from', $from);
@@ -88,6 +108,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':email', $email);
         $stmt->bindParam(':gender', $sex);
         $stmt->bindParam(':civil_status', $civilstatus);
+        $stmt->bindParam(':type_of_id', $typeOfId);
+        $stmt->bindParam(':id_picture', $idPicture, PDO::PARAM_LOB);
+        $stmt->bindParam(':own_vehicle', $vehicle);
+        $stmt->bindParam(':vehicle_count', $howManyVehicles);
         $stmt->bindParam(':time_created', $currentTime);
 
         if ($stmt->execute()) {

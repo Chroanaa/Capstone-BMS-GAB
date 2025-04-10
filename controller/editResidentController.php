@@ -1,131 +1,99 @@
 <?php
+include '../databaseconn/connection.php';
 
-if($_SERVER['REQUEST_METHOD'] == "POST") {
-    include_once '../databaseconn/connection.php';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $conn = $GLOBALS['conn'];
-        $user_creds_conn = $GLOBALS['User_conn'];
-        
+
+        // Retrieve form data
         $id = $_POST['id'];
-        $currentTime = date('Y-m-d H:i:s');
-        $user = getCurrentUserData($id);
+        $firstName = $_POST['firstName'];
+        $middleName = $_POST['middleName'] ?? '';
+        $lastName = $_POST['lastName'];
+        $bldg = $_POST['bldg'];
+        $street = $_POST['street'];
+        $from = $_POST['From'];
+        $to = $_POST['to'];
+        $dateOfBirth = $_POST['date'];
+        $age = $_POST['Age'];
+        $placeOfBirth = $_POST['placeofbirth'];
+        $contactNumber = $_POST['Contactnumber'];
+        $sex = $_POST['sex'];
+        $civilStatus = $_POST['Civilstatus'];
+        $typeOfId = $_POST['typeOfId'];
+        $vehicle = $_POST['vehicle'];
+        $howManyVehicles = $_POST['howManyVehicles'] ?? 0;
 
-    // Inside the POST block where credentials are handled
-    if (!empty($_POST['username']) && !empty($_POST['password'])) {
-        $username = $_POST['username'];
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $creds_id = $_POST['creds_id']; // Get creds_id from the form
-    
-        if ($creds_id) {
-            // Update existing credentials
-            $sql_creds = "UPDATE user_creds 
-                         SET username = :username, 
-                             password = :password 
-                         WHERE id = :creds_id";
-            $stmt_creds = $user_creds_conn->prepare($sql_creds);
-            $stmt_creds->execute([
-                'username' => $username,
-                'password' => $password,
-                'creds_id' => $creds_id
-            ]);
-        } else {
-            // Create new credentials
-            $sql_creds = "INSERT INTO user_creds (username, password, time_created) 
-                         VALUES (:username, :password, :time_created)";
-            $stmt_creds = $user_creds_conn->prepare($sql_creds);
-            $stmt_creds->execute([
-                'username' => $username,
-                'password' => $password,
-                'time_created' => $currentTime
-            ]);
-            
-            // Link new credentials to user
-            $creds_id = $user_creds_conn->lastInsertId();
-            $sql_update_creds = "UPDATE user_info SET creds_id = :creds_id WHERE id = :id";
-            $stmt_update = $conn->prepare($sql_update_creds);
-            $stmt_update->execute(['creds_id' => $creds_id, 'id' => $id]);
+        // Handle profile picture upload
+        $profilePicture = null;
+        if (isset($_FILES['profilePicture']) && $_FILES['profilePicture']['error'] === UPLOAD_ERR_OK) {
+            $profilePicture = file_get_contents($_FILES['profilePicture']['tmp_name']);
         }
-    }
 
-        // Update resident information
-        $firstname = $_POST['firstName'] ?? $user['first_name'];
-        $middlename = $_POST['middleName'] ?? $user['middle_name'];
-        $lastname = $_POST['lastName'] ?? $user['last_name'];
-        $houseBLdgFloorno = $_POST['bldg'] ?? $user['House/floor/bldgno.'];
-        $street = $_POST['street'] ?? $user['street'];
-        $from = $_POST['From'] ?? $user['from'];
-        $to = $_POST['to'] ?? $user['to'];
-        $age = $_POST['Age'] ?? $user['Age'];
-        $dateofbirth = $_POST['date'] ?? $user['date_of_birth'];
-        $placeofbirth = $_POST['placeofbirth'] ?? $user['place_of_birth'];
-        $contactnumber = $_POST['Contactnumber'] ?? $user['contact_number'];
-        $sex = $_POST['sex'] ?? $user['gender'];
-        $civilstatus = $_POST['Civilstatus'] ?? $user['civil_status'];
+        // Handle ID picture upload
+        $idPicture = null;
+        if (isset($_FILES['idPicture']) && $_FILES['idPicture']['error'] === UPLOAD_ERR_OK) {
+            $idPicture = file_get_contents($_FILES['idPicture']['tmp_name']);
+        }
 
-        $sql = "UPDATE user_info SET 
-                first_name = :firstname,
-                middle_name = :middlename,
-                last_name = :lastname,
-                `House/floor/bldgno.` = :houseBLdgFloorno,
-                street = :street,
+        // Update database
+        $sql = "
+            UPDATE user_info SET
+                first_name = :firstName,
+                middle_name = :middleName,
+                last_name = :lastName,
+                `House/floor/bldgno.` = :bldg,
+                Street = :street,
                 `from` = :from,
                 `to` = :to,
+                date_of_birth = :dateOfBirth,
                 Age = :age,
-                date_of_birth = :dateofbirth,
-                place_of_birth = :placeofbirth,
-                contact_number = :contactnumber,
+                place_of_birth = :placeOfBirth,
+                contact_number = :contactNumber,
                 gender = :sex,
-                civil_status = :civilstatus,
-                time_Updated = :time_Updated
-                WHERE id = :id";
+                civil_status = :civilStatus,
+                type_of_id = :typeOfId,
+                own_vehicle = :vehicle,
+                vehicle_count = :howManyVehicles
+                " . ($profilePicture ? ", picture = :profilePicture" : "") . "
+                " . ($idPicture ? ", id_picture = :idPicture" : "") . "
+            WHERE id = :id
+        ";
 
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':firstname', $firstname);
-        $stmt->bindParam(':middlename', $middlename);
-        $stmt->bindParam(':lastname', $lastname);
-        $stmt->bindParam(':houseBLdgFloorno', $houseBLdgFloorno);
+
+        // Bind parameters
+        $stmt->bindParam(':firstName', $firstName);
+        $stmt->bindParam(':middleName', $middleName);
+        $stmt->bindParam(':lastName', $lastName);
+        $stmt->bindParam(':bldg', $bldg);
         $stmt->bindParam(':street', $street);
         $stmt->bindParam(':from', $from);
         $stmt->bindParam(':to', $to);
+        $stmt->bindParam(':dateOfBirth', $dateOfBirth);
         $stmt->bindParam(':age', $age);
-        $stmt->bindParam(':dateofbirth', $dateofbirth);
-        $stmt->bindParam(':placeofbirth', $placeofbirth);
-        $stmt->bindParam(':contactnumber', $contactnumber);
+        $stmt->bindParam(':placeOfBirth', $placeOfBirth);
+        $stmt->bindParam(':contactNumber', $contactNumber);
         $stmt->bindParam(':sex', $sex);
-        $stmt->bindParam(':civilstatus', $civilstatus);
-        $stmt->bindParam(':time_Updated', $currentTime);
+        $stmt->bindParam(':civilStatus', $civilStatus);
+        $stmt->bindParam(':typeOfId', $typeOfId);
+        $stmt->bindParam(':vehicle', $vehicle);
+        $stmt->bindParam(':howManyVehicles', $howManyVehicles);
         $stmt->bindParam(':id', $id);
 
-        $stmt->execute();
-        header('Location: ../views/AdminAllResidents.php?edit=success');
-    } catch(PDOException $e) {
-        error_log($e->getMessage());
-        header('Location: ../views/AdminAllResidents.php?edit=failed');
-    } finally {
-        $conn = null;
-        if (isset($user_creds_conn)) {
-            $user_creds_conn = null;
+        if ($profilePicture) {
+            $stmt->bindParam(':profilePicture', $profilePicture, PDO::PARAM_LOB);
         }
-    }
-}
 
-function getCurrentUserData($id) {
-    include_once '../databaseconn/connection.php';
-    $conn = $GLOBALS['conn'];
-    try {
-        $sql = "SELECT u.*, c.Username, c.id as creds_id 
-                FROM user_info u 
-                LEFT JOIN user_creds.user_creds c ON u.creds_id = c.id 
-                WHERE u.id = :id";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':id', $id);
+        if ($idPicture) {
+            $stmt->bindParam(':idPicture', $idPicture, PDO::PARAM_LOB);
+        }
+
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    } catch(PDOException $e) {
-        error_log($e->getMessage());
-        return null;
-    } finally {
-        $conn = null;
+
+        header('Location: ../views/AdminAllResidents.php?edit=success');
+    } catch (PDOException $e) {
+        header('Location: ../views/AdminAllResidents.php?edit=failed');
     }
 }
 ?>
