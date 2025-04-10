@@ -1,6 +1,6 @@
 <?php
 $id = $_GET['id'];
-
+include './performanceTrackerController.php';
 function deleteResident($id){
     include '../databaseconn/connection.php';
     $conn = $GLOBALS['conn'];
@@ -27,7 +27,7 @@ function deleteResident($id){
         $stmt4 = $credsConn->prepare("DELETE FROM user_creds WHERE id = :id");
         $stmt4->bindParam(':id', $id);
         $stmt4->execute();
-
+        
         
         header('Location: ../views/AdminAllResidents.php?status=success');
     } catch (Exception $e) {

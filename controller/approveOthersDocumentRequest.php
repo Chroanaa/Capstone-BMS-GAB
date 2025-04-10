@@ -1,6 +1,7 @@
 <?php
 // approveOthersDocumentRequest.php
 include "./getIpAddress.php";
+include './performanceTrackerController.php';
 $ip = get_client_ip();
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     include ('../databaseconn/connection.php');
@@ -15,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $stmt = $conn->prepare($getName);
         $stmt->execute(['id' => $id]);
         $name = $stmt->fetch();
+        recordDocumentProcessingTime($id, 'others', 'approve');
         $insert_into_audit = "INSERT INTO `audit_log`( `action`, `ip_address`, `time_Created`) VALUES ('Document Approved to Approved for $name[0]','$ip',NOW())";
         $stmt = $conn->prepare($insert_into_audit);
         $stmt->execute();

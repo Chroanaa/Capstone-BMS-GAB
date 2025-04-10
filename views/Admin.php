@@ -1,4 +1,5 @@
 <?php
+include '../controller/performanceMetric.php';
     session_start();
     if(!isset($_SESSION['admin'])){
         header('Location: AdminLogin.php?error=notLoggedIn');
@@ -101,7 +102,8 @@ function getGenderStatistics() {
 
 $avg_residency_time = getAverageResidencyTime();
 $gender_stats = getGenderStatistics();
-
+$processing_stats = getProcessingTimeStats();
+$volume_stats = getDocumentVolumeStats();
 function getCivilStatusStatistics() {
     include '../databaseconn/connection.php';
     try {
@@ -202,6 +204,67 @@ $civil_status_stats = getCivilStatusStatistics();
             </div>
         </div>
         </div>
+         <div class="row">
+            <div class="col-md-6">
+                <div class="card shadow-yellow mb-4">
+                    <div class="card-header">
+                        <h5>Document Processing Time (Last 7 Days)</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="processingTimeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card shadow-yellow mb-4">
+                    <div class="card-header">
+                        <h5>Document Volume by Type (Current Month)</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="documentVolumeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card shadow-yellow">
+                    <div class="card-header">
+                        <h5>Processing Time Statistics</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Average Time (seconds)</th>
+                                    <th>Minimum Time (seconds)</th>
+                                    <th>Maximum Time (seconds)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($processing_stats as $stat): ?>
+                                <tr>
+                                    <td><?= $stat['day'] ?></td>
+                                    <td><?= round($stat['avg_time'], 2) ?></td>
+                                    <td><?= round($stat['min_time'], 2) ?></td>
+                                    <td><?= round($stat['max_time'], 2) ?></td>
+                                </tr>
+                                <?php endforeach; ?>
+                                <?php if(empty($processing_stats)): ?>
+                                <tr>
+                                    <td colspan="4" class="text-center">No data available</td>
+                                </tr>
+                                <?php endif; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
         
     </div>
 

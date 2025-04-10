@@ -1,5 +1,6 @@
 <?php
 include "./getIpAddress.php";
+include './performanceTrackerController.php';
 $ip = get_client_ip();
 // rejectDocumentRequest.php
 if($_SERVER['REQUEST_METHOD'] == "POST"){
@@ -18,6 +19,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $stmt = $conn->prepare($getName);
         $stmt->execute(['id' => $id]);
         $name = $stmt->fetch();
+        recordDocumentProcessingTime($id, 'user', 'reject');
         $insert_into_audit = "INSERT INTO `audit_log`( `action`, `ip_address`, `time_Created`) VALUES ('Document Rejected for $name[0]','$ip',NOW())";
         $stmt = $conn->prepare($insert_into_audit);
         $stmt->execute();
