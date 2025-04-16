@@ -1,5 +1,7 @@
 <?php
-
+  function formatDocumentName($documentName) {
+    return ucwords(str_replace('_', ' ', $documentName));
+}
 function getProcessingTimeStats() {
     include '../databaseconn/connection.php';
     $conn = $GLOBALS['conn'];
