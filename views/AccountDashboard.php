@@ -32,9 +32,7 @@
     $documents = $stmt->fetchAll();
     return $documents;
  }
-  function formatDocumentName($documentName) {
-    return ucwords(str_replace('_', ' ', $documentName));
-}
+
  $others_info = getOthersInfo($loginSession);   
  $other_documents = getOthersDocumentRequested($loginSession);
  $documents = getDocumentsRequested($loginSession);

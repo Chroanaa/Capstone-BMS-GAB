@@ -1,10 +1,9 @@
 <?php
 include '../databaseconn/connection.php';
-include "./getIpAddress.php";
 
 function recordDocumentProcessingTime($document_id, $request_type = 'user', $action_type) {
+    include "./getIpAddress.php";
     $conn = $GLOBALS['conn'];
-    $ip = get_client_ip();
     
     try {
         // Get the document request timestamp
@@ -32,11 +31,7 @@ function recordDocumentProcessingTime($document_id, $request_type = 'user', $act
                 'metric_value' => $processing_time
             ]);
             
-            // Log in audit
-            $insert_audit = "INSERT INTO `audit_log`(`action`, `ip_address`, `time_Created`) 
-                            VALUES ('Performance metric recorded: $action_type in $processing_time seconds','$ip',NOW())";
-            $stmt = $conn->prepare($insert_audit);
-            $stmt->execute();
+           
             
             return true;
         }
