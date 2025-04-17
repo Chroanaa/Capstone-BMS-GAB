@@ -13,8 +13,7 @@ function getProcessingTimeStats() {
                     MIN(metric_value) as min_time,
                     MAX(metric_value) as max_time
                   FROM performance_metrics 
-                  WHERE metric_name = 'approval_processing_time'
-                  AND metric_date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
+                  WHERE  metric_date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)
                   GROUP BY DATE(metric_date)
                   ORDER BY day";
         $stmt = $conn->prepare($query);

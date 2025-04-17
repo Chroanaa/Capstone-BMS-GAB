@@ -2,7 +2,6 @@
 include '../databaseconn/connection.php';
 
 function recordDocumentProcessingTime($document_id, $request_type = 'user', $action_type) {
-    include "./getIpAddress.php";
     $conn = $GLOBALS['conn'];
     
     try {

@@ -100,10 +100,7 @@ function getGenderStatistics() {
     }
 }
 
-$avg_residency_time = getAverageResidencyTime();
-$gender_stats = getGenderStatistics();
-$processing_stats = getProcessingTimeStats();
-$volume_stats = getDocumentVolumeStats();
+
 function getCivilStatusStatistics() {
     include '../databaseconn/connection.php';
     try {
@@ -121,8 +118,12 @@ function getCivilStatusStatistics() {
     }
 }
 
-
+$avg_residency_time = getAverageResidencyTime();
+$gender_stats = getGenderStatistics();
+$processing_stats = getProcessingTimeStats();
+$volume_stats = getDocumentVolumeStats();
 $civil_status_stats = getCivilStatusStatistics();
+var_dump($processing_stats)
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -420,6 +421,77 @@ $civil_status_stats = getCivilStatusStatistics();
             },
             options: {
                 responsive: true
+            }
+        });
+        const processingData = <?= json_encode($processing_stats) ?>;
+        const processingLabels = processingData.map(data => data.day);
+        const processingValues = processingData.map(data => data.avg_time);
+        
+        new Chart(document.getElementById('processingTimeChart').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: processingLabels,
+                datasets: [{
+                    label: 'Average Processing Time (seconds)',
+                    data: processingValues,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Time (seconds)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Document Volume Chart
+        const volumeData = <?= json_encode($volume_stats) ?>;
+        const volumeLabels = volumeData.map(data => data.doc_type);
+        const volumeValues = volumeData.map(data => data.count);
+        
+        new Chart(document.getElementById('documentVolumeChart').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: volumeLabels,
+                datasets: [{
+                    label: 'Number of Requests',
+                    data: volumeValues,
+                    backgroundColor: 'rgba(255, 159, 64, 0.5)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Count'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Document Type'
+                        }
+                    }
+                }
             }
         });
     </script>
