@@ -144,162 +144,241 @@ $civil_status_stats = getCivilStatusStatistics();
     <link rel="stylesheet" href="styles.css" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+       .custom-blue {
+        background-color: #1e87ce !important;
+    }
+    .text-custom-blue {
+        color: #1e87ce !important;
+    }
+    .compact-chart {
+        max-height: 250px;
+    }
+    .dashboard-card {
+        transition: all 0.3s ease;
+        height: 130px;
+        overflow: hidden;
+    }
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    }
+    .card-stats {
+        height: 100%;
+        max-height: 350px;
+        overflow-y: auto;
+    }
+    .mini-pie-chart {
+        max-width: 200px !important;
+        max-height: 200px !important;
+        margin: 0 auto;
+    }
+    .card-title {
+        font-size: 1.1rem !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .card-text.display-4 {
+        font-size: 2.5rem !important;
+        font-weight: bold;
+    }
+    .fs-6 {
+        font-size: 0.9rem !important;
+    }
+    </style>
 </head>
 <body id="adminDashboard">
     <div id="adminHeader"></div>
 
-     <div class="container mt-5 admin-container">
+    <div class="container mt-4 admin-container">
        
-        
-               <div class="row justify-content-center">
-            <div class="col-md-4">
-                <div class="card text-white pale-pink mb-3 shadow-yellow">
-                    <div class="card-body dashboard-card ">
-                        <h5 class="card-title">Registered Residents</h5>
-                        <p class="card-text display-4"><?php echo $resident_count ?> </p>
+        <div class="row justify-content-center">
+            <div class="col-md-4 mb-3">
+                <div class="card pale-pink mb-3 shadow-yellow">
+                    <div class="card-body dashboard-card">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="card-title text-custom-blue">Registered Residents</h5>
+                            <i class="bi bi-people-fill fs-1 text-custom-blue"></i>
+                        </div>
+                        <p class="card-text display-4"><?php echo $resident_count ?></p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
-                <div class="card text-white mb-3 light-cyan shadow-yellow">
+            <div class="col-md-4 mb-3">
+                <div class="card light-cyan mb-3 shadow-yellow">
                     <div class="card-body dashboard-card">
-                        <h5 class="card-title">Pending Document Request</h5>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="card-title text-custom-blue">Pending Document Request</h5>
+                            <i class="bi bi-file-earmark-text fs-1 text-custom-blue"></i>
+                        </div>
                         <p class="card-text display-4"><?php echo $doc_query ?></p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 mb-3">
                 <div class="card mb-3 shadow-yellow">
-                    <div class="card-body">
-                        <h5 class="card-title">Average Residency Time</h5>
-                        <p class="card-text display-4"><?php echo $avg_residency_time; ?> Days</p>
+                    <div class="card-body dashboard-card">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h5 class="card-title text-custom-blue">Average Residency Time</h5>
+                            <i class="bi bi-calendar-week fs-1 text-custom-blue"></i>
+                        </div>
+                        <p class="card-text display-4"><?php echo $avg_residency_time; ?> <span class="fs-6">Days</span></p>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row mt-4">
-            <div class="col-md-6 mx-auto">
-                <div class="card shadow-yellow">
-                    <div class="card-body">
-                        <h5 class="card-title">Age distribution</h5>
-                        <canvas id="revenueChart"></canvas>
-                    </div>
+        <div class="row justify-content-center">
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-yellow">
+            <div class="card-header custom-blue text-white">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-bar-chart-fill me-2"></i>
+                    <h5 class="mb-0">Age Distribution</h5>
                 </div>
             </div>
-            <div class="col-md-6 mx-auto">
-            <div class="card text-white mb-3 shadow-yellow">
-                <div class="card-body">
-                        <h5 class="card-title">Gender Distribution</h5>
-                        <canvas id="genderChart" style="max-width: 300px; max-height: 300px; margin: 0 auto;"></canvas>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 mx-auto">
-            <div class="card text-white mb-3 shadow-yellow">
-                <div class="card-body">
-                    <h5 class="card-title">Civil Status Distribution</h5>
-                    <canvas id="civilStatusChart" style="max-width: 300px; max-height: 300px; margin: 0 auto;"></canvas>
-                </div>
+            <div class="card-body compact-chart">
+                <canvas id="revenueChart" height="180"></canvas>
             </div>
         </div>
-        </div>
-         <div class="row">
-            <div class="col-md-6">
-                <div class="card shadow-yellow mb-4">
-                    <div class="card-header">
-                        <h5>Document Processing Time (Last 7 Days)</h5>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="processingTimeChart"></canvas>
-                    </div>
+    </div>
+    
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-yellow">
+            <div class="card-header custom-blue text-white">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-clock-history me-2"></i>
+                    <h5 class="mb-0">Document Processing Time</h5>
                 </div>
             </div>
-            
-            <div class="col-md-6">
-                <div class="card shadow-yellow mb-4">
-                    <div class="card-header">
-                        <h5>Document Volume by Type (Current Month)</h5>
-                    </div>
-                    <div class="card-body">
-                        <canvas id="documentVolumeChart"></canvas>
-                    </div>
-                </div>
+            <div class="card-body compact-chart">
+                <canvas id="processingTimeChart" height="180"></canvas>
             </div>
         </div>
-        
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card shadow-yellow">
-                    <div class="card-header">
-                        <h5>Processing Time Statistics</h5>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Average Time (seconds)</th>
-                                    <th>Minimum Time (seconds)</th>
-                                    <th>Maximum Time (seconds)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach($processing_stats as $stat): ?>
-                                <tr>
-                                    <td><?= $stat['day'] ?></td>
-                                    <td><?= round($stat['avg_time'], 2) ?></td>
-                                    <td><?= round($stat['min_time'], 2) ?></td>
-                                    <td><?= round($stat['max_time'], 2) ?></td>
-                                </tr>
-                                <?php endforeach; ?>
-                                <?php if(empty($processing_stats)): ?>
-                                <tr>
-                                    <td colspan="4" class="text-center">No data available</td>
-                                </tr>
-                                <?php endif; ?>
-                            </tbody>
-                        </table>
-                    </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3 mb-3">
+        <div class="card shadow-yellow">
+            <div class="card-header custom-blue text-white">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-gender-ambiguous me-2"></i>
+                    <h5 class="mb-0">Gender Distribution</h5>
+                </div>
+            </div>
+            <div class="card-body compact-chart">
+                <canvas id="genderChart" class="mini-pie-chart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-3">
+        <div class="card shadow-yellow">
+            <div class="card-header custom-blue text-white">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-people me-2"></i>
+                    <h5 class="mb-0">Civil Status</h5>
+                </div>
+            </div>
+            <div class="card-body compact-chart">
+                <canvas id="civilStatusChart" class="mini-pie-chart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6 mb-3">
+        <div class="card shadow-yellow">
+            <div class="card-header custom-blue text-white">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-file-earmark-bar-graph me-2"></i>
+                    <h5 class="mb-0">Document Volume by Type</h5>
+                </div>
+            </div>
+            <div class="card-body compact-chart">
+                <canvas id="documentVolumeChart" height="180"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 mb-3">
+        <div class="card shadow-yellow">
+            <div class="card-header custom-blue text-white">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-table me-2"></i>
+                    <h5 class="mb-0">Processing Time Statistics</h5>
+                </div>
+            </div>
+            <div class="card-body card-stats">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="custom-blue text-white">
+                            <tr>
+                                <th>Date</th>
+                                <th>Average Time (sec)</th>
+                                <th>Min Time (sec)</th>
+                                <th>Max Time (sec)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($processing_stats as $stat): ?>
+                            <tr>
+                                <td><?= $stat['day'] ?></td>
+                                <td><?= round($stat['avg_time'], 2) ?></td>
+                                <td><?= round($stat['min_time'], 2) ?></td>
+                                <td><?= round($stat['max_time'], 2) ?></td>
+                            </tr>
+                            <?php endforeach; ?>
+                            <?php if(empty($processing_stats)): ?>
+                            <tr>
+                                <td colspan="4" class="text-center">No data available</td>
+                            </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-        
+</div>
     </div>
 
     <div class="card-error"></div>
 
+    <!-- Announcement Modal -->
     <div class="modal fade" id="announcementModal" tabindex="-1" aria-labelledby="announcementModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="announcementModalLabel">New Announcement</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header custom-blue text-white">
+                    <h5 class="modal-title" id="announcementModalLabel">New Announcement</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="announcementForm" method="POST" action="../controller/postAnnouncementController.php" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="announcementTitle" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="announcementTitle" name="title" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="announcementAttachment" class="form-label">Attachment</label>
+                            <input type="file" class="form-control" id="announcementAttachment" name="attachment">
+                        </div>
+                        <div class="mb-3">
+                            <label for="announcementContent" class="form-label">Content</label>
+                            <textarea class="form-control" id="announcementContent" name="content" rows="4" required></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn custom-blue text-white" id="saveAnnouncement">Save Announcement</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-            <div class="modal-body">
-                <form id="announcementForm" method="POST" action="../controller/postAnnouncementController.php" enctype="multipart/form-data">
-                    <div class="mb-3">
-                        <label for="announcementTitle" class="form-label">Title</label>
-                        <input type="text" class="form-control" id="announcementTitle" name="title" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="announcementAttachment" class="form-label">Attachment</label>
-                        <input type="file" class="form-control" id="announcementAttachment" name="attachment">
-                    </div>
-                    <div class="mb-3">
-                        <label for="announcementContent" class="form-label">Content</label>
-                        <textarea class="form-control" id="announcementContent" name="content" rows="4" required></textarea>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="submit" class="btn btn-primary" id="saveAnnouncement">Save Announcement</button>
-                    </div>
-                </form>
-            </div>
-            
         </div>
     </div>
-</div>
+
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="adminHeader.js"></script>
@@ -316,7 +395,7 @@ $civil_status_stats = getCivilStatusStatistics();
             title: 'Success!',
             text: 'Announcement has been posted successfully',
             icon: 'success',
-            confirmButtonColor: '#3085d6',
+            confirmButtonColor: '#1e87ce',
             confirmButtonText: 'OK'
         });
     } else if(announcementParams === 'failed'){
@@ -329,7 +408,7 @@ $civil_status_stats = getCivilStatusStatistics();
         });
     }
     </script>
-     <script>
+    <script>
         // Chart Configuration
         const ctx = document.getElementById('revenueChart').getContext('2d');
         const ageData = <?php echo json_encode($age_data) ?>;
@@ -342,75 +421,92 @@ $civil_status_stats = getCivilStatusStatistics();
                 datasets: [{
                     label: 'Age distribution',
                     data: ageDistribution,
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
+                    backgroundColor: 'rgba(30, 135, 206, 0.5)',
+                    borderColor: 'rgba(30, 135, 206, 1)',
                     borderWidth: 1
                 }]
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        }
                     }
                 }
             }
         });
+        
+        // Check for email parameters
         const emailParams = new URLSearchParams(window.location?.search).get('email');
         if(emailParams === 'success'){
             Swal.fire({
                 title: 'Success!',
                 text: 'Email has been sent successfully',
                 icon: 'success',
-                confirmButtonColor: '#3085d6',
+                confirmButtonColor: '#1e87ce',
                 confirmButtonText: 'OK'
             });
         }
 
-
+        // Gender chart
         const genderData = <?php echo json_encode($gender_stats); ?>;
         const genderLabels = genderData.map(data => data.gender);
         const genderCounts = genderData.map(data => data.count);
 
         const genderCtx = document.getElementById('genderChart').getContext('2d');
         new Chart(genderCtx, {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: genderLabels,
                 datasets: [{
                     label: 'Gender Distribution',
                     data: genderCounts,
-                    backgroundColor: ['#FF6384', '#36A2EB'], // Blue for Male, Red for Female
-                    borderColor: ['#FF6384', '#36A2EB'],
+                    backgroundColor: ['#FF6384', '#1e87ce'], // Pink for Female, Custom blue for Male
+                    borderColor: ['#FF6384', '#1e87ce'],
                     borderWidth: 1
                 }]
             },
             options: {
-                responsive: true
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
             }
         });
 
-
+        // Civil Status chart
         const civilStatusData = <?php echo json_encode($civil_status_stats); ?>;
         const civilStatusLabels = civilStatusData.map(data => data.civil_status);
         const civilStatusCounts = civilStatusData.map(data => data.count);
 
         const civilStatusCtx = document.getElementById('civilStatusChart').getContext('2d');
         new Chart(civilStatusCtx, {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: civilStatusLabels,
                 datasets: [{
                     label: 'Civil Status Distribution',
                     data: civilStatusCounts,
                     backgroundColor: [
-                        '#FF6384', // Red for Single
-                        '#36A2EB', // Blue for Married
+                        '#1e87ce', // Custom blue for Single
+                        '#36A2EB', // Light blue for Married
                         '#FFCE56', // Yellow for Separated
                         '#4BC0C0'  // Teal for Widow
                     ],
                     borderColor: [
-                        '#FF6384',
+                        '#1e87ce',
                         '#36A2EB',
                         '#FFCE56',
                         '#4BC0C0'
@@ -419,9 +515,17 @@ $civil_status_stats = getCivilStatusStatistics();
                 }]
             },
             options: {
-                responsive: true
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
             }
         });
+        
+        // Processing Time chart
         const processingData = <?= json_encode($processing_stats) ?>;
         const processingLabels = processingData.map(data => data.day);
         const processingValues = processingData.map(data => data.avg_time);
@@ -433,19 +537,27 @@ $civil_status_stats = getCivilStatusStatistics();
                 datasets: [{
                     label: 'Average Processing Time (seconds)',
                     data: processingValues,
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1,
-                    tension: 0.1
+                    backgroundColor: 'rgba(30, 135, 206, 0.5)',
+                    borderColor: 'rgba(30, 135, 206, 1)',
+                    borderWidth: 2,
+                    tension: 0.2,
+                    fill: true
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
                 scales: {
                     y: {
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Time (seconds)'
+                            text: 'Seconds'
                         }
                     },
                     x: {
@@ -470,15 +582,25 @@ $civil_status_stats = getCivilStatusStatistics();
                 datasets: [{
                     label: 'Number of Requests',
                     data: volumeValues,
-                    backgroundColor: 'rgba(255, 159, 64, 0.5)',
-                    borderColor: 'rgba(255, 159, 64, 1)',
+                    backgroundColor: 'rgba(30, 135, 206, 0.5)',
+                    borderColor: 'rgba(30, 135, 206, 1)',
                     borderWidth: 1
                 }]
             },
             options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
                 scales: {
                     y: {
                         beginAtZero: true,
+                        ticks: {
+                            precision: 0
+                        },
                         title: {
                             display: true,
                             text: 'Count'
