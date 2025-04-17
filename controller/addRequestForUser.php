@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'performanceTrackerController.php';
 function resizeImage($file, $max_width, $max_height) {
     list($width, $height) = getimagesize($file);
     $ratio = $width / $height;
@@ -46,6 +47,7 @@ function resizeImage($file, $max_width, $max_height) {
       $doc_stmt->execute($db_arr);
     }
   }
+  recordDocumentProcessingTime($conn->lastInsertId(), 'user', 'request');
 }
 
 ?>

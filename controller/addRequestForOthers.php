@@ -1,6 +1,7 @@
 <?php 
 session_start();
 include ('../databaseconn/connection.php');
+include 'performanceTrackerController.php';
 $conn = $GLOBALS['conn'];
 $requestor_id = $_SESSION['session'] ?? null;
 
@@ -90,7 +91,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $doc_stmt->execute($db_arr);
       }
     }
-
+    $document_id = $conn->lastInsertId();
+    recordDocumentProcessingTime($document_id, 'others', 'request');
     echo "New record created successfully";
   } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();

@@ -123,7 +123,6 @@ $gender_stats = getGenderStatistics();
 $processing_stats = getProcessingTimeStats();
 $volume_stats = getDocumentVolumeStats();
 $civil_status_stats = getCivilStatusStatistics();
-var_dump($processing_stats)
 ?>
 <!DOCTYPE html>
 <html lang="en">
