@@ -1,4 +1,5 @@
 <?php
+include ('./performanceTrackerController.php');
 function resizeImage($file, $max_width, $max_height) {
     list($width, $height) = getimagesize($file);
     $ratio = $width / $height;
@@ -34,6 +35,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $date = date('Y-m-d');
     
     try {
+     recordTechnicalPerformance('add_announcement_start', 'add_announcement');  
         $conn = $GLOBALS['conn'];
         $sql = "INSERT INTO announcement_tbl (title, content, attachment, time_Created) VALUES (:title, :content, :attachment, :time_Created)";
         $stmt = $conn->prepare($sql);
@@ -50,6 +52,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
             'title' => 'Success!',
             'message' => 'Announcement added successfully'
         ];
+        recordTechnicalPerformance('add_announcement_end', 'add_announcement');
         header('Location: ../views/Announcement.php');
         exit();
     } catch (PDOException $e) {

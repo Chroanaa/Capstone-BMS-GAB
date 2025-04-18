@@ -8,6 +8,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     $conn = $GLOBALS['conn'];
     $id = $_POST['id'];
     try {
+        recordTechnicalPerformance('reject_document_request_start', 'reject_document_request');
         $query = 'UPDATE `document_requested` SET `status` = "Rejected", `timestamp` = `timestamp` WHERE `id` = :id';
 
         $stmt = $conn->prepare($query);
@@ -19,10 +20,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $stmt = $conn->prepare($getName);
         $stmt->execute(['id' => $id]);
         $name = $stmt->fetch();
-        recordDocumentProcessingTime($id, 'user', 'reject');
         $insert_into_audit = "INSERT INTO `audit_log`( `action`, `ip_address`, `time_Created`) VALUES ('Document Rejected for $name[0]','$ip',NOW())";
         $stmt = $conn->prepare($insert_into_audit);
         $stmt->execute();
+        recordTechnicalPerformance('reject_document_request_end', 'reject_document_request');
         header('Location: ../views/AdminDocumentRequest.php?status=rejected');
         exit();
     } catch (PDOException $e) {

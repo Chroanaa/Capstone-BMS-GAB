@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user_creds_conn = $GLOBALS['User_conn'];
         $currentTime = date('Y-m-d H:i:s');
         $creds_id = null;
-
+        recordTechnicalPerformance("add_resident_start", "user_management");
         // Create user credentials if username and password are provided
         if (!empty($_POST['username']) && !empty($_POST['password'])) {
             $username = $_POST['username'];
@@ -113,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':own_vehicle', $vehicle);
         $stmt->bindParam(':vehicle_count', $howManyVehicles);
         $stmt->bindParam(':time_created', $currentTime);
-
+        recordTechnicalPerformance("add_resident_end", "user_management");
         if ($stmt->execute()) {
             header('Location: ../views/AdminAllResidents.php?add=success');
         } else {

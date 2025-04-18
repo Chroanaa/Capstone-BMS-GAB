@@ -1,5 +1,6 @@
 <?php
 session_start();
+include  './performanceTrackerController.php';
 if (!isset($_SESSION['admin'])) {
     header('Location: ../views/AdminLogin.php?error=unauthorized');
     exit();
@@ -55,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
     $title = trim(htmlspecialchars($_POST['title']));
     $content = trim(htmlspecialchars($_POST['content']));
-
+  
     // Validate file upload
     $picture = null;
     if (isset($_FILES['image']['tmp_name']) && !empty($_FILES['image']['tmp_name'])) {
@@ -86,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     try {
+        recordTechnicalPerformance('edit_announcement_start', 'edit_announcement');
         if ($picture !== null) {
             $sql = "UPDATE announcement_tbl SET title = :title, content = :content, attachment = :attachment WHERE id = :id";
             $stmt = $conn->prepare($sql);
@@ -110,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             'title' => 'Success!',
             'message' => 'Announcement updated successfully'
         ];
+        recordTechnicalPerformance('edit_announcement_end', 'edit_announcement');
         header('Location: ../views/Announcement.php');
         exit();
     } catch (PDOException $e) {

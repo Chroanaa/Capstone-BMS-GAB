@@ -1,5 +1,6 @@
 <?php
 include ('../databaseconn/connection.php');
+include ('./performanceTrackerController.php');
 $conn = $GLOBALS['conn'];
 $user_creds_conn = $GLOBALS['User_conn'];
 function resizeImage($file, $max_width, $max_height) {
@@ -30,6 +31,7 @@ function resizeImage($file, $max_width, $max_height) {
 }
 if($_SERVER["REQUEST_METHOD"] == "POST") {
   try {
+    recordTechnicalPerformance('sign_up_start', 'sign_up');
     //User Creds
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -101,6 +103,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         
         'time_Created' => date('Y-m-d H:i:s'),
     ];
+    recordTechnicalPerformance('sign_up_end', 'sign_up');
     $stmt->execute($db);
     header('Location: ../views/Login.php');
   }catch(PDOException $e) {

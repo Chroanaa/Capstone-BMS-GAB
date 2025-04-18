@@ -8,6 +8,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     $conn = $GLOBALS['conn'];
     $id = $_POST['id'];
     $currentTime = date('Y-m-d H:i:s');
+    recordTechnicalPerformance("approve_document_request_start", "document_processing");
     try {
         $query = 'UPDATE `document_requested` SET `status` = "Approved", `timestamp` = `timestamp` WHERE `id` = :id';
         $stmt = $conn->prepare($query);
@@ -16,11 +17,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $stmt = $conn->prepare($getName);
         $stmt->execute(['id' => $id]);
         $name = $stmt->fetch();
-        recordDocumentProcessingTime($id, 'user', 'approve');
+       
         $insert_into_audit = "INSERT INTO `audit_log`( `action`, `ip_address`, `time_Created`) VALUES ('Document Approved for $name[0]','$ip',NOW())";
         $stmt = $conn->prepare($insert_into_audit);
         $stmt->execute();
-
+        recordTechnicalPerformance("approve_document_request_end", "document_processing");
         header('Location: ../views/AdminDocumentRequest.php?status=approved');
         exit();
     } catch (PDOException $e) {

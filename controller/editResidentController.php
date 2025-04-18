@@ -1,10 +1,10 @@
 <?php
 include '../databaseconn/connection.php';
-
+include './performanceTrackerController.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $conn = $GLOBALS['conn'];
-
+       recordTechnicalPerformance('edit_resident_start', 'edit_resident');
         // Retrieve form data
         $id = $_POST['id'];
         $firstName = $_POST['firstName'];
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $stmt->execute();
-
+       recordTechnicalPerformance('edit_resident_end', 'edit_resident');
         header('Location: ../views/AdminAllResidents.php?edit=success');
     } catch (PDOException $e) {
         header('Location: ../views/AdminAllResidents.php?edit=failed');
