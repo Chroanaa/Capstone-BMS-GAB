@@ -40,7 +40,7 @@ if($loginSession == null){
     <main>
     <div class="container">
         <div class="row">
-          <div class="col-sm-7 col-md-7 col-lg-5 mx-auto mt-5">
+          <div class="col-sm-10 col-md-9 col-lg-7 mx-auto mt-5">
             <div class="card card-signin my-5 shadow-yellow">
               <div class="card-body">
                 <h5 class="card-title text-center h5">Fill up <i class="bi bi-pencil-square"></i></h5>
@@ -97,15 +97,15 @@ if($loginSession == null){
                             <label for="lastName">Last Name</label>
                         </div>
                     </div>
-                      <h4 class="card-title">RESIDENCE</h5>
-                      <div class="row">
-                        <div class="col">
+                      <h4 class="card-title">RESIDENCE</h4>
+                      <div class="row mb-3">
+                        <div class="col-md-6">
                           <div class="form-floating">
                             <input type="text" id="inputBldg" name="bldg" class="form-control" placeholder="House/Bldg/Floor no.">
                             <label for="inputBldg">HOUSE/BLDG/Floor no.</label>
                           </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-6">
                           <div class="form-floating">
                             <input type="text" id="street" name="street" class="form-control" placeholder="Street">
                             <label for="street">Street</label>
@@ -113,15 +113,15 @@ if($loginSession == null){
                         </div>
                       </div>
                       <h4 class="card-title">RESIDENT OF THE BARANGAY</h4>
-                      <div class="row">
-                      <h5 class="note">Ex. Resident of Barangay since From : 1/16/2025 To: 3/16/2025</h5>
-                        <div class="col">
+                      <div class="row mb-3">
+                        <h5 class="note">Ex. Resident of Barangay since From : 1/16/2025 To: 3/16/2025</h5>
+                        <div class="col-md-6">
                           <div class="form-floating">
                             <input type="date" id="from" name="From" class="form-control" placeholder="From">
                             <label for="from">From</label>
                           </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-6">
                           <div class="form-floating">
                             <input type="date" id="to" name="to" class="form-control" placeholder="To">
                             <label for="to">To</label>
@@ -130,13 +130,13 @@ if($loginSession == null){
                       </div>
 
                       <div class="row mb-3">
-                        <div class="col">
+                        <div class="col-md-6">
                           <div class="form-floating">
                             <input type="date" name="date" id="date" class="form-control" placeholder="Date of birth">
                             <label for="date">Date of birth</label>
                           </div>
                         </div>
-                        <div class="col">
+                        <div class="col-md-6">
                           <div class="form-floating">
                             <input type="text" id="Age" name="Age" class="form-control" placeholder="Age">
                             <label for="Age">Age</label>
@@ -154,24 +154,88 @@ if($loginSession == null){
                         <label for="Contactnumber">Contact number</label>
                       </div>
 
-                      <div class="form-label-group mb-3">
-                        <span><b>Sex:</b></span>
-                        <input type="radio" class="form-check-input main-radio" id="Male" name="sex" value="Male" required>
-                        <label for="Male">Male</label>
-                        <input type="radio" class="form-check-input main-radio" id="Female" name="sex" value="Female">
-                        <label for="Female">Female</label>
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <div class="form-label-group">
+                            <span><b>Sex:</b></span>
+                            <div class="form-check">
+                              <input type="radio" class="form-check-input" id="Male" name="sex" value="Male" required>
+                              <label class="form-check-label" for="Male">Male</label>
+                            </div>
+                            <div class="form-check">
+                              <input type="radio" class="form-check-input" id="Female" name="sex" value="Female">
+                              <label class="form-check-label" for="Female">Female</label>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+                          <div class="form-label-group">
+                            <span><b>Civil Status:</b></span>
+                            <div class="form-check">
+                              <input type="radio" class="form-check-input" id="Single" name="Civilstatus" value="single">
+                              <label class="form-check-label" for="Single">Single</label>
+                            </div>
+                            <div class="form-check">
+                              <input type="radio" class="form-check-input" id="Separated" name="Civilstatus" value="separated">
+                              <label class="form-check-label" for="Separated">Separated</label>
+                            </div>
+                            <div class="form-check">
+                              <input type="radio" class="form-check-input" id="Married" name="Civilstatus" value="Married">
+                              <label class="form-check-label" for="Married">Married</label>
+                            </div>
+                            <div class="form-check">
+                              <input type="radio" class="form-check-input" id="Widow" name="Civilstatus" value="Widow">
+                              <label class="form-check-label" for="Widow">Widow</label>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <div class="form-label-group mb-3">
-                        <span><b>Civil Status:</b></span>
-                        <input type="radio" class="form-check-input main-radio" id="Single" name="Civilstatus" value="single">
-                        <label for="Single">Single</label>
-                        <input type="radio" class="form-check-input main-radio" id="Separated" name="Civilstatus" value="separated">
-                        <label for="Separated">Separated</label>
-                        <input type="radio" class="form-check-input main-radio" id="Married" name="Civilstatus" value="Married">
-                        <label for="Married">Married</label>
-                        <input type="radio" class="form-check-input main-radio" id="Widow" name="Civilstatus" value="Widow">
-                        <label for="Widow">Widow</label>
+
+                      <!-- Type of ID -->
+                      <div class="form-floating mb-3 mt-3">
+                        <select id="typeOfId" name="typeOfId" class="form-select" required>
+                          <option value="" disabled selected>Select Type of ID</option>
+                          <option value="Passport">Passport</option>
+                          <option value="Driver's License">Driver's License</option>
+                          <option value="National ID">National ID</option>
+                          <option value="Voter's ID">Voter's ID</option>
+                          <option value="School ID">School ID</option>
+                        </select>
+                        <label for="typeOfId">Type of ID</label>
                       </div>
+
+                      <!-- Upload ID Picture -->
+                      <div class="mb-3">
+                        <label for="valid_id" class="form-label">Upload ID picture:</label>
+                        <input class="form-control" type="file" id="valid_id" name="valid_id" accept="image/*" required>
+                      </div>
+
+                      <!-- Vehicle Ownership -->
+                      <div class="mb-3">
+                        <span><b>Do you own a vehicle?</b></span>
+                        <div class="form-check">
+                          <input type="radio" id="vehicleYes" name="vehicle" value="Yes" class="form-check-input" required />
+                          <label class="form-check-label" for="vehicleYes">Yes</label>
+                        </div>
+                        <div class="form-check">
+                          <input type="radio" id="vehicleNo" name="vehicle" value="No" class="form-check-input" required />
+                          <label class="form-check-label" for="vehicleNo">No</label>
+                        </div>
+                      </div>
+
+                      <!-- How Many Vehicles -->
+                      <div class="form-floating mb-3">
+                        <input type="number" id="howManyVehicles" name="howManyVehicles" class="form-control" placeholder="How Many Vehicles" min="0" disabled />
+                        <label for="howManyVehicles">How Many Vehicles</label>
+                      </div>
+
+                      <!-- How Many Floors -->
+                      <div class="form-floating mb-3">
+                        <input type="number" id="floor_count" name="floor_count" class="form-control" placeholder="How Many Floors" min="0" required />
+                        <label for="floor_count">House Floors</label>
+                      </div>
+
                       <div class="form-floating mb-3">
                         <select name="Purpose" id="Purpose" class="form-select">
                           <option value="employment">Employment</option>
@@ -209,8 +273,8 @@ if($loginSession == null){
                   <label for="Certificate_of_indigency" class="form-check-label">Certificate of indigency</label>
                 </div>
                 <div class="form-check fill-up-label">
-                  <input type="checkbox" name="documents[]" id="Certificate_of_indigency" value="Certificate_of_residency" class="form-check-input">
-                  <label for="Certificate_of_indigency" class="form-check-label">Certificate of Residency</label>
+                  <input type="checkbox" name="documents[]" id="Certificate_of_residency" value="Certificate_of_residency" class="form-check-input">
+                  <label for="Certificate_of_residency" class="form-check-label">Certificate of Residency</label>
                 </div>
                 <div class="form-check fill-up-label">
                   <input type="checkbox" name="documents[]" id="Barangay_id" value="Barangay_id" class="form-check-input">
@@ -320,7 +384,23 @@ if($loginSession == null){
         }
       });
 
+      // Handle vehicle selection
+      const vehicleYes = document.getElementById('vehicleYes');
+      const vehicleNo = document.getElementById('vehicleNo');
+      const howManyVehicles = document.getElementById('howManyVehicles');
 
+      vehicleYes.addEventListener('change', function () {
+          if (vehicleYes.checked) {
+              howManyVehicles.disabled = false;
+          }
+      });
+
+      vehicleNo.addEventListener('change', function () {
+          if (vehicleNo.checked) {
+              howManyVehicles.disabled = true;
+              howManyVehicles.value = ''; // Clear the value when disabled
+          }
+      });
 
       // Add to your existing script section
 document.addEventListener('DOMContentLoaded', function() {
