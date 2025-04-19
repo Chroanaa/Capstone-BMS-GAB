@@ -7,7 +7,7 @@ function deleteResident($id){
     $credsConn = $GLOBALS['User_conn'];
     
     try {
-        
+        recordTechnicalPerformance('delete_resident_start', 'delete_resident');
         $stmt = $conn->prepare("DELETE FROM user_info WHERE creds_id = :id");
         $stmt->bindParam(':id', $id);
         $stmt->execute();
@@ -27,7 +27,7 @@ function deleteResident($id){
         $stmt4 = $credsConn->prepare("DELETE FROM user_creds WHERE id = :id");
         $stmt4->bindParam(':id', $id);
         $stmt4->execute();
-        
+        recordTechnicalPerformance('delete_resident_end', 'delete_resident');
         
         header('Location: ../views/AdminAllResidents.php?status=success');
     } catch (Exception $e) {

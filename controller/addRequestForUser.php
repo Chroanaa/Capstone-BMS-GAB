@@ -35,6 +35,7 @@ function resizeImage($file, $max_width, $max_height) {
   $documents = isset($_POST['documents']) ? $_POST['documents'] : [];
   $signature = $_POST['signature'];
  if (!empty($documents)) {
+  recordTechnicalPerformance("add_request_for_user_start", "document_processing");
     foreach ($documents as $document) {
       $doc_query = 'INSERT INTO `document_requested`(`user_id`, `documents_requested`,`purpose`, `status`,`signature`) VALUES (:user_id, :documents_requested, :purpose, "Pending", :signature)';
       $doc_stmt = $conn->prepare($doc_query);
@@ -46,8 +47,8 @@ function resizeImage($file, $max_width, $max_height) {
       ];
       $doc_stmt->execute($db_arr);
     }
+    recordTechnicalPerformance("add_request_for_user_end", "document_processing");
   }
-  recordDocumentProcessingTime($conn->lastInsertId(), 'user', 'request');
-}
+} 
 
 ?>

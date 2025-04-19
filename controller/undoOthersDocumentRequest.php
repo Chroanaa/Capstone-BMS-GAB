@@ -9,6 +9,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
     $conn = $GLOBALS['conn'];
     $id = $_POST['id'];
     try {
+        recordTechnicalPerformance('undo_others_document_request_start', 'undo_others_document_request');
         $query = 'UPDATE `document_requested_for_others` SET `status` = "Pending", `time_Created` = `time_Created` WHERE `id` = :id';
         $stmt = $conn->prepare($query);
         $stmt->execute(['id' => $id]);
@@ -16,11 +17,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $stmt = $conn->prepare($getName);
         $stmt->execute(['id' => $id]);
         $name = $stmt->fetch();
-        recordDocumentProcessingTime($id, 'others', 'undo');
         $insert_into_audit = "INSERT INTO `audit_log`( `action`, `ip_address`, `time_Created`) VALUES ('Document reverted to Pending for $name[0]','$ip',NOW())";
         $stmt = $conn->prepare($insert_into_audit);
         $stmt->execute();
-        
+        recordTechnicalPerformance('undo_others_document_request_end', 'undo_others_document_request');
         header('Location: ../views/AdminDocumentRequest.php?status=undone');
         exit();
     } catch (PDOException $e) {
