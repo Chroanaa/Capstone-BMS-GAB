@@ -33,7 +33,7 @@ function resizeImage($file, $max_width, $max_height) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   try {
     $documents = isset($_POST['documents']) ? $_POST['documents'] : [];
-    
+    recordTechnicalPerformance('addRequestForOthers_start', 'addRequestForOthers');
     $firstname = $_POST['firstName'];
     $lastname = $_POST['lastName'];
     $middlename = $_POST['middleName'] ?? "";
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $query = 'INSERT INTO `requested_for_others_info`(`first_name`,`middle_name`,`last_name`,`picture`,`requestor_id`, `House/floor/bldgno.`, `street`, `from`, `to`, `date_of_birth`, `age`, `place_of_birth`, `contact_number`, `gender`, `civil_status`, `time_created`) VALUES 
     (:first_name,:middle_name,:last_name,:picture,:requestor_id, :house_bldg_floor_no, :street, :from, :to, :date_of_birth, :age, :place_of_birth, :contact_number, :gender, :civil_status, :time_created)';
-
+     
     $stmt = $conn->prepare($query);
     $db_arr = [
         'first_name' => $firstname,
@@ -91,8 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $doc_stmt->execute($db_arr);
       }
     }
-    $document_id = $conn->lastInsertId();
-    recordDocumentProcessingTime($document_id, 'others', 'request');
+   recordTechnicalPerformance('addRequestForOthers_end', 'addRequestForOthers');
     echo "New record created successfully";
   } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
