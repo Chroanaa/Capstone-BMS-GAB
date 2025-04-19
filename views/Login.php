@@ -65,7 +65,6 @@ if($loginSession){
                     <a href="ForgotPassword.php" class="d-block mb-3 text-center login-link">forgot password</a>
 
                     <a href="SignUp.php" class="d-block mb-3 text-center login-link">Don't have an account? Sign up here</a>
-                     <a href="CheckId.php" class="d-block mb-3 text-center login-link">Sign Up with the Id provided by Barangay</a>
                     <div class="login-btn-container">
                       <button class="btn btn-primary btn-block text-uppercase button-main login-btn btn-lg" type="submit">Login <i class="bi bi-box-arrow-in-right"></i></button>
                     </div>

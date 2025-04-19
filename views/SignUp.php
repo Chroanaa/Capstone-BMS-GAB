@@ -766,31 +766,7 @@ if (emailField) {
 }
 
 // Add live validation for contact number
-const contactField = document.getElementById('Contactnumber');
-if (contactField) {
-    contactField.addEventListener('blur', function() {
-        const phoneRegex = /^\d{10,11}$/;
-        const value = this.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
-        
-        if (!phoneRegex.test(value) && this.value.trim()) {
-            // Add error message near field
-            let errorSpan = document.getElementById('contactError');
-            if (!errorSpan) {
-                errorSpan = document.createElement('span');
-                errorSpan.id = 'contactError';
-                errorSpan.className = 'text-danger';
-                this.parentNode.appendChild(errorSpan);
-            }
-            errorSpan.textContent = 'Please enter a valid 10-11 digit phone number';
-        } else {
-            const errorSpan = document.getElementById('contactError');
-            if (errorSpan) {
-                errorSpan.textContent = '';
-            }
-        }
-    });
-}
-
+// 
 
 
 // Add a final validation check before unlocking the submit button
