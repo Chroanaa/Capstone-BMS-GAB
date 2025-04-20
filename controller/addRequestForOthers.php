@@ -49,9 +49,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $civilstatus = $_POST['Civilstatus'];
     $purpose = $_POST['Purpose'];
     $picture = isset($_FILES['profilePicture']['tmp_name']) ? base64_encode( resizeImage($_FILES['profilePicture']['tmp_name'],250,250)) : null;
+    $signature = $_POST['signature'] ?? null;
+    $typeOfId = $_POST['typeOfId'] ?? null;
+    $valid_id = isset($_FILES['valid_id']['tmp_name']) ? base64_encode( resizeImage($_FILES['valid_id']['tmp_name'],250,250)) : null;
+    $do_you_own_a_vehicle = $_POST['vehicle'];
+    $vehicle_count = $_POST['howManyVehicles'] ?? null;
+    $floor_count = $_POST['floor_count'] ?? null;
 
-    $query = 'INSERT INTO `requested_for_others_info`(`first_name`,`middle_name`,`last_name`,`picture`,`requestor_id`, `House/floor/bldgno.`, `street`, `from`, `to`, `date_of_birth`, `age`, `place_of_birth`, `contact_number`, `gender`, `civil_status`, `time_created`) VALUES 
-    (:first_name,:middle_name,:last_name,:picture,:requestor_id, :house_bldg_floor_no, :street, :from, :to, :date_of_birth, :age, :place_of_birth, :contact_number, :gender, :civil_status, :time_created)';
+    $query = 'INSERT INTO `requested_for_others_info`(`first_name`,`middle_name`,`last_name`,`picture`,`requestor_id`, `House/floor/bldgno.`, `street`, `from`, `to`, `date_of_birth`, `age`, `place_of_birth`, `contact_number`, `gender`, `civil_status`,`type_of_id`,`id_picture`
+    ,`own_vehicle`,`vehicle_count`,`floor_count`, `time_created`) VALUES 
+    (:first_name,:middle_name,:last_name,:picture,:requestor_id, :house_bldg_floor_no, :street, :from, :to, :date_of_birth, :age, :place_of_birth, :contact_number, :gender, :civil_status,:type_of_id,:id_picture,
+    :own_vehicle,:vehicle_count,:floor_count, :time_created)';
      
     $stmt = $conn->prepare($query);
     $db_arr = [
@@ -70,6 +78,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'contact_number' => $contactnumber,
         'gender' => $gender,
         'civil_status' => $civilstatus,
+        'type_of_id' => $typeOfId,
+        'id_picture' => $valid_id,
+        'own_vehicle' => $do_you_own_a_vehicle,
+        'vehicle_count' => $vehicle_count,
+        'floor_count' => $floor_count,
+       
+
         'time_created' => date('Y-m-d H:i:s'), // Updated key
     ];
     $stmt->execute($db_arr);
@@ -80,13 +95,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Insert documents if any are selected
     if (!empty($documents)) {
       foreach ($documents as $document) {
-        $doc_query = 'INSERT INTO `document_requested_for_others`(`requestor_id`,`user_requestor_id`,`documents_requested`,`purpose`, `status`) VALUES ( :requestor_id,:user_requestor_id,:documents_requested,:purpose, "Pending")';
+        $doc_query = 'INSERT INTO `document_requested_for_others`(`requestor_id`,`user_requestor_id`,`documents_requested`,`purpose`, `status`,`signature`) VALUES ( :requestor_id,:user_requestor_id,:documents_requested,:purpose, "Pending",:signature)';
         $doc_stmt = $conn->prepare($doc_query);
         $db_arr = [
           'requestor_id' => $others_id,
           'user_requestor_id' => $requestor_id,
           'documents_requested' => $document,
-          'purpose' => $purpose
+          'purpose' => $purpose,
+           'signature' => $signature,
         ];
         $doc_stmt->execute($db_arr);
       }

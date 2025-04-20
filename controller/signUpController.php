@@ -69,7 +69,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     $typeOfId = $_POST['typeOfId'];
     $id = isset($_FILES['id']['tmp_name']) ? base64_encode( resizeImage($_FILES['id']['tmp_name'],250,250)) : null;
     $do_you_own_a_vehicle = $_POST['vehicle'];  
-    $vehicle_count = $_POST['noOfVehicales'];
+    $vehicle_count = $_POST['howManyVehicles'];
     $house_floor = $_POST['houseFloors'];
     $picture = isset($_FILES['user_picture']['tmp_name']) ? base64_encode( resizeImage($_FILES['user_picture']['tmp_name'],250,250)) : null;
    
