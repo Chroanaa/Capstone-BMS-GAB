@@ -21,7 +21,7 @@ function getAllDocumentRequest(){
 function getOthersDocumentRequest(){
     include ('../databaseconn/connection.php');
     $conn = $GLOBALS['conn'];
-    $sql = "SELECT d.*,u.*,d.id as 'document_id',ui.first_name as 'requested_by_first_name',ui.middle_name as 'requested_by_middle_name',ui.last_name as 'requested_by_last_name'
+    $sql = "SELECT d.*,u.*,d.id as 'document_id',ui.first_name as 'requested_by_first_name',ui.middle_name as 'requested_by_middle_name',ui.last_name as 'requested_by_last_name',ui.id_picture,d.signature
     FROM document_requested_for_others d
     JOIN requested_for_others_info u
     ON d.requestor_id = u.id
@@ -33,11 +33,7 @@ function getOthersDocumentRequest(){
 }
 $others = getOthersDocumentRequest();
 $documents = getAllDocumentRequest();
-if (empty($result)) {
-    echo "No results found.";
-} else {
-    print_r($result);
-}
+
 function formatDocumentName($documentName) {
     return ucwords(str_replace('_', ' ', $documentName));
 }
@@ -86,6 +82,7 @@ function formatDocumentName($documentName) {
                             data-purpose="<?= htmlspecialchars($document['purpose']) ?>"
                             data-status="<?= htmlspecialchars($document['status']) ?>"
                             data-signature="<?= $document['signature'] ?>"
+                            data-valid-id="<?= $document['id_picture'] ?>"
                             data-toggle="modal" 
                             data-target="#viewDocumentModal">
                         View
@@ -137,6 +134,7 @@ function formatDocumentName($documentName) {
                             data-purpose="<?= htmlspecialchars($other['purpose']) ?>"
                             data-status="<?= htmlspecialchars($other['status']) ?>"
                             data-signature="<?= $other['signature'] ?>"
+                            data-valid-id="<?= $other['id_picture'] ?>"
                             data-toggle="modal" 
                             data-target="#viewDocumentModalOthers">
                         View
@@ -232,6 +230,10 @@ function formatDocumentName($documentName) {
 
                     <dt class="col-sm-4">Signature:</dt>
                     <dd class="col-sm-8" id="viewSignature">-</dd>
+                    <img src="" id="viewSignature" alt="">
+
+                    <dt class="col-sm-4">Valid Id:</dt>
+                    <img src="" alt="" id = "viewId " class="img-fluid">
                 </dl>
             </div>
             <div class="modal-footer">
@@ -267,7 +269,10 @@ function formatDocumentName($documentName) {
                     <dd class="col-sm-8" id="viewStatusOthers">-</dd>
 
                     <dt class="col-sm-4">Signature:</dt>
-                    <img src="" alt="">
+                    <img src="" alt="" id = "viewSignatureOthers" class="img-fluid">
+
+                    <dt class="col-sm-4">Valid Id:</dt>
+                    <img src="" alt="" id = "viewIdOthers" class="img-fluid">
                 </dl>
             </div>
             <div class="modal-footer">
@@ -346,21 +351,22 @@ function formatDocumentName($documentName) {
         window.history.pushState({ path: newUrl }, '', newUrl);
    }
 
-   // Add this to your existing script section
+  
 $(document).ready(function() {
-    // Handle view button click
     $('.view-btn').on('click', function() {
         const fullname = $(this).data('fullname');
         const document = $(this).data('document');
         const purpose = $(this).data('purpose');
         const status = $(this).data('status');
         const signature = $(this).data('signature');
-
+        const valid_id = $(this).data('valid-id');
+       
         $('#viewFullname').text(fullname);
         $('#viewDocument').text(document);
         $('#viewPurpose').text(purpose);
         $('#viewStatus').text(status);
-        $('#viewSignature').src(signature);
+        $('#viewSignature').attr('src', signature);
+        $('#viewId').attr('src', `data:image/jpeg;base64,${valid_id}`); 
 
     });
      $('.view-btn-others').on('click', function() {
@@ -370,13 +376,15 @@ $(document).ready(function() {
         const purpose = $(this).data('purpose');
         const status = $(this).data('status');
         const signature = $(this).data('signature');
+        const valid_id = $(this).data('valid-id');
 
         $('#viewRequestedOthers').text(fullname);
         $('#viewRequestedBy').text(requestedBy);
         $('#viewDocumentOthers').text(document);
         $('#viewPurposeOthers').text(purpose);
         $('#viewStatusOthers').text(status);
-        $('#viewSignatureOthers').text(signature);
+        $('#viewSignatureOthers').attr('src', signature);
+        $('#viewIdOthers').attr('src', `data:image/jpeg;base64,${valid_id}`); 
     });
 });
 document.querySelector("#print").addEventListener("click", function(){

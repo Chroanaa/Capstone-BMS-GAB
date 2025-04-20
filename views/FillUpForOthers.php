@@ -295,8 +295,7 @@ if($loginSession == null){
 
                     <div id="menu2" class="container tab-pane fade"><br>
                       <h3 class="purpose">Certified true and Correct</h3>
-                                  <input type="hidden" name="signature" id="signature">
-
+                      
                       <div class="container mt-5">
                         <div class="mb-4">
                           <button type="button" class="clear btn btn-primary"><i class="bi bi-arrow-clockwise"></i></button>
@@ -304,6 +303,7 @@ if($loginSession == null){
                           <div class="signature-box"></div>
                           <div class="text-center">Signature </div>
                           <div class="text-muted text-center">Applicant</div>
+                          <input type="hidden" name="signature" id="signature">
                         </div>
                         <div class="mb-3">
                           <span>Date:</span>
@@ -471,7 +471,7 @@ document.querySelector('form').addEventListener('submit', async function(e) {
         return;
     }
 const signatureDataUrl = signaturePad.toDataURL();
-        document.getElementById('signature').value = signatureDataUrl;
+document.getElementById('signature').value = signatureDataUrl;
     // Confirmation dialog
     const confirmResult = await Swal.fire({
         title: 'Confirm Information',

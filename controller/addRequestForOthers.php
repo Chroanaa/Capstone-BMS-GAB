@@ -33,7 +33,7 @@ function resizeImage($file, $max_width, $max_height) {
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   try {
     $documents = isset($_POST['documents']) ? $_POST['documents'] : [];
-    
+    recordTechnicalPerformance('addRequestForOthers_start', 'addRequestForOthers');
     $firstname = $_POST['firstName'];
     $lastname = $_POST['lastName'];
     $middlename = $_POST['middleName'] ?? "";
@@ -92,13 +92,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($documents)) {
       recordTechnicalPerformance('insert_requested_for_others_info_start', 'system');
       foreach ($documents as $document) {
-        $doc_query = 'INSERT INTO `document_requested_for_others`(`requestor_id`,`user_requestor_id`,`documents_requested`,`purpose`, `status`) VALUES ( :requestor_id,:user_requestor_id,:documents_requested,:purpose, "Pending")';
+        $doc_query = 'INSERT INTO `document_requested_for_others`(`requestor_id`,`user_requestor_id`,`documents_requested`,`purpose`, `status`,`signature`) VALUES ( :requestor_id,:user_requestor_id,:documents_requested,:purpose, "Pending",:signature)';
         $doc_stmt = $conn->prepare($doc_query);
         $db_arr = [
           'requestor_id' => $others_id,
           'user_requestor_id' => $requestor_id,
           'documents_requested' => $document,
-          'purpose' => $purpose
+          'purpose' => $purpose,
+           'signature' => $signature,
         ];
         $doc_stmt->execute($db_arr);
       }
