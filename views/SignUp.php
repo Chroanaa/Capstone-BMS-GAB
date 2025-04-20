@@ -608,6 +608,237 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+
+// Add this code to your existing JavaScript in SignUp.php
+
+// Form validation function
+function validateForm() {
+    // Get all required form elements
+    const requiredFields = document.querySelectorAll('[required]');
+    const form = document.querySelector('form');
+    const submit = document.getElementById('submitBtn');
+    
+    // Create error message container if it doesn't exist
+    let errorContainer = document.getElementById('formErrorContainer');
+    if (!errorContainer) {
+        errorContainer = document.createElement('div');
+        errorContainer.id = 'formErrorContainer';
+        errorContainer.className = 'alert alert-danger mt-3';
+        errorContainer.style.display = 'none';
+        form.prepend(errorContainer);
+    }
+    
+    // Check if any required field is empty
+    let isValid = true;
+    let errorMessages = [];
+    
+    requiredFields.forEach(field => {
+        // Special handling for radio buttons
+        if (field.type === 'radio') {
+            const radioGroup = document.querySelectorAll(`[name="${field.name}"]`);
+            const isChecked = Array.from(radioGroup).some(radio => radio.checked);
+            
+            if (!isChecked) {
+                const fieldLabel = field.name === 'sex' ? 'Sex' : 
+                                  field.name === 'Civilstatus' ? 'Civil Status' : 
+                                  field.name === 'vehicle' ? 'Vehicle Ownership' : field.name;
+                                  
+                if (!errorMessages.includes(`Please select your ${fieldLabel}`)) {
+                    errorMessages.push(`Please select your ${fieldLabel}`);
+                    isValid = false;
+                }
+            }
+        }
+        // Special handling for file inputs
+        else if (field.type === 'file') {
+            if (!field.files || field.files.length === 0) {
+                const fieldLabel = field.id === 'id' ? 'ID Picture' : 
+                                  field.id === 'profilePicture' ? 'Profile Picture' : field.name;
+                errorMessages.push(`Please upload your ${fieldLabel}`);
+                isValid = false;
+            }
+        }
+        // Check if other fields are empty
+        else if (!field.value.trim()) {
+            const fieldName = field.labels && field.labels[0] ? 
+                             field.labels[0].textContent.replace(':', '') : field.name;
+            errorMessages.push(`Please fill in ${fieldName} field`);
+            isValid = false;
+        }
+    });
+    
+    // Additional validation for vehicles
+    const vehicleYes = document.getElementById('vehicleYes');
+    if (vehicleYes && vehicleYes.checked) {
+        const howManyVehicles = document.getElementById('howManyVehicles');
+        if (!howManyVehicles.value) {
+            errorMessages.push('Please specify how many vehicles you own');
+            isValid = false;
+        }
+    }
+    
+    // Additional validation for date fields
+    const fromDate = document.getElementById('from');
+    const toDate = document.getElementById('to');
+    if (fromDate && toDate && fromDate.value && toDate.value) {
+        if (new Date(fromDate.value) > new Date(toDate.value)) {
+            errorMessages.push('The "From" date cannot be later than the "To" date');
+            isValid = false;
+        }
+    }
+    
+    // Display error messages if any
+    if (!isValid) {
+        errorContainer.innerHTML = errorMessages.map(msg => `<div>• ${msg}</div>`).join('');
+        errorContainer.style.display = 'block';
+        // Scroll to top to see errors
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+        errorContainer.style.display = 'none';
+    }
+    
+    return isValid;
+}
+
+// Update form submission event
+document.querySelector('form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // First validate the form
+    if (!validateForm()) {
+        return false; // Stop if validation fails
+    }
+    
+    // Then show confirmation dialog
+    Swal.fire({
+        title: 'Confirm Information',
+        text: 'Are all the information correct?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, submit',
+        cancelButtonText: 'No, let me check',
+        confirmButtonColor: '#0d6efd',
+        cancelButtonColor: '#6c757d',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Show loading state
+            Swal.fire({
+                title: 'Submitting...',
+                html: 'Please wait while we process your registration',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+            // Submit the form
+            this.submit();
+        }
+    });
+});
+
+// Run validation on all fields when they change
+document.querySelectorAll('input, select, textarea').forEach(field => {
+    field.addEventListener('change', function() {
+        // Clear individual field errors
+        const fieldId = this.id;
+        const errorSpan = document.getElementById(`${fieldId}Error`);
+        if (errorSpan) {
+            errorSpan.textContent = '';
+        }
+    });
+});
+
+// Add live validation for email format
+const emailField = document.getElementById('Email');
+if (emailField) {
+    emailField.addEventListener('blur', function() {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const errorSpan = document.getElementById('emailError');
+        
+        if (!emailRegex.test(this.value) && this.value.trim()) {
+            if (errorSpan) {
+                errorSpan.textContent = 'Please enter a valid email address';
+            }
+        }
+    });
+}
+
+// Add live validation for contact number
+const contactField = document.getElementById('Contactnumber');
+if (contactField) {
+    contactField.addEventListener('blur', function() {
+        const phoneRegex = /^\d{10,11}$/;
+        const value = this.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+        
+        if (!phoneRegex.test(value) && this.value.trim()) {
+            // Add error message near field
+            let errorSpan = document.getElementById('contactError');
+            if (!errorSpan) {
+                errorSpan = document.createElement('span');
+                errorSpan.id = 'contactError';
+                errorSpan.className = 'text-danger';
+                this.parentNode.appendChild(errorSpan);
+            }
+            errorSpan.textContent = 'Please enter a valid 10-11 digit phone number';
+        } else {
+            const errorSpan = document.getElementById('contactError');
+            if (errorSpan) {
+                errorSpan.textContent = '';
+            }
+        }
+    });
+}
+
+
+
+// Add a final validation check before unlocking the submit button
+function checkFormCompleteness() {
+    const requiredFields = document.querySelectorAll('[required]');
+    const submit = document.getElementById('submitBtn');
+    
+    let isComplete = true;
+    
+    requiredFields.forEach(field => {
+        // Check radio buttons
+        if (field.type === 'radio') {
+            const radioGroup = document.querySelectorAll(`[name="${field.name}"]`);
+            const isChecked = Array.from(radioGroup).some(radio => radio.checked);
+            if (!isChecked) isComplete = false;
+        }
+        // Check file inputs
+        else if (field.type === 'file') {
+            if (!field.files || field.files.length === 0) isComplete = false;
+        }
+        // Check other fields
+        else if (!field.value.trim()) {
+            isComplete = false;
+        }
+    });
+    
+    // Check vehicle count if "Yes" is selected
+    const vehicleYes = document.getElementById('vehicleYes');
+    if (vehicleYes && vehicleYes.checked) {
+        const howManyVehicles = document.getElementById('howManyVehicles');
+        if (!howManyVehicles.value) isComplete = false;
+    }
+    
+    // Enable/disable submit button
+    if (submit) {
+        submit.disabled = !isComplete;
+    }
+}
+
+// Check form completeness on page load and when any field changes
+document.addEventListener('DOMContentLoaded', function() {
+    checkFormCompleteness();
+    
+    document.querySelectorAll('input, select, textarea').forEach(field => {
+        field.addEventListener('change', checkFormCompleteness);
+        field.addEventListener('input', checkFormCompleteness);
+    });
+});
     </script>
 </body>
 </html>
