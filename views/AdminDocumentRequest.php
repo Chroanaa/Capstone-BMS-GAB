@@ -229,11 +229,11 @@ function formatDocumentName($documentName) {
                     <dd class="col-sm-8" id="viewStatus">-</dd>
 
                     <dt class="col-sm-4">Signature:</dt>
-                    <dd class="col-sm-8" id="viewSignature">-</dd>
+                   
                     <img src="" id="viewSignature" alt="">
 
                     <dt class="col-sm-4">Valid Id:</dt>
-                    <img src="" alt="" id = "viewId " class="img-fluid">
+                    <img src="" alt="" id = "viewId" class="img-fluid">
                 </dl>
             </div>
             <div class="modal-footer">
@@ -313,14 +313,13 @@ function formatDocumentName($documentName) {
     </script>
   <script>
   $(document).ready(function() {
-    $('#documentRequestTable').DataTable({ /* ... existing datatable config ... */ });
+    $('#documentRequestTable').DataTable({  });
 
     // SweetAlert for status messages
     const urlParams = new URLSearchParams(window.location.search);
     const status = urlParams.get('status');
     
     $(document).ready(function() {
-    // ... existing datatable initialization ...
 
     const urlParams = new URLSearchParams(window.location.search);
     const status = urlParams.get('status');
@@ -360,13 +359,12 @@ $(document).ready(function() {
         const status = $(this).data('status');
         const signature = $(this).data('signature');
         const valid_id = $(this).data('valid-id');
-       
         $('#viewFullname').text(fullname);
         $('#viewDocument').text(document);
         $('#viewPurpose').text(purpose);
         $('#viewStatus').text(status);
         $('#viewSignature').attr('src', signature);
-        $('#viewId').attr('src', `data:image/jpeg;base64,${valid_id}`); 
+        $('#viewId').attr('src', `data:image/jpeg;base64,${valid_id}`);
 
     });
      $('.view-btn-others').on('click', function() {
