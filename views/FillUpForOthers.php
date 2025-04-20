@@ -67,7 +67,7 @@ if($loginSession == null){
                                 name="firstName"
                                 class="form-control"
                                 placeholder="First Name"
-                                required
+                              
                             />
                             <label for="firstName">First Name</label>
                         </div>
@@ -92,7 +92,7 @@ if($loginSession == null){
                                 name="lastName"
                                 class="form-control"
                                 placeholder="Last Name"
-                                required
+                               
                             />
                             <label for="lastName">Last Name</label>
                         </div>
@@ -159,7 +159,7 @@ if($loginSession == null){
                           <div class="form-label-group">
                             <span><b>Sex:</b></span>
                             <div class="form-check">
-                              <input type="radio" class="form-check-input" id="Male" name="sex" value="Male" required>
+                              <input type="radio" class="form-check-input" id="Male" name="sex" value="Male">
                               <label class="form-check-label" for="Male">Male</label>
                             </div>
                             <div class="form-check">
@@ -194,7 +194,7 @@ if($loginSession == null){
 
                       <!-- Type of ID -->
                       <div class="form-floating mb-3 mt-3">
-                        <select id="typeOfId" name="typeOfId" class="form-select" required>
+                        <select id="typeOfId" name="typeOfId" class="form-select">
                           <option value="" disabled selected>Select Type of ID</option>
                           <option value="Passport">Passport</option>
                           <option value="Driver's License">Driver's License</option>
@@ -208,18 +208,18 @@ if($loginSession == null){
                       <!-- Upload ID Picture -->
                       <div class="mb-3">
                         <label for="valid_id" class="form-label">Upload ID picture:</label>
-                        <input class="form-control" type="file" id="valid_id" name="valid_id" accept="image/*" required>
+                        <input class="form-control" type="file" id="valid_id" name="valid_id" accept="image/*" >
                       </div>
 
                       <!-- Vehicle Ownership -->
                       <div class="mb-3">
                         <span><b>Do you own a vehicle?</b></span>
                         <div class="form-check">
-                          <input type="radio" id="vehicleYes" name="vehicle" value="Yes" class="form-check-input" required />
+                          <input type="radio" id="vehicleYes" name="vehicle" value="Yes" class="form-check-input" />
                           <label class="form-check-label" for="vehicleYes">Yes</label>
                         </div>
                         <div class="form-check">
-                          <input type="radio" id="vehicleNo" name="vehicle" value="No" class="form-check-input" required />
+                          <input type="radio" id="vehicleNo" name="vehicle" value="No" class="form-check-input" />
                           <label class="form-check-label" for="vehicleNo">No</label>
                         </div>
                       </div>
@@ -232,7 +232,7 @@ if($loginSession == null){
 
                       <!-- How Many Floors -->
                       <div class="form-floating mb-3">
-                        <input type="number" id="floor_count" name="floor_count" class="form-control" placeholder="How Many Floors" min="0" required />
+                        <input type="number" id="floor_count" name="floor_count" class="form-control" placeholder="How Many Floors" min="0" />
                         <label for="floor_count">House Floors</label>
                       </div>
 
@@ -255,7 +255,7 @@ if($loginSession == null){
                       <!-- File uploader for picture -->
                       <div class="mb-3">
                         <label for="profilePicture" class="form-label">Upload Profile Picture:</label>
-                        <input class="form-control" type="file" id="profilePicture" name="profilePicture" accept="image/*" required>
+                        <input class="form-control" type="file" id="profilePicture" name="profilePicture" accept="image/*" >
                       </div>
                       <div class="mb-3">
                         <img id="profilePicturePreview" src="#" alt="Profile Picture Preview" class="img-fluid" style="display: none; max-width: 100%; height: auto;">
@@ -295,7 +295,8 @@ if($loginSession == null){
 
                     <div id="menu2" class="container tab-pane fade"><br>
                       <h3 class="purpose">Certified true and Correct</h3>
-                      
+                                  <input type="hidden" name="signature" id="signature">
+
                       <div class="container mt-5">
                         <div class="mb-4">
                           <button type="button" class="clear btn btn-primary"><i class="bi bi-arrow-clockwise"></i></button>
@@ -303,7 +304,6 @@ if($loginSession == null){
                           <div class="signature-box"></div>
                           <div class="text-center">Signature </div>
                           <div class="text-muted text-center">Applicant</div>
-                          <input type="hidden" name="signature" id="signature">
                         </div>
                         <div class="mb-3">
                           <span>Date:</span>
@@ -443,13 +443,90 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-/// Replace the existing form submission handler with this:
-
+// Replace your existing form submission handler
 document.querySelector('form').addEventListener('submit', async function(e) {
     e.preventDefault();
+    
+    let isValid = true;
+    let invalidTab = null;
+    
+    // Define required fields by ID
+    const requiredTextFields = [
+        'firstName', 'lastName', 'inputBldg', 'street', 
+        'from', 'to', 'date', 'Age', 'placeofbirth', 
+        'Contactnumber', 'typeOfId', 'floor_count'
+    ];
+    
+    // Required file fields
+    const requiredFileFields = ['valid_id', 'profilePicture'];
+    
+    // Required radio groups
+    const requiredRadioGroups = ['sex', 'Civilstatus', 'vehicle'];
+    
+    // Check text/select/number fields
+    requiredTextFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (!field || !field.value.trim()) {
+            isValid = false;
+            invalidTab = invalidTab || 'home';
+        }
+    });
+    
+    // Check file fields
+    requiredFileFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (!field || !field.files || field.files.length === 0) {
+            isValid = false;
+            invalidTab = invalidTab || 'home';
+        }
+    });
+    
+    // Check radio button groups
+    requiredRadioGroups.forEach(groupName => {
+        const isChecked = document.querySelector(`input[name="${groupName}"]:checked`) !== null;
+        if (!isChecked) {
+            isValid = false;
+            invalidTab = invalidTab || 'home';
+        }
+    });
+    
+    // Vehicle count if Yes is selected
+    if (document.getElementById('vehicleYes').checked) {
+        const vehicleCount = document.getElementById('howManyVehicles');
+        if (!vehicleCount.value) {
+            isValid = false;
+            invalidTab = invalidTab || 'home';
+        }
+    }
+
+    // If validation fails, show the tab with errors
+    if (!isValid) {
+        // Show the tab with the first error
+        if (invalidTab) {
+            const tabLink = document.querySelector(`a.nav-link[href="#${invalidTab}"]`);
+            if (tabLink) {
+                const tab = new bootstrap.Tab(tabLink);
+                tab.show();
+            }
+        }
+        
+        Swal.fire({
+            title: 'Incomplete Form',
+            text: 'Please fill in all required fields before submitting',
+            icon: 'error',
+            confirmButtonColor: '#dc3545'
+        });
+        return;
+    }
 
     // Validate signature
     if (signaturePad.isEmpty()) {
+        const signatureTab = document.querySelector('a.nav-link[href="#menu2"]');
+        if (signatureTab) {
+            const tab = new bootstrap.Tab(signatureTab);
+            tab.show();
+        }
+        
         Swal.fire({
             title: 'Signature Required',
             text: 'Please provide your signature before submitting',
@@ -462,6 +539,12 @@ document.querySelector('form').addEventListener('submit', async function(e) {
     // Validate document selection
     const documents = document.querySelectorAll('input[name="documents[]"]:checked');
     if (documents.length === 0) {
+        const docsTab = document.querySelector('a.nav-link[href="#menu1"]');
+        if (docsTab) {
+            const tab = new bootstrap.Tab(docsTab);
+            tab.show();
+        }
+        
         Swal.fire({
             title: 'Document Required',
             text: 'Please select at least one document to request',
@@ -470,9 +553,12 @@ document.querySelector('form').addEventListener('submit', async function(e) {
         });
         return;
     }
-const signatureDataUrl = signaturePad.toDataURL();
-document.getElementById('signature').value = signatureDataUrl;
-    // Confirmation dialog
+
+    // Set signature data
+    const signatureDataUrl = signaturePad.toDataURL();
+    document.getElementById('signature').value = signatureDataUrl;
+    
+    // Confirmation dialog and form submission
     const confirmResult = await Swal.fire({
         title: 'Confirm Information',
         text: 'Are all the information correct?',
@@ -526,9 +612,6 @@ document.getElementById('signature').value = signatureDataUrl;
         }
     }
 });
-
-// Remove existing onclick handler
-submit.onclick = null;
     </script>
 
 </body>
