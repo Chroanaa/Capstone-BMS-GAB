@@ -1,4 +1,5 @@
 <?php
+include './performanceTrackerController.php';
 function resizeImage($file, $max_width, $max_height) {
     list($width, $height) = getimagesize($file);
     $ratio = $width / $height;
@@ -54,10 +55,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST['Email'] ?? "";
         $houseBLdgFloorno = $_POST['bldg'] ?? "";
         $street = $_POST['street'] ?? "";
-        $from = $_POST['From'] ?? null;
-        $to = $_POST['to'] ?? null;
-        $dateofbirth = $_POST['date'] ?? null;
-        $age = $_POST['Age'] ?? null;
+        $from = $_POST['From'] ?? "";
+        $to = $_POST['to'] ?? "";
+        $dateofbirth = $_POST['date'] ?? "";
+        $age = $_POST['Age'] ?? "";
         $placeofbirth = $_POST['placeofbirth'] ?? "";
         $contactnumber = $_POST['Contactnumber'] ?? "";
         $sex = $_POST['sex'] ?? "";
@@ -67,13 +68,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $howManyVehicles = $_POST['howManyVehicles'] ?? 0;
 
         // Handle profile picture upload
-        $profilePicture = null;
+        $profilePicture = "";
         if (isset($_FILES['user_picture']) && $_FILES['user_picture']['error'] === UPLOAD_ERR_OK) {
             $profilePicture = resizeImage($_FILES['user_picture']['tmp_name'], 800, 600);
         }
 
         // Handle ID picture upload
-        $idPicture = null;
+        $idPicture = "";
         if (isset($_FILES['id']) && $_FILES['id']['error'] === UPLOAD_ERR_OK) {
             $idPicture = file_get_contents($_FILES['id']['tmp_name']);
         }

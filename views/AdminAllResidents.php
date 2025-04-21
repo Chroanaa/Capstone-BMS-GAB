@@ -163,7 +163,7 @@ $residents = getAllResidents();
                     <!-- Personal Information -->
                     <div class="row mb-3">
                         <div class="col-md-4 form-floating">
-                            <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First Name" required>
+                            <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First Name" >
                             <label for="firstName">First Name</label>
                         </div>
                         <div class="col-md-4 form-floating">
@@ -171,7 +171,7 @@ $residents = getAllResidents();
                             <label for="middleName">Middle Name</label>
                         </div>
                         <div class="col-md-4 form-floating">
-                            <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last Name" required>
+                            <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last Name" >
                             <label for="lastName">Last Name</label>
                         </div>
                     </div>
@@ -179,11 +179,11 @@ $residents = getAllResidents();
                     <!-- Residence -->
                     <div class="row mb-3">
                         <div class="col-md-6 form-floating">
-                            <input type="text" id="bldg" name="bldg" class="form-control" placeholder="House/Bldg/Floor no." required>
+                            <input type="text" id="bldg" name="bldg" class="form-control" placeholder="House/Bldg/Floor no.">
                             <label for="bldg">House/Bldg/Floor no.</label>
                         </div>
                         <div class="col-md-6 form-floating">
-                            <input type="text" id="street" name="street" class="form-control" placeholder="Street" required>
+                            <input type="text" id="street" name="street" class="form-control" placeholder="Street">
                             <label for="street">Street</label>
                         </div>
                     </div>
@@ -191,11 +191,11 @@ $residents = getAllResidents();
                     <!-- Residency Period -->
                     <div class="row mb-3">
                         <div class="col-md-6 form-floating">
-                            <input type="date" id="from" name="From" class="form-control" placeholder="From" required>
+                            <input type="date" id="from" name="From" class="form-control" placeholder="From">
                             <label for="from">From</label>
                         </div>
                         <div class="col-md-6 form-floating">
-                            <input type="date" id="to" name="to" class="form-control" placeholder="To" required>
+                            <input type="date" id="to" name="to" class="form-control" placeholder="To">
                             <label for="to">To</label>
                         </div>
                     </div>
@@ -203,7 +203,7 @@ $residents = getAllResidents();
                     <!-- Date of Birth -->
                     <div class="row mb-3">
                         <div class="col-md-6 form-floating">
-                            <input type="date" id="date" name="date" class="form-control" placeholder="Date of Birth" required>
+                            <input type="date" id="date" name="date" class="form-control" placeholder="Date of Birth">
                             <label for="date">Date of Birth</label>
                         </div>
                         <div class="col-md-6 form-floating">
@@ -214,19 +214,19 @@ $residents = getAllResidents();
 
                     <!-- Place of Birth -->
                     <div class="form-floating mb-3">
-                        <input type="text" id="placeofbirth" name="placeofbirth" class="form-control" placeholder="Place of Birth" required>
+                        <input type="text" id="placeofbirth" name="placeofbirth" class="form-control" placeholder="Place of Birth">
                         <label for="placeofbirth">Place of Birth</label>
                     </div>
 
                     <!-- Contact Number -->
                     <div class="form-floating mb-3">
-                        <input type="text" id="Contactnumber" name="Contactnumber" class="form-control" placeholder="Contact Number" required>
+                        <input type="text" id="Contactnumber" name="Contactnumber" class="form-control" placeholder="Contact Number">
                         <label for="Contactnumber">Contact Number</label>
                     </div>
 
                     <!-- Email -->
                     <div class="form-floating mb-3">
-                        <input type="email" id="Email" name="Email" class="form-control" placeholder="Email" required>
+                        <input type="email" id="Email" name="Email" class="form-control" placeholder="Email">
                         <label for="Email">Email</label>
                         <span class="text-danger" id="emailError"></span>
                     </div>
@@ -236,11 +236,11 @@ $residents = getAllResidents();
                         <div class="col-md-6">
                             <label class="mb-2"><b>Sex</b></label>
                             <div class="form-check">
-                                <input type="radio" id="Male" name="sex" value="Male" class="form-check-input" required>
+                                <input type="radio" id="Male" name="sex" value="Male" class="form-check-input">
                                 <label class="form-check-label" for="Male">Male</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" id="Female" name="sex" value="Female" class="form-check-input" required>
+                                <input type="radio" id="Female" name="sex" value="Female" class="form-check-input">
                                 <label class="form-check-label" for="Female">Female</label>
                             </div>
                         </div>
@@ -249,15 +249,15 @@ $residents = getAllResidents();
                         <div class="col-md-6">
                             <label class="mb-2"><b>Civil Status</b></label>
                             <div class="form-check">
-                                <input type="radio" id="Single" name="Civilstatus" value="Single" class="form-check-input" required>
+                                <input type="radio" id="Single" name="Civilstatus" value="Single" class="form-check-input">
                                 <label class="form-check-label" for="Single">Single</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" id="Married" name="Civilstatus" value="Married" class="form-check-input" required>
+                                <input type="radio" id="Married" name="Civilstatus" value="Married" class="form-check-input">
                                 <label class="form-check-label" for="Married">Married</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" id="Widow" name="Civilstatus" value="Widow" class="form-check-input" required>
+                                <input type="radio" id="Widow" name="Civilstatus" value="Widow" class="form-check-input">
                                 <label class="form-check-label" for="Widow">Widow</label>
                             </div>
                         </div>
@@ -265,7 +265,7 @@ $residents = getAllResidents();
 
                     <!-- Type of ID -->
                     <div class="form-floating mb-3">
-                        <select id="typeOfId" name="typeOfId" class="form-select" required>
+                        <select id="typeOfId" name="typeOfId" class="form-select">
                             <option value="" disabled selected>Select Type of ID</option>
                             <option value="Passport">Passport</option>
                             <option value="Driver's License">Driver's License</option>
@@ -278,18 +278,18 @@ $residents = getAllResidents();
                     <!-- Upload ID Picture -->
                     <div class="mb-3">
                         <label for="id" class="form-label">Upload ID Picture:</label>
-                        <input class="form-control" type="file" id="id" name="id" accept="image/*" required>
+                        <input class="form-control" type="file" id="id" name="id" accept="image/*">
                     </div>
 
                     <!-- Vehicle Ownership -->
                     <div class="mb-3">
                         <label><b>Do you own a vehicle?</b></label>
                         <div class="form-check">
-                            <input type="radio" id="vehicleYes" name="vehicle" value="Yes" class="form-check-input" required>
+                            <input type="radio" id="vehicleYes" name="vehicle" value="Yes" class="form-check-input">
                             <label class="form-check-label" for="vehicleYes">Yes</label>
                         </div>
                         <div class="form-check">
-                            <input type="radio" id="vehicleNo" name="vehicle" value="No" class="form-check-input" required>
+                            <input type="radio" id="vehicleNo" name="vehicle" value="No" class="form-check-input">
                             <label class="form-check-label" for="vehicleNo">No</label>
                         </div>
                     </div>
@@ -304,7 +304,7 @@ $residents = getAllResidents();
                     <!-- Profile Picture -->
                     <div class="mb-3">
                         <label for="profilePicture" class="form-label">Profile Picture:</label>
-                        <input class="form-control" type="file" id="profilePicture" name="user_picture" accept="image/*" required>
+                        <input class="form-control" type="file" id="profilePicture" name="user_picture" accept="image/*">
                     </div>
                     <div class="mb-3">
                         <img id="profilePicturePreview" src="#" alt="Profile Picture Preview" class="img-fluid" style="display: none; max-width: 100%; height: auto;">
@@ -312,14 +312,14 @@ $residents = getAllResidents();
 
                     <!-- Username -->
                     <div class="form-floating mb-3">
-                        <input type="text" id="username" name="username" class="form-control" placeholder="Username" required>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Username">
                         <label for="username">Username</label>
                         <span class="text-danger" id="usernameError"></span>
                     </div>
 
                     <!-- Password -->
                     <div class="form-floating mb-3 position-relative">
-                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password">
                         <label for="password">Password</label>
                         <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3 toggle-password fs-5" style="cursor: pointer;"></i>
                     </div>
