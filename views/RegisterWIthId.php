@@ -227,106 +227,85 @@ $userInfo = getUserInfo($id);
                           <label for="Email">Email: <i class="bi bi-envelope"></i></label>
                           <span class="text-danger" id="emailError"></span>
                         </div>
-                      <div class="row">
-                        <div class="col">
-                          <span><b class="h2">Sex: </b></span>
-                          <?php if ($userInfo['gender'] == "Male"): ?>
-                        <div class="form-check">
+                      <!-- Gender and Civil Status Section -->
+                      <div class="row mb-3">
+                        <!-- Gender/Sex Column -->
+                        <div class="col-md-6">
+                          <label class="form-label mb-2"><b>Sex:</b></label>
+                          
+                          <div class="form-check">
                             <input
                               type="radio"
                               id="genderMale"
                               name="sex"
                               value="Male"
-                              class="form-check-input main-radio"
-                              required
-                            checked
+                              class="form-check-input"
+                              <?= ($userInfo['gender'] ?? '') == "Male" ? "checked" : "" ?>
                             />
-                            <label class="form-check-label" for="genderMale">Male:</label>
-                          <?php else: ?>
-                            <div class="form-check">
+                            <label class="form-check-label" for="genderMale">Male</label>
+                          </div>
+                          
+                          <div class="form-check">
                             <input
                               type="radio"
                               id="genderFemale"
                               name="sex"
-                              value="Male"
-                              class="form-check-input main-radio"
-                              required
-                             
-                            />
-                            <label class="form-check-label" for="genderFemale">Male:</label>
-                        <?php endif; ?>
-                          <?php if ($userInfo['gender'] == "Female"): ?>
-                        <div class="form-check">
-                            <input
-                              type="radio"
-                              id="genderFemale"
-                              name="gender"
                               value="Female"
-                              class="form-check-input main-radio"
-                              required
-                              checked
+                              class="form-check-input"
+                              <?= ($userInfo['gender'] ?? '') == "Female" ? "checked" : "" ?>
                             />
-                            <label class="form-check-label" for="genderFemale">Female:</label>
-                          <?php else: ?>
-                           <div class="form-check">
-                            <input
-                              type="radio"
-                              id="genderFemale"
-                              name="gender"
-                              value="Female"
-                              class="form-check-input main-radio"
-                              required
-                           
-                            />
-                            <label class="form-check-label" for="genderFemale">Female:</label>
-                        <?php endif; ?>
-                          
+                            <label class="form-check-label" for="genderFemale">Female</label>
+                          </div>
                         </div>
                         
-                        <div class="col">
-                          <span><b class="h2">Civil Status:</b></span>
+                        <!-- Civil Status Column -->
+                        <div class="col-md-6">
+                          <label class="form-label mb-2"><b>Civil Status:</b></label>
+                          
                           <div class="form-check">
                             <input
                               type="radio"
                               id="Single"
                               name="Civilstatus"
                               value="single"
-                              class="form-check-input main-radio"
-                              required
-                              
+                              class="form-check-input"
+                              <?= ($userInfo['Civil_status'] ?? '') == "single" ? "checked" : "" ?>
                             />
                             <label class="form-check-label" for="Single">Single</label>
                           </div>
+                          
                           <div class="form-check">
                             <input
                               type="radio"
                               id="Separated"
                               name="Civilstatus"
                               value="separated"
-                              class="form-check-input main-radio"
-                              required
+                              class="form-check-input"
+                              <?= ($userInfo['Civil_status'] ?? '') == "separated" ? "checked" : "" ?>
                             />
                             <label class="form-check-label" for="Separated">Separated</label>
                           </div>
+                          
                           <div class="form-check">
                             <input
                               type="radio"
                               id="Married"
                               name="Civilstatus"
                               value="Married"
-                              class="form-check-input main-radio main-radio"
-                              required
+                              class="form-check-input"
+                              <?= ($userInfo['Civil_status'] ?? '') == "Married" ? "checked" : "" ?>
                             />
                             <label class="form-check-label" for="Married">Married</label>
                           </div>
+                          
                           <div class="form-check">
                             <input
                               type="radio"
                               id="Widow"
                               name="Civilstatus"
                               value="Widow"
-                              class="form-check-input main-radio"
-                              required
+                              class="form-check-input"
+                              <?= ($userInfo['Civil_status'] ?? '') == "Widow" ? "checked" : "" ?>
                             />
                             <label class="form-check-label" for="Widow">Widow</label>
                           </div>
