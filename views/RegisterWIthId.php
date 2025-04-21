@@ -7,6 +7,7 @@ header("Location: ./views/index.php");
 }
 $id = $_GET['id'] ?? null;
 $userInfo = getUserInfo($id);
+var_dump($userInfo['picture']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,11 +45,12 @@ $userInfo = getUserInfo($id);
             <div class="card card-signin my-5 shadow-yellow">
               <div class="card-body">
                 <h1 class="card-title text-center h5">REGISTER <i class="bi bi-person-plus-fill"></i></h1>
-                <form action="../controller/signUpController.php" method="post" enctype="multipart/form-data">
+                <form action="../controller/registerWithIdController.php" method="post" enctype="multipart/form-data">
                   <div class="container">
                     <div class="tab-content">
                       <div id="home" class="container tab-pane active"><br>
                       <div class="row mb-3">
+                        <input type="hidden" name="id" value="<?= htmlspecialchars($userInfo['id']) ?>">
                           <!-- First Name -->
                           <div class="col-md-4 form-floating">
                               <input
@@ -326,7 +328,8 @@ $userInfo = getUserInfo($id);
                                     </div>
                                     <div class="mb-3">
                           <label for="id" class="form-label">Upload ID picture:</label>
-                          <input class="form-control" type="file" id="id" name="id" accept="image/*" required>
+                          <input class="form-control" type="file" id="id" name="id" accept="image/*"  required>
+                          <img  src="data:image/jpeg;base64,<?= $userInfo['id_picture'] ?>"alt="">
                         </div>
                                     <!-- Vehicle Ownership -->
                                     <div class="mb-3">
@@ -357,7 +360,8 @@ $userInfo = getUserInfo($id);
 
                       <div class="mb-3">
                           <label for="profilePicture" class="form-label">Picture:</label>
-                          <input class="form-control" type="file" id="profilePicture" name="user_picture" accept="image/*" required>
+                          <input class="form-control" type="file" id="profilePicture" name="user_picture" accept="image/*"  required>
+                          <img src="data:image/jpeg;base64,<?= $userInfo['picture'] ?>" alt="">
                         </div>
                         <div class="mb-3">
                           <img id="profilePicturePreview" src="#" alt="Profile Picture Preview" class="img-fluid" style="display: none; max-width: 100%; height: auto;">
