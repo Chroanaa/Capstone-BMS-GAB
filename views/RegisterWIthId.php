@@ -293,6 +293,7 @@ $userInfo = getUserInfo($id);
                               value="single"
                               class="form-check-input main-radio"
                               required
+                              
                             />
                             <label class="form-check-label" for="Single">Single</label>
                           </div>
