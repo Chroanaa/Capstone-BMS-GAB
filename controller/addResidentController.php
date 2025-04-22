@@ -66,18 +66,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $typeOfId = $_POST['typeOfId'] ?? "";
         $vehicle = $_POST['vehicle'] ?? "No";
         $howManyVehicles = $_POST['howManyVehicles'] ?? 0;
+        $picture = isset($_FILES['user_picture']['tmp_name']) ? base64_encode( string: resizeImage($_FILES['user_picture']['tmp_name'],250,250)) : null;
+        $id = isset($_FILES['id']['tmp_name']) ? base64_encode( resizeImage($_FILES['id']['tmp_name'],250,250)) : null;
 
-        // Handle profile picture upload
-        $profilePicture = "";
-        if (isset($_FILES['user_picture']) && $_FILES['user_picture']['error'] === UPLOAD_ERR_OK) {
-            $profilePicture = resizeImage($_FILES['user_picture']['tmp_name'], 800, 600);
-        }
-
-        // Handle ID picture upload
-        $idPicture = "";
-        if (isset($_FILES['id']) && $_FILES['id']['error'] === UPLOAD_ERR_OK) {
-            $idPicture = file_get_contents($_FILES['id']['tmp_name']);
-        }
 
         $sql = "INSERT INTO user_info (
                     first_name, middle_name, last_name, picture, creds_id, 
@@ -97,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':first_name', $firstname);
         $stmt->bindParam(':middle_name', $middlename);
         $stmt->bindParam(':last_name', $lastname);
-        $stmt->bindParam(':picture', $profilePicture, PDO::PARAM_LOB);
+        $stmt->bindParam(':picture', $picture, PDO::PARAM_LOB);
         $stmt->bindParam(':house_bldg_floorno', $houseBLdgFloorno);
         $stmt->bindParam(':street', $street);
         $stmt->bindParam(':from', $from);
@@ -110,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':gender', $sex);
         $stmt->bindParam(':civil_status', $civilstatus);
         $stmt->bindParam(':type_of_id', $typeOfId);
-        $stmt->bindParam(':id_picture', $idPicture, PDO::PARAM_LOB);
+        $stmt->bindParam(':id_picture', $id, PDO::PARAM_LOB);
         $stmt->bindParam(':own_vehicle', $vehicle);
         $stmt->bindParam(':vehicle_count', $howManyVehicles);
         $stmt->bindParam(':time_created', $currentTime);
