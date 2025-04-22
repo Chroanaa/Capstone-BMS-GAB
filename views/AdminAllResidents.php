@@ -754,19 +754,21 @@ $('#edit_date').on('change', function() {
     </script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-        header(true); // Pass true if the user is logged in
-        $('#residentsTable').DataTable(); // Initialize DataTable
-    });
-
+        
+window.onload = function() {
+  history.pushState({ page: 1 }, "", document.URL);
+  window.addEventListener('popstate', function(event) {
+    history.pushState({ page: 1 }, "", document.URL);
+  });
+  header(true); 
+        $('#residentsTable').DataTable(); 
+}
     function setUrlId(id){
         const newUrl = `${window.location.protocol}//${window.location.host}${window.location.pathname}?id=${id}`;
         window.history.pushState({ path: newUrl }, '', newUrl);
     }
 
-    // Add this to your existing $(document).ready function
 
-// Initialize Flatpickr for Add Resident Modal
 flatpickr("#from", {
     maxDate: "today",
     dateFormat: "Y-m-d",

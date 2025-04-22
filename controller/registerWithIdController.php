@@ -66,7 +66,7 @@ $placeofbirth = $_POST['placeofbirth'] ?? $result['place_of_birth'] ?? '';
 $contactnumber = $_POST['Contactnumber'] ?? $result['contact_number'] ?? '';
 $email = $_POST['Email'] ?? $result['email'] ?? '';
 $typeOfId = $_POST['typeOfId'] ?? $result['type_of_id'] ?? '';
- $id = null;
+ $id = "";
 if (isset($_FILES['id']['tmp_name']) && !empty($_FILES['id']['tmp_name'])) {
     $id = base64_encode(resizeImage($_FILES['id']['tmp_name'], 250, 250));
 } elseif (!empty($result['id_picture'])) {
@@ -76,7 +76,7 @@ if (isset($_FILES['id']['tmp_name']) && !empty($_FILES['id']['tmp_name'])) {
 $do_you_own_a_vehicle = $_POST['vehicle'] ?? $result['own_vehicle'] ?? 'No';
 $vehicle_count = $_POST['howManyVehicles'] ?? $result['vehicle_count'] ;
 $house_floor = $_POST['houseFloors'] ?? $result['floor_count'] ?? 1;
-$picture = null;
+$picture = "";
 if (isset($_FILES['user_picture']['tmp_name']) && !empty($_FILES['user_picture']['tmp_name'])) {
     $picture = base64_encode(resizeImage($_FILES['user_picture']['tmp_name'], 250, 250));
 } elseif (!empty($result['picture'])) {

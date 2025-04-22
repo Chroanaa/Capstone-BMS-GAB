@@ -49,8 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Insert resident information
-        $firstname = $_POST['firstName'];
-        $lastname = $_POST['lastName'];
+        $firstname = $_POST['firstName'] ?? "";
+        $lastname = $_POST['lastName'] ?? "";
         $middlename = $_POST['middleName'] ?? "";
         $email = $_POST['Email'] ?? "";
         $houseBLdgFloorno = $_POST['bldg'] ?? "";
@@ -66,8 +66,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $typeOfId = $_POST['typeOfId'] ?? "";
         $vehicle = $_POST['vehicle'] ?? "No";
         $howManyVehicles = $_POST['howManyVehicles'] ?? 0;
-        $picture = isset($_FILES['user_picture']['tmp_name']) ? base64_encode( string: resizeImage($_FILES['user_picture']['tmp_name'],250,250)) : null;
-        $id = isset($_FILES['id']['tmp_name']) ? base64_encode( resizeImage($_FILES['id']['tmp_name'],250,250)) : null;
+        $picture = " ";
+        if (isset($_FILES['user_picture']['tmp_name']) && !empty($_FILES['user_picture']['tmp_name']) && $_FILES['user_picture']['error'] === 0) {
+    $picture = base64_encode(resizeImage($_FILES['user_picture']['tmp_name'], 250, 250));
+        }
+
+        $id = " ";
+    if (isset($_FILES['id']['tmp_name']) && !empty($_FILES['id']['tmp_name']) && $_FILES['id']['error'] === 0) {
+    $id = base64_encode(resizeImage($_FILES['id']['tmp_name'], 250, 250));
+    }
 
 
         $sql = "INSERT INTO user_info (
