@@ -59,6 +59,11 @@ export function header(isLoggedIn) {
                 }">
                   Account
                 </button>
+                 <button onclick="window.location.href='userProfile.php'" class="btn account-btn ${
+                  currentPath === "userProfile.php" ? "active" : ""
+                }">
+                  Profile
+                </button>
                 <button type="button" id = "dashboard" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
                   Logout
                 </button>
