@@ -231,7 +231,7 @@ $userInfo = getUserInfo($id);
                       <div class="row mb-3">
                         <!-- Gender/Sex Column -->
                         <div class="col-md-6">
-                          <label class="form-label mb-2"><b>Sex:</b></label>
+                          <label class="form-label mb-2 "><b>Sex:</b></label>
                           
                           <div class="form-check">
                             <input
