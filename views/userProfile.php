@@ -32,6 +32,7 @@ $userCreds = getUserCreds($loginSession); // Get user credentials using the same
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css"
       rel="stylesheet"
     />
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css" />
     <!-- Add to head section -->
@@ -39,6 +40,7 @@ $userCreds = getUserCreds($loginSession); // Get user credentials using the same
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
 </head>
 <body>
     <header id="header"></header>
@@ -191,10 +193,10 @@ $userCreds = getUserCreds($loginSession); // Get user credentials using the same
                                 <input type="text" id="placeofbirth" name="placeOfBirth" class="form-control" placeholder="Place of Birth" required value="<?php echo htmlspecialchars($userInfo['place_of_birth']) ?? ""; ?>">
                                 <label for="placeofbirth">Place of Birth</label>
                             </div>
-
                             <div class="form-floating mb-3">
                                 <input type="text" id="Contactnumber" name="contactNumber" class="form-control" placeholder="Contact Number" required value="<?php echo htmlspecialchars($userInfo['contact_number']) ?? ""; ?>">
                                 <label for="Contactnumber">Contact Number</label>
+                                <span class="text-danger" id="contactNumberError"></span>
                             </div>
 
                             <div class="form-floating mb-3">
@@ -358,9 +360,13 @@ $userCreds = getUserCreds($loginSession); // Get user credentials using the same
     <?php include 'modals/modalLogout.html'?>
 
     <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
     <script type="module">
         import { header } from "./header.js";
         header(<?= $loginSession?>);
@@ -427,7 +433,7 @@ $userCreds = getUserCreds($loginSession); // Get user credentials using the same
             const vehicleYes = document.getElementById('vehicleYes');
             const vehicleNo = document.getElementById('vehicleNo');
             const howManyVehicles = document.getElementById('howManyVehicles');
-
+            
             if (vehicleYes && vehicleNo && howManyVehicles) {
                 vehicleYes.addEventListener('change', function() {
                     if (vehicleYes.checked) {
@@ -645,6 +651,53 @@ $userCreds = getUserCreds($loginSession); // Get user credentials using the same
                 document.getElementById('confirmPasswordError').textContent = '';
             }
         }, 300);
+    });
+}
+
+// Add live validation for contact number
+const contactNumberField = document.getElementById('Contactnumber');
+if (contactNumberField) {
+    // Add error span if it doesn't exist yet
+    let errorSpan = document.getElementById('contactNumberError');
+    if (!errorSpan) {
+        errorSpan = document.createElement('span');
+        errorSpan.id = 'contactNumberError';
+        errorSpan.className = 'text-danger';
+        contactNumberField.parentNode.appendChild(errorSpan);
+    }
+
+    contactNumberField.addEventListener('blur', function() {
+        // Philippines phone number format (can start with +63 or 0, followed by 10 digits)
+        const phoneRegex = /^(\+63|0)[0-9]{10}$/;
+        
+        if (!phoneRegex.test(this.value) && this.value.trim()) {
+            errorSpan.textContent = 'Please enter a valid Philippine phone number (e.g., 09XXXXXXXXX or +639XXXXXXXXX)';
+            document.querySelector('#editProfileForm button[type="submit"]').disabled = true;
+        } else {
+            errorSpan.textContent = '';
+            document.querySelector('#editProfileForm button[type="submit"]').disabled = false;
+        }
+    });
+
+    // Format input as user types
+    contactNumberField.addEventListener('input', function() {
+        let value = this.value.replace(/\D/g, ''); // Remove non-digits
+        
+        // If starts with 63, format as +63
+        if (value.startsWith('63') && value.length > 2) {
+            value = '+' + value;
+        } 
+        // If starts with 0, keep as is
+        else if (value.startsWith('0')) {
+            // Keep as is
+        }
+        // If doesn't start with 0 or +63, add 0 prefix
+        else if (value && !value.startsWith('+63')) {
+            value = '0' + value;
+        }
+        
+        // Update input value with formatted number
+        this.value = value;
     });
 }
     </script>
