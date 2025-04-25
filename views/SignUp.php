@@ -197,6 +197,7 @@ $loginSession = $_SESSION['session'] ?? null;
                             required
                           />
                           <label for="Contactnumber">Contact No: <i class="bi bi-telephone-plus"></i></label>
+                          <span class="text-danger" id="contactNumberError"></span>
                         </div>
                          <div class="form-floating mb-3">
                           <input
@@ -766,32 +767,52 @@ if (emailField) {
 }
 
 // Add live validation for contact number
-const contactField = document.getElementById('Contactnumber');
-if (contactField) {
-    contactField.addEventListener('blur', function() {
-        const phoneRegex = /^\d{10,11}$/;
-        const value = this.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+const contactNumberField = document.getElementById('Contactnumber');
+if (contactNumberField) {
+    // Add error span if it doesn't exist yet
+    let errorSpan = document.getElementById('contactNumberError');
+    if (!errorSpan) {
+        errorSpan = document.createElement('span');
+        errorSpan.id = 'contactNumberError';
+        errorSpan.className = 'text-danger';
+        contactNumberField.parentNode.appendChild(errorSpan);
+    }
+
+    contactNumberField.addEventListener('blur', function() {
+        // Philippines phone number format (can start with +63 or 0, followed by 10 digits)
+        const phoneRegex = /^(\+63|0)[0-9]{10}$/;
         
-        if (!phoneRegex.test(value) && this.value.trim()) {
-            // Add error message near field
-            let errorSpan = document.getElementById('contactError');
-            if (!errorSpan) {
-                errorSpan = document.createElement('span');
-                errorSpan.id = 'contactError';
-                errorSpan.className = 'text-danger';
-                this.parentNode.appendChild(errorSpan);
-            }
-            errorSpan.textContent = 'Please enter a valid 10-11 digit phone number';
+        if (!phoneRegex.test(this.value) && this.value.trim()) {
+            errorSpan.textContent = 'Please enter a valid Philippine phone number (e.g., 09XXXXXXXXX or +639XXXXXXXXX)';
+            document.getElementById('submitBtn').disabled = true;
         } else {
-            const errorSpan = document.getElementById('contactError');
-            if (errorSpan) {
-                errorSpan.textContent = '';
-            }
+            errorSpan.textContent = '';
+            // Only enable button if there are no other validation errors
+            checkFormCompleteness();
         }
     });
+
+    // Format input as user types
+    contactNumberField.addEventListener('input', function() {
+        let value = this.value.replace(/\D/g, ''); // Remove non-digits
+        
+        // If starts with 63, format as +63
+        if (value.startsWith('63') && value.length > 2) {
+            value = '+' + value;
+        } 
+        // If starts with 0, keep as is
+        else if (value.startsWith('0')) {
+            // Keep as is
+        }
+        // If doesn't start with 0 or +63, add 0 prefix
+        else if (value && !value.startsWith('+63')) {
+            value = '0' + value;
+        }
+        
+        // Update input value with formatted number
+        this.value = value;
+    });
 }
-
-
 
 // Add a final validation check before unlocking the submit button
 function checkFormCompleteness() {

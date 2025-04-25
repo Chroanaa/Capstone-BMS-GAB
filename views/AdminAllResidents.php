@@ -218,10 +218,10 @@ $residents = getAllResidents();
                         <label for="placeofbirth">Place of Birth</label>
                     </div>
 
-                    <!-- Contact Number -->
                     <div class="form-floating mb-3">
                         <input type="text" id="Contactnumber" name="Contactnumber" class="form-control" placeholder="Contact Number">
                         <label for="Contactnumber">Contact Number</label>
+                        <span class="text-danger" id="contactNumberError"></span>
                     </div>
 
                     <!-- Email -->
@@ -411,8 +411,8 @@ $residents = getAllResidents();
                     <div class="form-floating mb-3">
                         <input type="text" id="edit_Contactnumber" name="Contactnumber" class="form-control" placeholder="Contact Number" required>
                         <label for="edit_Contactnumber">Contact Number</label>
+                        <span class="text-danger" id="editContactNumberError"></span>
                     </div>
-
                     <!-- Gender -->
                     <div class="row mb-3">
                         <div class="col-md-6">
@@ -1030,6 +1030,104 @@ $('.edit-resident').on('click', function() {
         $idPicturePreview.attr('src', idPictureSrc).show();
     } else {
         $idPicturePreview.hide();
+    }
+});
+
+
+// Add contact number validation for both forms
+document.addEventListener('DOMContentLoaded', function() {
+    // For Add Resident form
+    const contactNumberField = document.getElementById('Contactnumber');
+    if (contactNumberField) {
+        // Add error span if it doesn't exist
+        let errorSpan = document.getElementById('contactNumberError');
+        if (!errorSpan) {
+            errorSpan = document.createElement('span');
+            errorSpan.id = 'contactNumberError';
+            errorSpan.className = 'text-danger';
+            contactNumberField.parentNode.appendChild(errorSpan);
+        }
+
+        contactNumberField.addEventListener('blur', function() {
+            // Philippines phone number format (can start with +63 or 0, followed by 10 digits)
+            const phoneRegex = /^(\+63|0)[0-9]{10}$/;
+            
+            if (!phoneRegex.test(this.value) && this.value.trim()) {
+                errorSpan.textContent = 'Please enter a valid Philippine phone number (e.g., 09XXXXXXXXX or +639XXXXXXXXX)';
+                document.getElementById('submitBtn').disabled = true;
+            } else {
+                errorSpan.textContent = '';
+                document.getElementById('submitBtn').disabled = false;
+            }
+        });
+
+        // Format input as user types
+        contactNumberField.addEventListener('input', function() {
+            let value = this.value.replace(/\D/g, ''); // Remove non-digits
+            
+            // If starts with 63, format as +63
+            if (value.startsWith('63') && value.length > 2) {
+                value = '+' + value;
+            } 
+            // If starts with 0, keep as is
+            else if (value.startsWith('0')) {
+                // Keep as is
+            }
+            // If doesn't start with 0 or +63, add 0 prefix
+            else if (value && !value.startsWith('+63')) {
+                value = '0' + value;
+            }
+            
+            // Update input value with formatted number
+            this.value = value;
+        });
+    }
+
+    // For Edit Resident form
+    const editContactNumberField = document.getElementById('edit_Contactnumber');
+    if (editContactNumberField) {
+        // Add error span if it doesn't exist
+        let editErrorSpan = document.getElementById('editContactNumberError');
+        if (!editErrorSpan) {
+            editErrorSpan = document.createElement('span');
+            editErrorSpan.id = 'editContactNumberError';
+            editErrorSpan.className = 'text-danger';
+            editContactNumberField.parentNode.appendChild(editErrorSpan);
+        }
+
+        editContactNumberField.addEventListener('blur', function() {
+            // Philippines phone number format (can start with +63 or 0, followed by 10 digits)
+            const phoneRegex = /^(\+63|0)[0-9]{10}$/;
+            
+            if (!phoneRegex.test(this.value) && this.value.trim()) {
+                editErrorSpan.textContent = 'Please enter a valid Philippine phone number (e.g., 09XXXXXXXXX or +639XXXXXXXXX)';
+                document.getElementById('saveChangesBtn').disabled = true;
+            } else {
+                editErrorSpan.textContent = '';
+                document.getElementById('saveChangesBtn').disabled = false;
+            }
+        });
+
+        // Format input as user types
+        editContactNumberField.addEventListener('input', function() {
+            let value = this.value.replace(/\D/g, ''); // Remove non-digits
+            
+            // If starts with 63, format as +63
+            if (value.startsWith('63') && value.length > 2) {
+                value = '+' + value;
+            } 
+            // If starts with 0, keep as is
+            else if (value.startsWith('0')) {
+                // Keep as is
+            }
+            // If doesn't start with 0 or +63, add 0 prefix
+            else if (value && !value.startsWith('+63')) {
+                value = '0' + value;
+            }
+            
+            // Update input value with formatted number
+            this.value = value;
+        });
     }
 });
     </script>

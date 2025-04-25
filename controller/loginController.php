@@ -17,10 +17,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $stmt->execute($db);
         $user = $stmt->fetch();
 
-        // Debugging statements
-        var_dump($username);
-        var_dump($password);
-        var_dump($user);
+      
 
         if($user && password_verify($password, $user['Password'])){
             $_SESSION['session'] = $user['id'];

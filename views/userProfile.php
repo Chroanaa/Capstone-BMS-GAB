@@ -1,11 +1,11 @@
 <?php
 session_start();
-$loginSession = $_SESSION['session'] ?? null;
+$loginSession = $_SESSION['session'];
 if(!$loginSession){
   header('Location: Login.php?error=notLoggedIn');
   exit();
 }
-
+var_dump($loginSession);
 include '../controller/getUserInformation.php';
 include '../controller/getUserCreds.php'; // Add this line to include getUserCreds.php
 
@@ -13,10 +13,7 @@ $userInfo = getUserInfo($loginSession);
 $userCreds = getUserCreds($loginSession); // Get user credentials using the same session ID
 
 // If no user info is found, redirect to login
-if (!$userInfo) {
-    header('Location: Login.php?error=userNotFound');
-    exit();
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -35,6 +32,7 @@ if (!$userInfo) {
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css"
       rel="stylesheet"
     />
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css" />
     <!-- Add to head section -->
@@ -42,6 +40,7 @@ if (!$userInfo) {
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
 </head>
 <body>
     <header id="header"></header>
@@ -103,7 +102,7 @@ if (!$userInfo) {
                                 <div class="col-md-6 mb-3">
                                     <strong>Vehicle Ownership:</strong> <?php echo $userInfo['own_vehicle'] === 'Yes' ? 'Yes' : 'No'; ?>
                                     <?php if($userInfo['own_vehicle'] === 'Yes'): ?>
-                                        (<?php echo htmlspecialchars($userInfo['vehicle_count']); ?> vehicles)
+                                        (<?php echo htmlspecialchars($userInfo['vehicle_count']); ?> vehicle/s)
                                     <?php endif; ?>
                                 </div>
                                 <div class="col-md-6 mb-3">
@@ -144,64 +143,64 @@ if (!$userInfo) {
                             
                             <div class="row mb-3">
                                 <div class="col-md-4 form-floating">
-                                    <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First Name" required value="<?php echo htmlspecialchars($userInfo['first_name']); ?>">
+                                    <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First Name" required value="<?php echo htmlspecialchars($userInfo['first_name']) ?? ""; ?>">
                                     <label for="firstName">First Name</label>
                                 </div>
                                 <div class="col-md-4 form-floating">
-                                    <input type="text" id="middleName" name="middleName" class="form-control" placeholder="Middle Name" value="<?php echo htmlspecialchars($userInfo['middle_name']); ?>">
+                                    <input type="text" id="middleName" name="middleName" class="form-control" placeholder="Middle Name" value="<?php echo htmlspecialchars($userInfo['middle_name']) ?? ""; ?>">
                                     <label for="middleName">Middle Name</label>
                                 </div>
                                 <div class="col-md-4 form-floating">
-                                    <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last Name" required value="<?php echo htmlspecialchars($userInfo['last_name']); ?>">
+                                    <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last Name" required value="<?php echo htmlspecialchars($userInfo['last_name']) ?? ""; ?>">
                                     <label for="lastName">Last Name</label>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-md-6 form-floating">
-                                    <input type="text" id="bldg" name="bldg" class="form-control" placeholder="House/Bldg/Floor no." required value="<?php echo htmlspecialchars($userInfo['House/floor/bldgno.']); ?>">
+                                    <input type="text" id="bldg" name="bldg" class="form-control" placeholder="House/Bldg/Floor no." required value="<?php echo htmlspecialchars($userInfo['House/floor/bldgno.']) ?? ""; ?>">
                                     <label for="bldg">House/Bldg/Floor no.</label>
                                 </div>
                                 <div class="col-md-6 form-floating">
-                                    <input type="text" id="street" name="street" class="form-control" placeholder="Street" required value="<?php echo htmlspecialchars($userInfo['Street']); ?>">
+                                    <input type="text" id="street" name="street" class="form-control" placeholder="Street" required value="<?php echo htmlspecialchars($userInfo['Street']) ?? ""; ?>">
                                     <label for="street">Street</label>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-md-6 form-floating">
-                                    <input type="date" id="from" name="From" class="form-control" placeholder="From" required value="<?php echo htmlspecialchars($userInfo['from']); ?>">
+                                    <input type="date" id="from" name="From" class="form-control" placeholder="From" required value="<?php echo htmlspecialchars($userInfo['from']) ?? ""; ?>">
                                     <label for="from">From</label>
                                 </div>
                                 <div class="col-md-6 form-floating">
-                                    <input type="date" id="to" name="to" class="form-control" placeholder="To" required value="<?php echo htmlspecialchars($userInfo['to']); ?>">
+                                    <input type="date" id="to" name="to" class="form-control" placeholder="To" required value="<?php echo htmlspecialchars($userInfo['to']) ?? ""; ?>">
                                     <label for="to">To</label>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <div class="col-md-6 form-floating">
-                                    <input type="date" id="date" name="date" class="form-control" placeholder="Date of Birth" required value="<?php echo htmlspecialchars($userInfo['date_of_birth']); ?>">
+                                    <input type="date" id="date" name="dateOfBirth" class="form-control" placeholder="Date of Birth" required value="<?php echo htmlspecialchars($userInfo['date_of_birth']) ?? ""; ?>">
                                     <label for="date">Date of Birth</label>
                                 </div>
                                 <div class="col-md-6 form-floating">
-                                    <input type="text" id="Age" name="Age" class="form-control" placeholder="Age" readonly value="<?php echo htmlspecialchars($userInfo['Age']); ?>">
+                                    <input type="text" id="Age" name="Age" class="form-control" placeholder="Age" readonly value="<?php echo htmlspecialchars($userInfo['Age']) ?? ""; ?>">
                                     <label for="Age">Age</label>
                                 </div>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="text" id="placeofbirth" name="placeofbirth" class="form-control" placeholder="Place of Birth" required value="<?php echo htmlspecialchars($userInfo['place_of_birth']); ?>">
+                                <input type="text" id="placeofbirth" name="placeOfBirth" class="form-control" placeholder="Place of Birth" required value="<?php echo htmlspecialchars($userInfo['place_of_birth']) ?? ""; ?>">
                                 <label for="placeofbirth">Place of Birth</label>
                             </div>
-
                             <div class="form-floating mb-3">
-                                <input type="text" id="Contactnumber" name="Contactnumber" class="form-control" placeholder="Contact Number" required value="<?php echo htmlspecialchars($userInfo['contact_number']); ?>">
+                                <input type="text" id="Contactnumber" name="contactNumber" class="form-control" placeholder="Contact Number" required value="<?php echo htmlspecialchars($userInfo['contact_number']) ?? ""; ?>">
                                 <label for="Contactnumber">Contact Number</label>
+                                <span class="text-danger" id="contactNumberError"></span>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="email" id="Email" name="Email" class="form-control" placeholder="Email" required value="<?php echo htmlspecialchars($userInfo['email']); ?>">
+                                <input type="email" id="Email" name="Email" class="form-control" placeholder="Email" required value="<?php echo htmlspecialchars($userInfo['email']) ?? ""; ?>">
                                 <label for="Email">Email</label>
                                 <span class="text-danger" id="emailError"></span>
                             </div>
@@ -210,11 +209,11 @@ if (!$userInfo) {
                                 <div class="col-md-6">
                                     <label class="mb-2"><b>Sex</b></label>
                                     <div class="form-check">
-                                        <input type="radio" id="Male" name="sex" value="Male" class="form-check-input" <?php echo $userInfo['gender'] === 'Male' ? 'checked' : ''; ?>>
+                                        <input type="radio" id="Male" name="gender" value="Male" class="form-check-input" <?php echo $userInfo['gender'] === 'Male' ? 'checked' : ''; ?>>
                                         <label class="form-check-label" for="Male">Male</label>
                                     </div>
                                     <div class="form-check">
-                                        <input type="radio" id="Female" name="sex" value="Female" class="form-check-input" <?php echo $userInfo['gender'] === 'Female' ? 'checked' : ''; ?>>
+                                        <input type="radio" id="Female" name="gender" value="Female" class="form-check-input" <?php echo $userInfo['gender'] === 'Female' ? 'checked' : ''; ?>>
                                         <label class="form-check-label" for="Female">Female</label>
                                     </div>
                                 </div>
@@ -327,9 +326,10 @@ if (!$userInfo) {
                             <input type="hidden" name="user_id" value="<?php echo $loginSession; ?>">
                             
                             <div class="form-floating mb-3 position-relative">
-                                <input type="password" id="currentPassword" name="currentPassword" class="form-control" placeholder="Current Password" required>
+                                <input type="password" id="currentPassword" name="currentPassword" class="form-control" placeholder="Current Password" required oninput="checkIfPasswordMatch(<?php echo $loginSession; ?>)">
                                 <label for="currentPassword">Current Password</label>
                                 <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3 toggle-password fs-5" style="cursor: pointer;"></i>
+                                <span class="text-danger" id="currentPasswordError"></span>
                             </div>
 
                             <div class="form-floating mb-3 position-relative">
@@ -342,11 +342,13 @@ if (!$userInfo) {
                                 <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Confirm New Password" required>
                                 <label for="confirmPassword">Confirm New Password</label>
                                 <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y pe-3 toggle-password fs-5" style="cursor: pointer;"></i>
+                                                                <span class="text-danger" id="confirmPasswordError"></span>
+
                             </div>
 
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-warning">Change Password</button>
+                                <button type="submit" id="changePasswordBtn" class="btn btn-warning">Change Password</button>
                             </div>
                         </form>
                     </div>
@@ -358,13 +360,29 @@ if (!$userInfo) {
     <?php include 'modals/modalLogout.html'?>
 
     <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
     <script type="module">
         import { header } from "./header.js";
         header(<?= $loginSession?>);
+    
+        document.addEventListener('DOMContentLoaded', function () {
+    const changePasswordModal = document.getElementById('changePasswordModal');
+    const newPasswordInput = document.getElementById('newPassword');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
 
+    changePasswordModal.addEventListener('show.bs.modal', function () {
+        newPasswordInput.disabled = true;
+        confirmPasswordInput.disabled = true;
+    });
+
+    
+});
         // Initialize Flatpickr
         flatpickr("#from", {
             maxDate: "today",
@@ -415,7 +433,7 @@ if (!$userInfo) {
             const vehicleYes = document.getElementById('vehicleYes');
             const vehicleNo = document.getElementById('vehicleNo');
             const howManyVehicles = document.getElementById('howManyVehicles');
-
+            
             if (vehicleYes && vehicleNo && howManyVehicles) {
                 vehicleYes.addEventListener('change', function() {
                     if (vehicleYes.checked) {
@@ -585,6 +603,103 @@ if (!$userInfo) {
                 });
             }
         });
+        
+    function checkIfPasswordMatch(id) {
+        let debounceTimer;
+    clearTimeout(debounceTimer)
+    const btn = document.getElementById('changePasswordBtn');
+     
+    
+    debounceTimer = setTimeout(() => {
+        const current_password = document.getElementById('currentPassword').value; 
+        if(current_password == "") {
+            document.getElementById('currentPasswordError').textContent = ' ';
+            return;
+        }
+        fetch(`../controller/checkIfPasswordMatch.php?current_password=${encodeURIComponent(current_password)}&id=${id}`)
+        .then(response => response.json())
+        .then(data => {
+            const currentPasswordError = document.getElementById('currentPasswordError');
+            if (data.status === 'success') {
+                currentPasswordError.textContent = ''; 
+                btn.disabled = false;
+                document.getElementById('newPassword').disabled = false;
+                document.getElementById('confirmPassword').disabled = false;
+            }
+             else {
+                currentPasswordError.textContent = data.message;
+                btn.disabled = true; 
+                document.getElementById('newPassword').disabled = true;
+                document.getElementById('confirmPassword').disabled = true;
+            }
+        })
+            
+    }, 300); 
+    document.getElementById("confirmPassword").addEventListener("input", function() {
+        let debounceTimer;
+        clearTimeout(debounceTimer)
+        debounceTimer = setTimeout(() => {
+            const newPassword = document.getElementById('newPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const changePasswordBtn = document.getElementById('changePasswordBtn');
+            
+            if (newPassword !== confirmPassword) {
+                changePasswordBtn.disabled = true;
+                document.getElementById('confirmPasswordError').textContent = 'Passwords do not match.';
+            } else {
+                changePasswordBtn.disabled = false;
+                document.getElementById('confirmPasswordError').textContent = '';
+            }
+        }, 300);
+    });
+}
+
+// Add live validation for contact number
+const contactNumberField = document.getElementById('Contactnumber');
+if (contactNumberField) {
+    // Add error span if it doesn't exist yet
+    let errorSpan = document.getElementById('contactNumberError');
+    if (!errorSpan) {
+        errorSpan = document.createElement('span');
+        errorSpan.id = 'contactNumberError';
+        errorSpan.className = 'text-danger';
+        contactNumberField.parentNode.appendChild(errorSpan);
+    }
+
+    contactNumberField.addEventListener('blur', function() {
+        // Philippines phone number format (can start with +63 or 0, followed by 10 digits)
+        const phoneRegex = /^(\+63|0)[0-9]{10}$/;
+        
+        if (!phoneRegex.test(this.value) && this.value.trim()) {
+            errorSpan.textContent = 'Please enter a valid Philippine phone number (e.g., 09XXXXXXXXX or +639XXXXXXXXX)';
+            document.querySelector('#editProfileForm button[type="submit"]').disabled = true;
+        } else {
+            errorSpan.textContent = '';
+            document.querySelector('#editProfileForm button[type="submit"]').disabled = false;
+        }
+    });
+
+    // Format input as user types
+    contactNumberField.addEventListener('input', function() {
+        let value = this.value.replace(/\D/g, ''); // Remove non-digits
+        
+        // If starts with 63, format as +63
+        if (value.startsWith('63') && value.length > 2) {
+            value = '+' + value;
+        } 
+        // If starts with 0, keep as is
+        else if (value.startsWith('0')) {
+            // Keep as is
+        }
+        // If doesn't start with 0 or +63, add 0 prefix
+        else if (value && !value.startsWith('+63')) {
+            value = '0' + value;
+        }
+        
+        // Update input value with formatted number
+        this.value = value;
+    });
+}
     </script>
 </body>
 </html>
