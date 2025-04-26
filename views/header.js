@@ -31,8 +31,10 @@ export function header(isLoggedIn) {
             ></a>
           </li>
           <li class="nav-item header-nav-item">
-            <a class="nav-link" href="Officials.php"
-              >Officials <i class="bi bi-person-badge"></i
+             <a class="nav-link ${
+              currentPath === "Officials.php" ? "active" : ""
+            }" href="./Officials.php"
+              >Officials<i class="bi bi-person-badge"></i
             ></a>
           </li>
           <li class="nav-item header-nav-item">
@@ -48,8 +50,8 @@ export function header(isLoggedIn) {
                ? `
               <li class="nav-item header-nav-item">
               <div class="dropdown dropdown-header w-100">
-                <button class="btn dropdown-toggle dropdown-btn" style="color: yellow;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="../images/profile.svg" alt="profile" class="dropdown-icon"/>
+                <button class="btn dropdown-toggle dropdown-btn" style="" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="../images/user.png" alt="profile" class="dropdown-icon" height="25px" width="25px"/>
                     <span class="dropdown-label">Profile</span>
                 </button>
 

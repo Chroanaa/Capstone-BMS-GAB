@@ -51,7 +51,7 @@ try {
             </div>
         </div>
         <div class="col">
-          <img src="../images/baranggay.svg" alt ="barangay logo" width="100%" height="100%"/>
+          <img src="../images/bnglogo.svg" alt ="barangay logo" width="100%" height="100%"/>
         </div>
       </div>
       <div class="row">

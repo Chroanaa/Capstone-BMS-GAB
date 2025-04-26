@@ -1,15 +1,15 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
 :root{
-  --primary-blue: #1c6ea4;
-  --primary-yellow: yellow;
-  --secondary-blue: #1e87ce;
+  --primary-blue: #004e83;
+  --primary-yellow: black;
+  --secondary-blue: #82badf;
   --h1: 3rem !important;
 }
 
 
 body {
-  background-color:#01183a;
+  background-color:#f3f3f3;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -58,7 +58,6 @@ body::before {
   text-align: center;
   font-size: 25px;
   transition: all 0.3s ease-in-out;
-  text-shadow: 2px 2px 2px var(--primary-blue);
   color: var(--primary-yellow) !important;
   margin-left: 20px !important;
 }
@@ -81,13 +80,13 @@ body::before {
 .navbar-toggler {
   transform: scale(0.8);
   margin-left: 5%;
-  background-color: yellow !important;
+  background-color: var(--secondary-blue) !important;
   border: 2px solid var(--primary-blue);
   color: var(--primary-blue) !important; /* Make the button smaller */
 }
 .navbar .navbar-nav li a:hover {
   transform: scale(1.1);
-  background-color: var(--primary-blue);
+  background-color: var(--secondary-blue);
   border-radius: 10px;
 }
 
@@ -106,7 +105,6 @@ body::before {
   margin-top: 30px;
 }
 .title {
-  -webkit-text-stroke: 3px black;
   font-weight: 900;
   font-size: 2rem;
 }
@@ -185,7 +183,6 @@ body::before {
   .navbar .navbar-nav li a {
     font-size: 22px; /* Adjust the font size for smaller screens */
     padding: 10px 15px; /* Adjust the padding for smaller screens */
-    text-shadow: 1px 1px 1px var(--primary-blue);
     width: 30%;
   }
 
@@ -231,12 +228,12 @@ body::before {
   align-items: center;
   width: 20%;
   margin-left: auto;
-  background-color: var(--primary-blue);
+  background-color: var(--secondary-blue);
   color:var(--primary-yellow);
 }
 .indigency-btn:hover{
   background-color: transparent;
-  color: var(--primary-blue);
+  color: var(--secondary-blue);
 }
 .h2-indigency{
   font-weight: 700;
@@ -249,7 +246,6 @@ body::before {
   right: 10%;
   font-size: 25px;
   transition: all 0.3s ease-in-out;
-  text-shadow: 2px 2px 2px var(--primary-blue);
 }
 
 @media (max-width: 990px) {
@@ -290,7 +286,7 @@ body::before {
 }
 .dropdown-btn:hover{
   transform: scale(1.1);
-  background-color: var(--primary-blue);
+  background-color: var(--secondary-blue);
   border-radius: 10px;
 }
 
@@ -623,7 +619,7 @@ body::before {
 /*login*/
 .button-main{
   background-color: var(--primary-blue) !important;
-  color: var(--primary-yellow);
+  color: whitesmoke;
   display: flex !important;
   justify-content: center;
   gap: 5px;
@@ -670,7 +666,7 @@ body::before {
 .index-location{
   font-size: 3.5rem;
   font-weight: 700;
-  color: rgba(249, 253, 0, 0.8);
+  color: black;
 }
 .contact-us{
   color: var(--primary-yellow);
@@ -681,8 +677,8 @@ body::before {
 
 .contact-infos{
   font-size: 1.5rem;
-  color: rgba(249, 253, 0, 0.8);
-  border: 3px solid rgba(249, 253, 0, 0.8);
+  color: rgba(0, 0, 0, 0.8);
+  border: 3px solid rgba(0, 0, 0, 0.8);
   width: fit-content;
   padding: 1% 2% 1% 2%;
   border-radius: 30px;
@@ -690,10 +686,10 @@ body::before {
   gap: 10px;
 }
 .contact-infos a{
-  color: rgba(249, 253, 0, 0.8);
+  color: black;
 }
 .services-call-btn{
-  background-color: yellow !important;
+  background-color: black !important;
   text-decoration: none;
   padding: 2%;
   border-radius: 40px;
@@ -717,7 +713,7 @@ body::before {
   }
 }
 .nav-link:hover{
-  color: var(--primary-blue) !important;
+  color: var(--secondary-blue) !important;
 }
 .fill-form-select{
   font-size: 1.2rem;
@@ -741,7 +737,7 @@ body::before {
   border-radius: 50px
 }
 .form-check-input:checked + .fill-up-label{
-  background-color: #1c6ea4 !important;
+  background-color: var(--primary-blue)!important;
 }
 .fill-label-group{
   width: auto !important;
@@ -776,7 +772,7 @@ body::before {
 }
 /* Ensure the navbar is styled correctly for both desktop and mobile views */
 .navbar-adminBrand {
-  color: yellow;
+  color: black;
   text-decoration: none;
   font-size: 1.8rem;
   font-weight: 600;
@@ -786,7 +782,7 @@ body::before {
 .navbar-toggler {
   transform: scale(0.8);
   margin-left: 5%;
-  background-color: yellow !important;
+  background-color: var(--secondary-blue) !important;
   border: 2px solid var(--primary-blue);
   color: var(--primary-blue) !important; /* Make the button smaller */
 }
@@ -796,14 +792,11 @@ body::before {
   color: var(--primary-blue) !important;
 }
 
-.nav-link:hover {
-  color: var(--primary-blue) !important;
-}
 
 
 /* Ensure the navbar is styled correctly for both desktop and mobile views */
 .admin-navbar-brand {
-  color: yellow !important;
+  color: black !important;
   text-decoration: none;
   font-size: 1.8rem;
   font-weight: 600;
@@ -813,7 +806,7 @@ body::before {
 .navbar-toggler {
   transform: scale(0.8);
   margin-left: 5%;
-  background-color: yellow !important;
+  background-color: var(--secondary-blue) !important;
   border: 2px solid var(--primary-blue);
   color: var(--primary-blue) !important; /* Make the button smaller */
 }
@@ -824,14 +817,13 @@ body::before {
   text-align: center;
   font-size: 25px;
   transition: all 0.3s ease-in-out;
-  text-shadow: 2px 2px 2px var(--primary-blue);
   color: var(--primary-yellow) !important;
   margin-left: 20px !important;
 }
 
 .navbar .navbar-nav li a:hover {
   transform: scale(1.1);
-  background-color: var(--primary-blue);
+  background-color: var(--secondary-blue);
   border-radius: 10px;
 }
 
@@ -839,10 +831,23 @@ body::before {
   .navbar .navbar-nav li a {
     font-size: 22px; /* Adjust the font size for smaller screens */
     padding: 10px 15px; /* Adjust the padding for smaller screens */
-    text-shadow: 1px 1px 1px var(--primary-blue);
     width: 30%;
   }
-
+  .navbar .navbar-nav li a.active {
+    font-size: 22px; /* Adjust the font size for smaller screens */
+    padding: 10px 15px; /* Adjust the padding for smaller screens */
+    width: 30%;
+    color: white !important;
+  }
+  .navbar .navbar-nav li a:hover {
+   background-color: var(--primary-blue);
+   color: white !important;
+  }
+  .nav-link.active{
+    background-color: var(--primary-blue) !important;
+    color: white !important;
+  }
+  
   #adminNavbarNav {
     width: 500px !important;
     max-width: 300px !important;
@@ -868,9 +873,7 @@ body::before {
   color: var(--primary-blue) !important;
 }
 
-.nav-link:hover {
-  color: var(--primary-blue) !important;
-}
+
 
 
 .residents-main-container{
@@ -928,12 +931,12 @@ body::before {
 
   .nav-link.active {
     color: var(--primary-blue) !important;
-    background-color: #1c6ea4;
+    background-color: var(--secondary-blue);
     border-radius: 15px;
   }
 
   .account-btn.active {
-    background-color: #1c6ea4;
+    background-color: var(--secondary-blue);
     border-radius: 15px;
     color: var(--primary-yellow); 
   }
@@ -974,7 +977,7 @@ body::before {
 
 .nav-item.active .admin-nav-link {
   color: var(--primary-yellow);
-  background-color: var(--primary-blue);
+  background-color: var(--secondary-blue);
   border-radius: 0.25rem;
 }
 
@@ -985,7 +988,7 @@ body::before {
 }
 
 .admin-logout-btn{
-  color: yellow !important;
+  color: black !important;
   font-size: 1.5rem;
 }
 .admin-logout-btn:hover{
@@ -1150,23 +1153,23 @@ body::before {
 
 /* Table styling */
 .table > thead {
-    background-color: #1c6ea4;
+    background-color: var(--primary-blue);
     color: white;
 }
 
 #transactionLogsTable thead th {
-    background-color: #1c6ea4;
+    background-color: var(--primary-blue);
     color: white;
     border-color: #1c6ea4;
 }
 
 .table-dark {
-    --bs-table-bg: #1c6ea4;
-    --bs-table-striped-bg: #1c6ea4;
+    --bs-table-bg: var(--primary-blue);
+    --bs-table-striped-bg: var(--primary-blue);
     --bs-table-striped-color: white;
-    --bs-table-active-bg: #1c6ea4;
+    --bs-table-active-bg: var(--primary-blue);
     --bs-table-active-color: white;
-    --bs-table-hover-bg: #1c6ea4;
+    --bs-table-hover-bg: var(--primary-blue);
     --bs-table-hover-color: white;
 }
 
@@ -1206,11 +1209,11 @@ body::before {
 
 
 .border-yellow{
-  border: 2px solid yellow;
+  border: 2px solid black;
 }
 
 .shadow-yellow{
-  box-shadow: 3px 3px 3px 3px yellow ;
+  box-shadow: 3px 3px 3px 3px black;
 }
 
 .account-dashboard-title{
@@ -1237,6 +1240,20 @@ body::before {
 
 .account-dashboard-title{
   margin-top: 20%;
+}
+
+
+.nav-item.active .admin-nav-link {
+  color: white !important;
+  background-color: var(--primary-blue);
+  border-radius: 0.25rem;
+}
+
+.dropdown-btn:hover{
+  transform: scale(1.1);
+  background-color: var(--primary-blue);
+  border-radius: 10px;
+  color: white;
 }
 }
 
