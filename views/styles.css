@@ -568,7 +568,7 @@ body::before {
   width: 100px;
   background-color: var(--primary-blue) !important;
   margin-left: auto;
-  color: var(--primary-yellow);
+  color: white;
   display: flex !important;
   justify-content: center;
   gap: 5px;
