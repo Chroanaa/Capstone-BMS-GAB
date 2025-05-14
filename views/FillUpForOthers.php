@@ -296,8 +296,7 @@ if($loginSession == null){
 
                     <div id="menu2" class="container tab-pane fade"><br>
                       <h3 class="purpose">Certified true and Correct</h3>
-                                  <input type="hidden" name="signature" id="signature">
-
+                      
                       <div class="container mt-5">
                         <div class="mb-4">
                           <button type="button" class="clear btn btn-primary"><i class="bi bi-arrow-clockwise"></i></button>
@@ -314,6 +313,7 @@ if($loginSession == null){
                       </div>
                     </div>
                   </div>
+                  <input type="hidden" name="signature" id="signature">
                 
                 </form>
               </div>
@@ -364,6 +364,7 @@ if($loginSession == null){
         backgroundColor: "rgb(255, 255, 255)",
         penColor: "rgb(0, 0, 0)"
       });
+      
       const signatureBox = document.querySelector(".signature-box");
       signaturePad.onEnd = function () {
         signatureBox.innerHTML = "";
@@ -374,7 +375,8 @@ if($loginSession == null){
         signaturePad.clear();
         signatureBox.innerHTML = "";
       });
-
+     const signatureInput = document.getElementById("signature");
+     signatureInput.value = signaturePad.toDataURL();
       // JavaScript for image preview
       document.getElementById('profilePicture').addEventListener('change', function(event) {
         const [file] = event.target.files;
@@ -462,7 +464,7 @@ document.querySelector('form').addEventListener('submit', async function(e) {
     const requiredFileFields = ['valid_id', 'profilePicture'];
     
     // Required radio groups
-    const requiredRadioGroups = ['sex', 'Civilstatus', 'vehicle'];
+    const requiredRadioGroups = ['sex', 'Civilstatus' ];
     
     // Check text/select/number fields
     requiredTextFields.forEach(fieldId => {

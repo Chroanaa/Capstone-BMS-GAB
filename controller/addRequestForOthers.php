@@ -51,12 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $picture = isset($_FILES['profilePicture']['tmp_name']) ? base64_encode( resizeImage($_FILES['profilePicture']['tmp_name'],250,250)) : null;
     $typeOfId = $_POST['typeOfId'];
     $valid_id = isset($_FILES['valid_id']['tmp_name']) ? base64_encode( resizeImage($_FILES['valid_id']['tmp_name'],250,250)) : null;
-    $howManyVehicles = $_POST['howManyVehicles'];
+    $howManyVehicles = $_POST['howManyVehicles'] ?? 0;
     $floor_count = $_POST['floor_count'];
-
-    $query = 'INSERT INTO `requested_for_others_info`(`first_name`,`middle_name`,`last_name`,`picture`,`requestor_id`, `House/floor/bldgno.`, `street`, `from`, `to`,\
+    $signature = $_POST['signature'];
+    $vehicle = $_POST['vehicle'] ?? "no";
+    $query = 'INSERT INTO `requested_for_others_info`(`first_name`,`middle_name`,`last_name`,`picture`,`requestor_id`, `House/floor/bldgno.`, `street`, `from`, `to`,
      `date_of_birth`, `age`, `place_of_birth`, `contact_number`, `gender`, `civil_status`,`type_of_id`,`id_picture`,`own_vehicle`,`vehicle_count`,`floor_count`, `time_created`) VALUES
-     `time_created`) VALUES 
     (:first_name,:middle_name,:last_name,:picture,:requestor_id, :house_bldg_floor_no, :street, :from, :to, :date_of_birth, :age, :place_of_birth, :contact_number, :gender, :civil_status,:type_of_id,:id_picture,:own_vechicle,:vehicle_count,:floor_count, :time_created)';
 
     $stmt = $conn->prepare($query);
@@ -78,8 +78,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'civil_status' => $civilstatus,
         'type_of_id' => $typeOfId,
         'id_picture' => $valid_id,
-        'own_vechicle' => $howManyVehicles,
-        'vehicle_count' => $howManyVehicle,
+        'own_vechicle' => $vehicle,
+        'vehicle_count' => $howManyVehicles,
         'floor_count' => $floor_count,
 
         'time_created' => date('Y-m-d H:i:s'), // Updated key

@@ -32,8 +32,8 @@ export function header(isLoggedIn) {
           </li>
           <li class="nav-item header-nav-item">
              <a class="nav-link ${
-              currentPath === "Officials.php" ? "active" : ""
-            }" href="./Officials.php"
+               currentPath === "Officials.php" ? "active" : ""
+             }" href="./Officials.php"
               >Officials<i class="bi bi-person-badge"></i
             ></a>
           </li>
@@ -62,8 +62,8 @@ export function header(isLoggedIn) {
                   Account
                 </button>
                  <button onclick="window.location.href='userProfile.php'" class="btn account-btn ${
-                  currentPath === "userProfile.php" ? "active" : ""
-                }">
+                   currentPath === "userProfile.php" ? "active" : ""
+                 }">
                   Profile
                 </button>
                 <button type="button" id = "dashboard" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">

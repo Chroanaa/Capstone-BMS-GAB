@@ -50,6 +50,7 @@ body::before {
   margin-top: 25px;
   padding: 0;
   background-color: transparent !important;
+
 }
 
 .navbar .navbar-nav li a {
@@ -61,7 +62,10 @@ body::before {
   color: var(--primary-yellow) !important;
   margin-left: 20px !important;
 }
+#navbarNav{
+    border-bottom: solid 1px #aaa5a5f3;
 
+}
 
 @media(max-width: 991px){
 #navbarNav{
@@ -75,6 +79,7 @@ body::before {
   left: 5%;
   padding: 1.5% 2% 1.5% 2%;
   z-index: 99;
+
 }
 }
 .navbar-toggler {
