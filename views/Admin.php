@@ -191,7 +191,7 @@ $civil_status_stats = getCivilStatusStatistics();
 <body id="adminDashboard">
     <div id="adminHeader"></div>
 
-    <div class="container mt-4 admin-container">
+    <div class="container  admin-container">
        
         <div class="row justify-content-center">
             <div class="col-md-4 mb-3">

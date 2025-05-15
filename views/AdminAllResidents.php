@@ -52,21 +52,23 @@ $residents = getAllResidents();
         </button>
     </div>
     <table id="residentsTable" class="table table-striped table-bordered">
-    <thead class="table-blue">
-            <th>ID</th>
-            <th>Fullname</th>
-            <th>House No.</th>
-            <th>Street</th>
-            <th>From</th>
-            <th>To</th>
-            <th>Date of Birth</th>
-            <th>Age</th>
-            <th>Place of birth</th>
-            <th>Contact Number</th>
-            <th>Gender</th>
-            <th>Civil Status</th>
-            <th>Action</th>
-        </thead>
+   <thead class="table-blue">
+    <th>ID</th>
+    <th>Fullname</th>
+    <th>House No.</th>
+    <th>Street</th>
+    <th>From</th>
+    <th>To</th>
+    <th>Date of Birth</th>
+    <th>Age</th>
+    <th>Place of birth</th>
+    <th>Contact Number</th>
+    <th>Gender</th>
+    <th>Civil Status</th>
+    <th>House Floors</th>
+    <th>Vehicles</th>
+    <th>Action</th>
+</thead>
         <tbody>
             <?php foreach($residents as $resident): ?>
                 <?php $fullname = $resident['first_name'] . ' ' . $resident['middle_name'] . ' ' . $resident['last_name']; ?>
@@ -84,6 +86,17 @@ $residents = getAllResidents();
                     <td><?php echo $resident['contact_number'] ?></td>
                     <td><?php echo $resident['gender'] ?></td>
                     <td><?php echo $resident['civil_status'] ?></td>
+                    <td><?php echo $resident['floor_count'] ?></td>
+
+                    <td>
+                        <?php 
+                        if (strtolower($resident['own_vehicle']) === 'yes') {
+                            echo $resident['vehicle_count'] ?? 0;
+                        } else {
+                            echo "0";
+                        }
+                        ?>
+                    </td>   
                     <td class="residents-table-action">
                     <button class="btn btn-warning btn-sm edit-resident" 
                     data-toggle="modal" 
@@ -104,7 +117,8 @@ $residents = getAllResidents();
                     data-gender="<?php echo htmlspecialchars(trim($resident['gender'])); ?>"
                     data-civil="<?php echo htmlspecialchars(trim($resident['civil_status'])); ?>"
                     data-picture="data:image/jpeg;base64,<?php echo base64_encode($resident['picture']); ?>"
-                    data-id-image="data:image/jpeg;base64,<?php echo base64_encode($resident['id_picture']); ?>">
+                    data-id-image="data:image/jpeg;base64,<?php echo base64_encode($resident['id_picture']); ?>"
+                    data-floor-count="<?php echo htmlspecialchars(trim($resident['floor_count'])); ?>">
                     <i class="bi bi-pencil"></i>
                 </button>
                         <a href="#" class="delete-link btn btn-danger btn-sm" onclick="deleteResident(<?php echo $resident['creds_id'] ?>)">
@@ -300,7 +314,10 @@ $residents = getAllResidents();
                         <label for="howManyVehicles">How Many Vehicles</label>
                         <input type="hidden" id="noOfVehicales" name="noOfVehicales">
                     </div>
-
+                    <div class="form-floating mb-3">
+                        <input type="number" id="houseFloors" name="houseFloors" class="form-control" placeholder="House Floors" min="0" required>
+                        <label for="houseFloors">House Floors</label>
+                    </div>
                     <!-- Profile Picture -->
                     <div class="mb-3">
                         <label for="profilePicture" class="form-label">Profile Picture:</label>
@@ -487,7 +504,10 @@ $residents = getAllResidents();
                         <input type="number" id="edit_howManyVehicles" name="howManyVehicles" class="form-control" placeholder="How Many Vehicles" min="0" disabled>
                         <label for="edit_howManyVehicles">How Many Vehicles</label>
                     </div>
-
+                    <div class="form-floating mb-3">
+                        <input type="number" id="edit_houseFloors" name="houseFloors" class="form-control" placeholder="House Floors" min="0" required>
+                        <label for="edit_houseFloors">House Floors</label>
+                    </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-warning" id="saveChangesBtn">Save Changes</button>
@@ -658,7 +678,7 @@ $('.edit-resident').on('click', function() {
     $('#edit_Age').val(btn.data('age'));
     $('#edit_placeofbirth').val(btn.data('pob'));
     $('#edit_Contactnumber').val(btn.data('contact'));
-
+    $('#edit_houseFloors').val(btn.data('floor-count'));
     // Set radio buttons
     $(`input[name="sex"][value="${btn.data('gender')}"]`).prop('checked', true);
     $(`input[name="Civilstatus"][value="${btn.data('civil')}"]`).prop('checked', true);

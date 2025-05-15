@@ -882,9 +882,9 @@ body::before {
 
 
 .residents-main-container{
-  margin-top: 200px;
   margin: 200px auto 0 auto;
-  width: 70%;
+  width: 100%;
+  max-width: 90% !important;
   background-color: white;
   padding: 20px;
   border-radius: 20px;
@@ -1011,6 +1011,7 @@ body::before {
 .admin-container{
   display: flex;
   flex-direction: column;
+  margin-top: 5%;
 }
 
 .announcement-section{
@@ -1260,5 +1261,20 @@ body::before {
   border-radius: 10px;
   color: white;
 }
+}
+
+
+
+
+@media (max-width: 1600px) {
+  .admin-container{
+    margin-top: 7%;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1200px) {
+  .admin-container{
+    margin-top: 15%;
+  }
 }
 

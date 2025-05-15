@@ -1,4 +1,6 @@
 <?php
+
+
 session_start();
 
 function getHouseholds(){
@@ -7,11 +9,9 @@ function getHouseholds(){
     `House/floor/bldgno.`, 
     `Street`,
     GROUP_CONCAT(CONCAT(`first_name`, ' ', `last_name`) SEPARATOR ', ') AS residents,
-    MIN(`date_of_birth`) AS oldest_dob,
-    MAX(`date_of_birth`) AS youngest_dob,
-    MIN(`Age`) AS oldest_age,
-    MAX(`Age`) AS youngest_age,
-    `gender`
+    GROUP_CONCAT(DISTINCT `date_of_birth` ORDER BY `date_of_birth` SEPARATOR ', ') AS dobs,
+    GROUP_CONCAT(DISTINCT `Age` ORDER BY `Age` SEPARATOR ', ') AS ages,
+    GROUP_CONCAT(DISTINCT `gender` SEPARATOR ', ') AS genders
 FROM `user_info`
 GROUP BY `House/floor/bldgno.`, `Street`
 ORDER BY `Street`, `House/floor/bldgno.`;
@@ -46,11 +46,9 @@ $households = getHouseholds();
                     <tr>
                         <th>House Address</th>
                         <th>Residents</th>
-                        <th>Oldest DOB</th>
-                        <th>Youngest DOB</th>
-                        <th>Oldest Age</th>
-                        <th>Youngest Age</th>
-                        <th>gender</th>
+                        <th>Date of Birth</th>
+                        <th>Ages</th>
+                        <th>Gender</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,11 +56,9 @@ $households = getHouseholds();
                         <tr>
                             <td><?= $household['Street'] . ' ' . $household['House/floor/bldgno.'] ?></td>
                             <td><?= $household['residents'] ?></td>
-                            <td><?= $household['oldest_dob'] ?></td>
-                            <td><?= $household['youngest_dob'] ?></td>
-                            <td><?= $household['oldest_age'] ?></td>
-                            <td><?= $household['youngest_age'] ?></td>
-                             <td><?= $household['gender'] ?></td>
+                            <td><?= $household['dobs'] ?></td>
+                            <td><?= $household['ages'] ?></td>
+                            <td><?= $household['genders'] ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
