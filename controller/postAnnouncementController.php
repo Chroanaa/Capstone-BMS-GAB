@@ -31,9 +31,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     include '../databaseconn/connection.php';
     $title = $_POST['title'];
     $content = $_POST['content'];
-    $picture = isset($_FILES['attachment']['tmp_name']) ? base64_encode(resizeImage($_FILES['attachment']['tmp_name'],250,250)) : null;
-    $date = date('Y-m-d');
+    $picture = "";
+    if(isset($_FILES['attachment']) && !empty($_FILES['attachment']['tmp_name'])) {
+        $picture = base64_encode(resizeImage($_FILES['attachment']['tmp_name'], 250, 250));
+    }
     
+    $date = date('Y-m-d');
     try {
      recordTechnicalPerformance('add_announcement_start', 'add_announcement');  
         $conn = $GLOBALS['conn'];
