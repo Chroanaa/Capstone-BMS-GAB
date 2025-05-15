@@ -68,7 +68,7 @@ if($others_id){
                 <p>Pasay City, Metro Manila</p>
                 <p>Tel. # 776-0822</p>
             </div>
-            <img src="../images/baranggay_logo.png" alt="">
+            <img src="../../images/baranggay.png" alt="">
         </div>
         <div class="photo">
             <img src="data:image/jpeg;base64, <?php echo $information['picture'] ?>" alt="Photo" style="width: 100%; height: 100%; border: 3px solid blue; border-radius: 15px;">

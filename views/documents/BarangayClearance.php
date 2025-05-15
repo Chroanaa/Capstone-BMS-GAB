@@ -114,7 +114,7 @@ $creationYear = date('Y', strtotime($created_at));
                 <div class="header-line" style="font-size: 1.5rem; font-weight: bold; margin-top: 10px;">BARANGAY CLEARANCE</div>
             </div>
             <div class="baranggay-logo-container">
-                <img src="../images/baranggay_logo.png" width="100px" height="100px" />
+                <img src="../../images/baranggay.png" width="100px" height="100px" />
             </div>
         </div>
         <div class="mt-4 barangay-clearance-demography">

@@ -79,7 +79,7 @@ $age = $birthDate->diff($today)->y;
                 <div class="header-line header-email" style="font-size: 0.8rem; font-weight: bold;">EMAIL: barangay201zone20pasaycity@gmail.com</div>
             </div>
             <div class="baranggay-logo-container">
-                <img src="../images/baranggay_logo.png" width="100px" height="100px" />
+                <img src="../../images/baranggay.png" width="100px" height="100px" />
             </div>
         </div>
         <div class="title">
@@ -123,7 +123,7 @@ $age = $birthDate->diff($today)->y;
                 <div class="header-line header-email" style="font-size: 0.8rem; font-weight: bold;">EMAIL: barangay201zone20pasaycity@gmail.com</div>
             </div>
             <div class="baranggay-logo-container">
-                <img src="../images/baranggay_logo.png" width="100px" height="100px" />
+                <img src="../../images/baranggay.png" width="100px" height="100px" />
             </div>
         </div>
         <div class="title">
