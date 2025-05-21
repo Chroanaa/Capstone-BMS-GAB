@@ -49,7 +49,7 @@ $userCreds = getUserCreds($loginSession); // Get user credentials using the same
             <div class="row">
                 <div class="col-lg-8 mx-auto">
                     <div class="card shadow-yellow my-4">
-                        <div class="card-header bg-primary text-white">
+                        <div class="card-header text-white">
                             <h2 class="h4 mb-0">User Profile <i class="bi bi-person-circle"></i></h2>
                         </div>
                         <div class="card-body">
