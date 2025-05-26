@@ -56,18 +56,18 @@ $userCreds = getUserCreds($loginSession); // Get user credentials using the same
                             <div class="row mb-4">
                                 <div class="col-md-4 text-center">
                                     <div class="profile-image-container mb-3">
-                                        <img src="data:image/jpeg;base64,<?php echo $userInfo['picture']; ?>" class="img-fluid rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" alt="Profile Picture">
+                                        <img src="data:image/jpeg;base64,<?php echo $userInfo['picture'] ?? ''; ?>" class="img-fluid rounded-circle" style="width: 150px; height: 150px; object-fit: cover;" alt="Profile Picture">
                                     </div>
                                     <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#updatePictureModal">
                                         Update Picture <i class="bi bi-camera"></i>
                                     </button>
                                 </div>
                                 <div class="col-md-8">
-                                    <h3 class="h5 mb-3"><?php echo htmlspecialchars($userInfo['first_name'] . ' ' . $userInfo['middle_name'] . ' ' . $userInfo['last_name']); ?></h3>
-                                    <p><i class="bi bi-envelope"></i> <?php echo htmlspecialchars($userInfo['email']); ?></p>
-                                    <p><i class="bi bi-telephone"></i> <?php echo htmlspecialchars($userInfo['contact_number']); ?></p>
-                                    <p><i class="bi bi-house"></i> <?php echo htmlspecialchars($userInfo['House/floor/bldgno.'] . ', ' . $userInfo['Street']); ?></p>
-                                    <p><i class="bi bi-calendar3"></i> Resident since: <?php echo htmlspecialchars($userInfo['from']); ?> to <?php echo htmlspecialchars($userInfo['to']); ?></p>
+                                    <h3 class="h5 mb-3"><?php echo htmlspecialchars(($userInfo['first_name'] ?? '') . ' ' . ($userInfo['middle_name'] ?? '') . ' ' . ($userInfo['last_name'] ?? '')); ?></h3>
+                                    <p><i class="bi bi-envelope"></i> <?php echo htmlspecialchars($userInfo['email'] ?? ''); ?></p>
+                                    <p><i class="bi bi-telephone"></i> <?php echo htmlspecialchars($userInfo['contact_number'] ?? ''); ?></p>
+                                    <p><i class="bi bi-house"></i> <?php echo htmlspecialchars(($userInfo['House/floor/bldgno.'] ?? '') . ', ' . ($userInfo['Street'] ?? '')); ?></p>
+                                    <p><i class="bi bi-calendar3"></i> Resident since: <?php echo htmlspecialchars($userInfo['from'] ?? ''); ?> to <?php echo htmlspecialchars($userInfo['to'] ?? ''); ?></p>
                                 </div>
                             </div>
 
@@ -82,31 +82,31 @@ $userCreds = getUserCreds($loginSession); // Get user credentials using the same
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <strong>Date of Birth:</strong> <?php echo htmlspecialchars($userInfo['date_of_birth']); ?>
+                                    <strong>Date of Birth:</strong> <?php echo htmlspecialchars($userInfo['date_of_birth'] ?? ''); ?>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <strong>Age:</strong> <?php echo htmlspecialchars($userInfo['Age']); ?>
+                                    <strong>Age:</strong> <?php echo htmlspecialchars($userInfo['Age'] ?? ''); ?>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <strong>Place of Birth:</strong> <?php echo htmlspecialchars($userInfo['place_of_birth']); ?>
+                                    <strong>Place of Birth:</strong> <?php echo htmlspecialchars($userInfo['place_of_birth'] ?? ''); ?>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <strong>Gender:</strong> <?php echo htmlspecialchars($userInfo['gender']); ?>
+                                    <strong>Gender:</strong> <?php echo htmlspecialchars($userInfo['gender'] ?? ''); ?>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <strong>Civil Status:</strong> <?php echo htmlspecialchars($userInfo['civil_status']); ?>
+                                    <strong>Civil Status:</strong> <?php echo htmlspecialchars($userInfo['civil_status'] ?? ''); ?>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <strong>Type of ID:</strong> <?php echo htmlspecialchars($userInfo['type_of_id']); ?>
+                                    <strong>Type of ID:</strong> <?php echo htmlspecialchars($userInfo['type_of_id'] ?? ''); ?>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <strong>Vehicle Ownership:</strong> <?php echo $userInfo['own_vehicle'] === 'Yes' ? 'Yes' : 'No'; ?>
-                                    <?php if($userInfo['own_vehicle'] === 'Yes'): ?>
-                                        (<?php echo htmlspecialchars($userInfo['vehicle_count']); ?> vehicle/s)
+                                    <strong>Vehicle Ownership:</strong> <?php echo isset($userInfo['own_vehicle']) && $userInfo['own_vehicle'] === 'Yes' ? 'Yes' : 'No'; ?>
+                                    <?php if(isset($userInfo['own_vehicle']) && $userInfo['own_vehicle'] === 'Yes'): ?>
+                                        (<?php echo htmlspecialchars($userInfo['vehicle_count'] ?? '0'); ?> vehicle/s)
                                     <?php endif; ?>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <strong>House Floors:</strong> <?php echo htmlspecialchars($userInfo['floor_count']); ?>
+                                    <strong>House Floors:</strong> <?php echo htmlspecialchars($userInfo['floor_count'] ?? ''); ?>
                                 </div>
                             </div>
 
